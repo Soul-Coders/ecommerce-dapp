@@ -1,7 +1,6 @@
 import Head from 'next/head';
-import { Hero } from '../components/home/Hero';
 
-const Home = () => {
+const Login = () => {
   return (
     <div>
       <Head>
@@ -12,12 +11,11 @@ const Home = () => {
 
       <main>
         <div className="container py-12 md:py-16">
-          <h1 className="text-3xl font-bold">Home</h1>
-          <Hero />
+          <h1 className="text-3xl font-bold">Login</h1>
         </div>
       </main>
     </div>
   );
 };
 
-export default Home;
+export default Login;
