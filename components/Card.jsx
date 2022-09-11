@@ -1,15 +1,9 @@
-import styles from '../styles/Card.module.css'
-
-import React from 'react'
-
-const Card = ( {children} ) => {
+const Card = ({ children }) => {
   return (
-    <div className={styles.container}>
-        <main className={styles.main}>
-            {children}
-        </main>
+    <div className="p-4 bg-[#181818] w-fit rounded-md md:p-5">
+      <div className="flex flex-1 flex-col justify-center">{children}</div>
     </div>
-  )
-}
+  );
+};
 
-export default Card
+export default Card;
