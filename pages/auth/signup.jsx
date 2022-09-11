@@ -1,6 +1,6 @@
 import Head from 'next/head';
 import Card from '../../components/Card';
-import Form from '../../components/Signup/Form';
+import Form from '../../components/signup/Form';
 
 const Signup = () => {
   return (
