@@ -9,7 +9,11 @@ import {
   UserPlusIcon,
 } from '@heroicons/react/24/outline';
 
+import {useRef} from 'react';
+
 export default function Form() {
+    const ref = useRef(null);
+
   const handleSubmit = async (event) => {
     // Stop the form from submitting and refreshing the page.
     event.preventDefault();
@@ -23,9 +27,9 @@ export default function Form() {
       gender: event.target.gender.value,
       addr: event.target.addr.value,
       city: event.target.city.value,
-      zip: event.target.zip.value
+      zip: event.target.zip.value,
+      accountType: event.nativeEvent.submitter.name,
     };
-
     console.log(data)
   };
 
@@ -119,10 +123,16 @@ export default function Form() {
       </div>
 
       <div className="flex flex-col gap-4 mt-6 mb-2 md:gap-5 text-white font-medium">
-        <button className="bg-gradient-to-r from-brand-red to-brand-purple rounded-md py-2.5 text-sm lg:text-base">
+        <button
+          type='submit' id='buyer' name='buyer'
+          className="bg-gradient-to-r from-brand-red to-brand-purple rounded-md py-2.5 text-sm lg:text-base"
+        >
           Signup as Buyer
         </button>
-        <button className="rounded-md bg-gradient-to-r from-brand-red to-brand-purple">
+        <button 
+            type='submit' id='seller' name='seller'
+            className="rounded-md bg-gradient-to-r from-brand-red to-brand-purple"
+        >
           <div className="rounded-md py-2.5 bg-[#252525] m-[1px] text-sm lg:text-base">
             Signup as Seller
           </div>
