@@ -28,7 +28,6 @@ export default function Form() {
       addr: event.target.addr.value,
       city: event.target.city.value,
       zip: event.target.zip.value,
-      accountType: event.nativeEvent.submitter.name,
     };
     console.log(data)
   };
@@ -122,20 +121,12 @@ export default function Form() {
         </div>
       </div>
 
-      <div className="flex flex-col gap-4 mt-6 mb-2 md:gap-5 text-white font-medium">
+      <div className="flex flex-col mt-6 mb-2 text-white font-medium">
         <button
-          type='submit' id='buyer' name='buyer'
+          type='submit' id='submit'
           className="bg-gradient-to-r from-brand-red to-brand-purple rounded-md py-2.5 text-sm lg:text-base"
         >
-          Signup as Buyer
-        </button>
-        <button 
-            type='submit' id='seller' name='seller'
-            className="rounded-md bg-gradient-to-r from-brand-red to-brand-purple"
-        >
-          <div className="rounded-md py-2.5 bg-[#252525] m-[1px] text-sm lg:text-base">
-            Signup as Seller
-          </div>
+          Signup
         </button>
       </div>
     </form>
