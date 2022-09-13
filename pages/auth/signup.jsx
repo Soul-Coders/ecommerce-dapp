@@ -1,6 +1,8 @@
 import Head from 'next/head';
 import Card from '../../components/Card';
 import Form from '../../components/signup/Form';
+import logo from '../../public/logo.svg'
+import Image from 'next/image';
 
 const Signup = () => {
   return (
@@ -16,7 +18,7 @@ const Signup = () => {
       <main className="container py-12">
         <div className="flex justify-center">
           <div className="w-44">
-            <img src="/logo.svg" alt="logo" className="w-full" />
+            <Image src={logo} alt="logo" className="w-full" />
           </div>
         </div>
         <div className="mt-8 flex justify-center">
