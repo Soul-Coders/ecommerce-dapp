@@ -6,6 +6,11 @@
 
 @layer base {
   body {
-    @apply min-h-screen font-body text-white bg-background;
+    @apply font-body text-white bg-background;
+  }
+
+  input,
+  select {
+    @apply px-5 py-2 bg-[#252525] rounded-md w-full box-border outline-none focus:outline-2 focus:outline-offset-0 focus:outline-neutral-400;
   }
 }
