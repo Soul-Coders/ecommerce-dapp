@@ -1,8 +1,5 @@
 import Head from 'next/head';
 import { Button } from '../../components/Button';
-import Image from 'next/image';
-import logo from '../../public/logo.svg';
-import hero from '../../public/hero.png';
 
 const Login = () => {
   return (
@@ -20,11 +17,15 @@ const Login = () => {
         <div className="container py-12 grid grid-rows-[min-content_1fr] h-screen">
           <div className="flex justify-center">
             <div className="w-44">
-              <Image src={logo} alt="logo" className="w-full" />
+              <img src="/logo.svg" alt="logo" className="w-full" />
             </div>
           </div>
           <div className="flex flex-col gap-4 items-center justify-center lg:-mt-20">
-            <Image src={hero} alt="hero" width={350} height={300} />
+            <img
+              src="/hero.png"
+              alt="hero"
+              className="w-64 sm:w-full sm:max-w-sm"
+            />
             <Button>Connect Wallet</Button>
           </div>
         </div>

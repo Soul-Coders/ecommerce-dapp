@@ -1,7 +1,5 @@
 import { Button } from '../Button';
 import { Features } from './Features';
-import Image from 'next/image';
-import hero from '../../public/hero.png';
 
 export const Hero = () => {
   return (
@@ -22,11 +20,9 @@ export const Hero = () => {
           <Button className="mt-8 md:mt-10 lg:mt-12">Start Shopping</Button>
         </div>
         <div className="flex justify-center">
-          <Image
-            src={hero}
+          <img
+            src="/hero.png"
             alt="hero"
-            height={440}
-            width={550}
             className="max-w-xs sm:max-w-sm md:w-full xl:max-w-lg"
           />
         </div>
