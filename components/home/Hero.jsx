@@ -1,7 +1,7 @@
 import { Button } from '../Button';
 import { Features } from './Features';
 import Image from 'next/image';
-import hero from '../../public/hero.png'
+import hero from '../../public/hero.png';
 
 export const Hero = () => {
   return (
@@ -16,7 +16,8 @@ export const Hero = () => {
             fueled by Blockchain
           </h1>
           <p className="mt-4 text-white/60 lg:text-lg lg:mt-6 xl:text-xl">
-            Shopping made realiable, secure, easy and fun! This truly is the dawn of a new era in shopping!
+            Shopping made realiable, secure, easy and fun! This truly is the
+            dawn of a new era in shopping!
           </p>
           <Button className="mt-8 md:mt-10 lg:mt-12">Start Shopping</Button>
         </div>

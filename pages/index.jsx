@@ -1,6 +1,6 @@
 import Head from 'next/head';
 import { Hero } from '../components/home/Hero';
-import logo from '../public/logo.svg'
+import logo from '../public/logo.svg';
 import Image from 'next/image';
 
 const Home = () => {

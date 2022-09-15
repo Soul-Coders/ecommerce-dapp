@@ -9,10 +9,10 @@ import {
   UserPlusIcon,
 } from '@heroicons/react/24/outline';
 
-import {useRef} from 'react';
+import { useRef } from 'react';
 
 export default function Form() {
-    const ref = useRef(null);
+  const ref = useRef(null);
 
   const handleSubmit = async (event) => {
     // Stop the form from submitting and refreshing the page.
@@ -30,41 +30,42 @@ export default function Form() {
       zip: event.target.zip.value,
       accountType: event.nativeEvent.submitter.name,
     };
-    console.log(data)
+    console.log(data);
   };
 
   return (
-    <form
-      onSubmit={handleSubmit}
-      className="mt-4 text-[#AEB6CA]"
-    >
+    <form onSubmit={handleSubmit} className="mt-4 text-[#AEB6CA]">
       {/* Name field */}
       <div className="py-2 flex flex-col gap-2">
         <div className="flex gap-1 text-sm">
           <UserIcon className="h-5 w-5" />
-          <label htmlFor='name'>Name</label>
+          <label htmlFor="name">Name</label>
         </div>
-        <input type="text" id='name'/>
+        <input type="text" id="name" />
       </div>
 
       {/* e-mail field */}
       <div className="py-2 flex flex-col gap-2">
         <div className="flex gap-1 text-sm">
           <EnvelopeIcon className="h-5 w-5" />
-          <label htmlFor='email'>Email</label>
+          <label htmlFor="email">Email</label>
         </div>
-        <input type="email" id='email' required/>
+        <input type="email" id="email" required />
       </div>
 
       {/* Phone no. */}
       <div className="py-3 flex flex-col gap-2">
         <div className="flex gap-1 text-sm">
           <PhoneIcon className="h-5 w-5" />
-          <label htmlFor='phone'>Phone</label>
+          <label htmlFor="phone">Phone</label>
         </div>
-        <input type="tel" id="phone" name="phone" pattern="^(\+\d{1,2}\s)?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$" required />
-
-
+        <input
+          type="tel"
+          id="phone"
+          name="phone"
+          pattern="^(\+\d{1,2}\s)?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$"
+          required
+        />
       </div>
 
       {/* Birthday and Gender */}
@@ -73,7 +74,7 @@ export default function Form() {
         <div className="py-3 flex flex-col gap-2">
           <div className="flex gap-1 text-sm">
             <CakeIcon className="h-5 w-5" />
-            <label htmlFor='dob'>Birthday</label>
+            <label htmlFor="dob">Birthday</label>
           </div>
           <input type="date" id="dob" name="birthday" />
         </div>
@@ -82,9 +83,9 @@ export default function Form() {
         <div className="py-3 flex flex-col gap-2">
           <div className="flex gap-1 text-sm">
             <UserPlusIcon className="h-5 w-5 " />
-            <label htmlFor='gender'>Gender</label>
+            <label htmlFor="gender">Gender</label>
           </div>
-          <select id='gender' className="px-5 py-[9px]">
+          <select id="gender" className="px-5 py-[9px]">
             <option value="na">Do not specify</option>
             <option value="male">Male</option>
             <option value="female">Female</option>
@@ -96,9 +97,9 @@ export default function Form() {
       <div className="py-3 flex flex-col gap-2">
         <div className="flex gap-1 text-sm">
           <MapPinIcon className="h-5 w-5" />
-          <label htmlFor='address'>Address</label>
+          <label htmlFor="address">Address</label>
         </div>
-        <input type="text" id='addr' required/>
+        <input type="text" id="addr" required />
       </div>
 
       {/* City and Zip code */}
@@ -107,31 +108,35 @@ export default function Form() {
         <div className="py-3 flex flex-col gap-2">
           <div className="flex gap-1 text-sm">
             <CursorArrowRippleIcon className="h-5 w-5" />
-            <label htmlFor='City'>City</label>
+            <label htmlFor="City">City</label>
           </div>
-          <input type="text" id='city' required />
+          <input type="text" id="city" required />
         </div>
 
         {/* Zip code */}
         <div className="py-3 flex flex-col gap-2">
           <div className="flex gap-1 text-sm">
             <CursorArrowRaysIcon className="h-5 w-5" />
-            <label htmlFor='zip'>Zip Code</label>
+            <label htmlFor="zip">Zip Code</label>
           </div>
-          <input id="zip" name="zip" type="text" pattern='[0-9]*' />
+          <input id="zip" name="zip" type="text" pattern="[0-9]*" />
         </div>
       </div>
 
       <div className="flex flex-col gap-4 mt-6 mb-2 md:gap-5 text-white font-medium">
         <button
-          type='submit' id='buyer' name='buyer'
+          type="submit"
+          id="buyer"
+          name="buyer"
           className="bg-gradient-to-r from-brand-red to-brand-purple rounded-md py-2.5 text-sm lg:text-base"
         >
           Signup as Buyer
         </button>
-        <button 
-            type='submit' id='seller' name='seller'
-            className="rounded-md bg-gradient-to-r from-brand-red to-brand-purple"
+        <button
+          type="submit"
+          id="seller"
+          name="seller"
+          className="rounded-md bg-gradient-to-r from-brand-red to-brand-purple"
         >
           <div className="rounded-md py-2.5 bg-[#252525] m-[1px] text-sm lg:text-base">
             Signup as Seller
