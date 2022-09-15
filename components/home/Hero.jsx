@@ -16,8 +16,7 @@ export const Hero = () => {
             fueled by Blockchain
           </h1>
           <p className="mt-4 text-white/60 lg:text-lg lg:mt-6 xl:text-xl">
-            Lorem Ipsum is simply dummy text of the printing and typesetting
-            industry. Lorem Ipsum has been the industry.
+            Shopping made realiable, secure, easy and fun! This truly is the dawn of a new era in shopping!
           </p>
           <Button className="mt-8 md:mt-10 lg:mt-12">Start Shopping</Button>
         </div>
