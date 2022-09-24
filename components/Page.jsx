@@ -3,7 +3,7 @@ import Sidebar from './Sidebar';
 import Navbar from './Navbar';
 import { useState } from 'react';
 
-function Page({ name }) {
+function Page({ name, children }) {
   const [collapsed, setCollapse] = useState(false);
   const changeCollapse = () => {
     setCollapse(!collapsed);
@@ -23,11 +23,9 @@ function Page({ name }) {
         <Navbar onClick={changeCollapse} />
         <div className="flex flex-1 min-h-[93vh]">
           {!collapsed && <Sidebar />}
-          <div className="p-4">
-            <h1 className="p-3 text-xl font-bold">{name}</h1>
-            <div className="p-3 border border-rose-500 rounded-md">
-              <h3>Content</h3>
-            </div>
+          <div className="p-2">
+            <h1 className="p-3 text-xl font-bold md:text-xl lg:text-2xl">{name}</h1>
+            { children }
           </div>
         </div>
       </main>

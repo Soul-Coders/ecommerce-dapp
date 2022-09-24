@@ -66,7 +66,7 @@ const Sidebar = () => {
                 >
                   <div className="flex flex-wrap gap-2 w-fit h-fit cursor-pointer">
                     {icon}
-                    <h3 className="text-sm lg:text-base xl:text-lg font-semibold">
+                    <h3 className="text-sm lg:text-base xl:text-base font-semibold">
                       {title}
                     </h3>
                   </div>
@@ -85,8 +85,8 @@ const Sidebar = () => {
               } p-3 hover:bg-blue-500 rounded-md`}
             >
               <div className="flex flex-wrap gap-2 w-fit h-fit cursor-pointer">
-                <Cog6ToothIcon className="h-6 w-6 sm:inline p-1" />
-                <h3 className="text-sm lg:text-base xl:text-lg">Settings</h3>
+                <Cog6ToothIcon className="h-6 w-6 sm:inline" />
+                <h3 className="text-sm lg:text-base xl:text-base font-semibold">Settings</h3>
               </div>
             </div>
           </Link>
