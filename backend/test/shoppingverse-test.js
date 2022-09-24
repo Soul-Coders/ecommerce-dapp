@@ -16,7 +16,16 @@ describe('Shoppingverse', function () {
       street = 'test',
       city = 'test',
       pin = 'test';
-    const newBuyer = await contract.addBuyer(name, email, phone, age, gender, street, city, pin);
+    const newBuyer = await contract.addBuyer(
+      name,
+      email,
+      phone,
+      age,
+      gender,
+      street,
+      city,
+      pin
+    );
     await newBuyer.wait();
     let users = await contract.getAllUsers();
     console.log(users[0]);
