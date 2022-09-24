@@ -1,15 +1,9 @@
 import { ListBulletIcon, SunIcon, BellIcon } from '@heroicons/react/20/solid';
 import Link from 'next/link';
 
-import React, { Component } from 'react'
-
-export default class Navbar extends Component {
-  handleClick = (event) => {
-    this.props.onClick(event)
-  };
-  render() {
-    return (
-      <header className="bg-dimmed-black flex justify-between shadow-md">
+function Navbar({ onClick }) {
+  return (
+    <header className="bg-dimmed-black flex justify-between shadow-md">
       {/* Logo and the sidebar icon */}
       <div className=" flex wrap items-centre space-x-10 md:space-x-10 p-3">
         <Link href={'/'}>
@@ -21,7 +15,7 @@ export default class Navbar extends Component {
             className="cursor-pointer"
           />
         </Link>
-        <button onClick={this.handleClick}>
+        <button onClick={onClick}>
           <ListBulletIcon className="h-6 w-6 sm:inline cursor-pointer" />
         </button>
       </div>
@@ -41,6 +35,7 @@ export default class Navbar extends Component {
         </Link>
       </div>
     </header>
-    )
-  }
+  );
 }
+
+export default Navbar;

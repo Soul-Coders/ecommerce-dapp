@@ -50,7 +50,9 @@ const Sidebar = () => {
   return (
     <div>
       <div
-        className={'flex flex-col justify-between bg-dimmed-black border-t-2 border-blue-500 min-w-[15rem] min-h-full'}
+        className={
+          'flex flex-col justify-between bg-dimmed-black border-t-2 border-blue-500 min-w-[15rem] min-h-full'
+        }
       >
         <ul>
           {sidebarItems.map(({ icon, title, id }) => (
