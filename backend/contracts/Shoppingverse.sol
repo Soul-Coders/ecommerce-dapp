@@ -8,8 +8,6 @@ contract Shoppingverse {
     owner = payable(msg.sender);
   }
 
-  address[] public allUsers;
-
   struct User {
     address walletAddress;
     string name;
@@ -36,7 +34,7 @@ contract Shoppingverse {
     string memory _city,
     string memory _pinCode
   ) public {
-    require(!buyers[msg.sender].valid);
+    require(!sellers[msg.sender].valid, 'You are already registered as Seller');
     sellers[msg.sender] = User(
       msg.sender,
       _name,
@@ -49,7 +47,6 @@ contract Shoppingverse {
       _pinCode,
       true
     );
-    allUsers.push(msg.sender);
   }
 
   function addBuyer(
@@ -62,7 +59,7 @@ contract Shoppingverse {
     string memory _city,
     string memory _pinCode
   ) public {
-    require(!buyers[msg.sender].valid);
+    require(!buyers[msg.sender].valid, 'You are already registered as Buyer');
     buyers[msg.sender] = User(
       msg.sender,
       _name,
@@ -75,10 +72,15 @@ contract Shoppingverse {
       _pinCode,
       true
     );
-    allUsers.push(msg.sender);
   }
 
-  function getAllUsers() public view returns(address[] memory) {
-    return allUsers;
+  function isSeller() public view returns (bool) {
+    bool ans = sellers[msg.sender].valid;
+    return ans;
+  }
+
+  function isBuyer() public view returns (bool) {
+    bool ans = buyers[msg.sender].valid;
+    return ans;
   }
 }
