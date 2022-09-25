@@ -3,7 +3,8 @@ import Sidebar from './Sidebar';
 import Navbar from './Navbar';
 import { useState } from 'react';
 
-function Page({ name, children }) {
+
+function Page({ name, children, parent }) {
   const [collapsed, setCollapse] = useState(false);
   const changeCollapse = () => {
     setCollapse(!collapsed);

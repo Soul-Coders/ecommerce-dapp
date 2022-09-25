@@ -26,7 +26,7 @@ function Navbar({ onClick }) {
         <BellIcon className="hidden h-6 w-6 sm:inline" />
         <Link href="/">
           <img
-            src="./user.png"
+            src="/user.png"
             alt="User profile icon"
             className="cursor-pointer rounded"
             width={30}

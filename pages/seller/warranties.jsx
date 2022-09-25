@@ -1,9 +1,9 @@
-import Page from '../components/Page';
+import Page from '../../components/Page';
 
 function products() {
   return (
     <div>
-      <Page name={'Settings'} />
+      <Page name={'Warranties'} />
     </div>
   );
 }
