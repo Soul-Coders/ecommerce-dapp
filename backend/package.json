@@ -20,5 +20,11 @@
     "prettier-plugin-solidity": "^1.0.0-beta.24",
     "solidity-coverage": "^0.8.0",
     "typechain": "^8.1.0"
+  },
+  "scripts": {
+    "compile": "npx hardhat compile",
+    "test": "npx hardhat test",
+    "serve": "npx hardhat node",
+    "deploy": "npx hardhat run scripts/deploy.js --network localhost"
   }
 }

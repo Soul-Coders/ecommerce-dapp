@@ -114,6 +114,7 @@ export const ConnectionProvider = ({ children }) => {
       await tx.wait();
       console.log('Success');
       setAccount();
+      router.push('/');
     } catch (error) {
       console.log(error);
     }
@@ -151,6 +152,7 @@ export const ConnectionProvider = ({ children }) => {
       await tx.wait();
       console.log('Success');
       setAccount();
+      router.push('/');
     } catch (error) {
       console.log(error);
     }
