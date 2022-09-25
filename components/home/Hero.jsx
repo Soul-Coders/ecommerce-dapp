@@ -1,7 +1,10 @@
 import { Button } from '../Button';
 import { Features } from './Features';
+import { useRouter } from 'next/router';
 
 export const Hero = () => {
+  const router = useRouter();
+
   return (
     <div className="">
       <div className="grid grid-cols-1 gap-6 mt-12 md:grid-cols-2 lg:grid-cols-[1fr_max-content]">
@@ -17,7 +20,12 @@ export const Hero = () => {
             Shopping made realiable, secure, easy and fun! This truly is the
             dawn of a new era in shopping!
           </p>
-          <Button className="mt-8 md:mt-10 lg:mt-12">Start Shopping</Button>
+          <Button
+            onClick={() => router.push('/auth/login')}
+            className="mt-8 md:mt-10 lg:mt-12 bg-gradient-to-r from-brand-red to-brand-purple py-2.5 font-medium max-w-xs md:w-fit md:px-8 md:py-3"
+          >
+            Start Shopping
+          </Button>
         </div>
         <div className="flex justify-center">
           <img

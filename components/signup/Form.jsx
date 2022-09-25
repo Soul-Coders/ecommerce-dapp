@@ -8,18 +8,18 @@ import {
   CakeIcon,
   UserPlusIcon,
 } from '@heroicons/react/24/outline';
-
-import { useRef } from 'react';
+import { useContext } from 'react';
+import { ConnectionContext } from '../../context/ConnectionContext';
 
 export default function Form() {
-  const ref = useRef(null);
+  const { createSeller, createBuyer, formType } = useContext(ConnectionContext);
 
   const handleSubmit = async (event) => {
     // Stop the form from submitting and refreshing the page.
     event.preventDefault();
 
     // Get data from the form.
-    const data = {
+    const formData = {
       name: event.target.name.value,
       email: event.target.email.value,
       phone: event.target.phone.value,
@@ -28,9 +28,13 @@ export default function Form() {
       addr: event.target.addr.value,
       city: event.target.city.value,
       zip: event.target.zip.value,
-      accountType: event.nativeEvent.submitter.name,
     };
-    console.log(data);
+
+    if (formType === 'Seller') {
+      createSeller(formData);
+    } else if (formType === 'Buyer') {
+      createBuyer(formData);
+    }
   };
 
   return (
@@ -41,7 +45,7 @@ export default function Form() {
           <UserIcon className="h-5 w-5" />
           <label htmlFor="name">Name</label>
         </div>
-        <input type="text" id="name" />
+        <input type="text" id="name" required />
       </div>
 
       {/* e-mail field */}
@@ -76,7 +80,7 @@ export default function Form() {
             <CakeIcon className="h-5 w-5" />
             <label htmlFor="dob">Birthday</label>
           </div>
-          <input type="date" id="dob" name="birthday" />
+          <input type="date" id="dob" name="birthday" required />
         </div>
 
         {/* Gender */}
@@ -119,29 +123,27 @@ export default function Form() {
             <CursorArrowRaysIcon className="h-5 w-5" />
             <label htmlFor="zip">Zip Code</label>
           </div>
-          <input id="zip" name="zip" type="text" pattern="[0-9]*" />
+          <input id="zip" name="zip" type="text" pattern="[0-9]*" required />
         </div>
       </div>
 
       <div className="flex flex-col gap-4 mt-6 mb-2 md:gap-5 text-white font-medium">
-        <button
-          type="submit"
-          id="buyer"
-          name="buyer"
-          className="bg-gradient-to-r from-brand-red to-brand-purple rounded-md py-2.5 text-sm lg:text-base"
-        >
-          Signup as Buyer
-        </button>
-        <button
-          type="submit"
-          id="seller"
-          name="seller"
-          className="rounded-md bg-gradient-to-r from-brand-red to-brand-purple"
-        >
-          <div className="rounded-md py-2.5 bg-[#252525] m-[1px] text-sm lg:text-base">
+        {formType === 'Buyer' && (
+          <button
+            type="submit"
+            className="bg-gradient-to-r from-brand-red to-brand-purple rounded-md py-2.5 text-sm lg:text-base"
+          >
+            Signup as Buyer
+          </button>
+        )}
+        {formType === 'Seller' && (
+          <button
+            type="submit"
+            className="bg-gradient-to-r from-brand-red to-brand-purple rounded-md py-2.5 text-sm lg:text-base"
+          >
             Signup as Seller
-          </div>
-        </button>
+          </button>
+        )}
       </div>
     </form>
   );

@@ -1,7 +1,7 @@
 export const Button = ({ children, className, ...props }) => {
   return (
     <button
-      className={`${className} w-full bg-gradient-to-r from-brand-red to-brand-purple rounded-full py-2.5 text-sm font-medium flex gap-4 items-center justify-center max-w-xs md:w-fit md:px-8 md:py-3 lg:text-base`}
+      className={`${className} w-full rounded-full text-sm flex gap-4 items-center justify-center lg:text-base`}
       {...props}
     >
       {children}{' '}
