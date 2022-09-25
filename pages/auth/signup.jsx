@@ -17,8 +17,12 @@ const Signup = () => {
       <main className="container py-12">
         <div className="flex justify-center">
           <div className="w-44">
-            <Link href={"/"}>
-              <img src="/logo.svg" alt="logo" className="w-full cursor-pointer"/>
+            <Link href={'/'}>
+              <img
+                src="/logo.svg"
+                alt="logo"
+                className="w-full cursor-pointer"
+              />
             </Link>
           </div>
         </div>

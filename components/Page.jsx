@@ -2,9 +2,12 @@ import Head from 'next/head';
 import Sidebar from './Sidebar';
 import Navbar from './Navbar';
 import { useState } from 'react';
+import { useRouter } from 'next/router';
 
-
-function Page({ name, children, parent }) {
+function Page({ children }) {
+  const router = useRouter();
+  var name = router.asPath.split('/').slice(2)[0];
+  name = name[0].toUpperCase() + name.slice(1);
   const [collapsed, setCollapse] = useState(false);
   const changeCollapse = () => {
     setCollapse(!collapsed);
@@ -25,8 +28,10 @@ function Page({ name, children, parent }) {
         <div className="flex flex-1 min-h-[93vh]">
           {!collapsed && <Sidebar />}
           <div className="p-2">
-            <h1 className="p-3 text-xl font-bold md:text-xl lg:text-2xl">{name}</h1>
-            { children }
+            <h1 className="p-3 text-xl font-bold md:text-xl lg:text-2xl">
+              {name}
+            </h1>
+            {children}
           </div>
         </div>
       </main>

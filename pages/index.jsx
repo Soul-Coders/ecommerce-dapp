@@ -2,7 +2,6 @@ import Head from 'next/head';
 import Link from 'next/link';
 import { Hero } from '../components/home/Hero';
 
-
 const Home = () => {
   return (
     <div>
@@ -20,8 +19,12 @@ const Home = () => {
           <div className="container py-12">
             <div className="flex justify-between items-center w-full">
               <div className="w-44">
-                <Link href={"/"}>
-                  <img src="/logo.svg" alt="logo" className="w-full cursor-pointer"/>
+                <Link href={'/'}>
+                  <img
+                    src="/logo.svg"
+                    alt="logo"
+                    className="w-full cursor-pointer"
+                  />
                 </Link>
               </div>
               <Link href="/auth/login">
