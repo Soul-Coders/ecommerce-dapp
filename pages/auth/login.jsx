@@ -2,6 +2,7 @@ import Head from 'next/head';
 import { useContext } from 'react';
 import { Button } from '../../components/Button';
 import { ConnectionContext } from '../../context/ConnectionContext';
+import Link from 'next/link';
 
 const Login = () => {
   const { connectSeller, connectBuyer } = useContext(ConnectionContext);
@@ -20,11 +21,22 @@ const Login = () => {
       <main>
         <div className="grid grid-cols-1 md:grid-cols-[40%_60%]">
           <div className="flex w-full h-screen items-center justify-center">
-            <div className="w-min h-[50%] flex flex-col justify-between lg:h-[55%]">
-              <h1 className="text-4xl font-semibold tracking-tight leading-[1.3] lg:text-5xl lg:leading-[1.2]">
-                Welcome to Shoppingverse
+            <div className="w-min flex flex-col justify-between">
+              <div className="flex w-full justify-center">
+                <div className="w-44 lg:w-56">
+                  <Link href={'/'}>
+                    <img
+                      src="/logo.svg"
+                      alt="logo"
+                      className="w-full cursor-pointer"
+                    />
+                  </Link>
+                </div>
+              </div>
+              <h1 className="text-4xl text-center w-[10ch] font-semibold tracking-tight leading-[1.3] lg:text-5xl lg:leading-[1.2] mt-14">
+                Welcome to the new era of e-commerce
               </h1>
-              <div className="flex flex-col gap-5">
+              <div className="flex flex-col gap-5 mt-14">
                 <Button
                   onClick={connectBuyer}
                   className="bg-white text-black py-3 font-bold lg:py-3.5"
