@@ -11,7 +11,7 @@ import {
 import { useContext } from 'react';
 import { ConnectionContext } from '../../context/ConnectionContext';
 
-export default function Form() {
+const Form = () => {
   const { createSeller, createBuyer, formType } = useContext(ConnectionContext);
 
   const handleSubmit = async (event) => {
@@ -147,4 +147,6 @@ export default function Form() {
       </div>
     </form>
   );
-}
+};
+
+export default Form;

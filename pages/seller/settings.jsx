@@ -1,11 +1,11 @@
 import Page from '../../components/Page';
 
-function products() {
+const Settings = () => {
   return (
     <div>
-      <Page />
+      <Page>{/* Main content here */}</Page>
     </div>
   );
-}
+};
 
-export default products;
+export default Settings;

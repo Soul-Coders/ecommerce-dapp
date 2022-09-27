@@ -1,7 +1,7 @@
 import { Bars3Icon, SunIcon, BellIcon } from '@heroicons/react/20/solid';
 import Link from 'next/link';
 
-function Navbar({ onClick }) {
+const Navbar = ({ onClick }) => {
   return (
     <header className="bg-dimmed-black shadow-md fixed top-0 w-full py-1">
       <div className="container flex justify-between">
@@ -29,6 +29,6 @@ function Navbar({ onClick }) {
       </div>
     </header>
   );
-}
+};
 
 export default Navbar;

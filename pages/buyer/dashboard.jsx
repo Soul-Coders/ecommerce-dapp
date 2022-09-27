@@ -1,10 +1,12 @@
 import React from 'react';
 import Page from '../../components/Page';
 
-export default function Dashboard() {
+const Dashboard = () => {
   return (
     <div>
       <Page name={'Dashboard'} parent="seller" />
     </div>
   );
-}
+};
+
+export default Dashboard;

@@ -4,7 +4,7 @@ import Navbar from './Navbar';
 import { useState } from 'react';
 import { useRouter } from 'next/router';
 
-function Page({ children }) {
+const Page = ({ children }) => {
   const router = useRouter();
   var name = router.asPath.split('/').slice(2)[0];
   name = name[0].toUpperCase() + name.slice(1);
@@ -39,6 +39,6 @@ function Page({ children }) {
       </main>
     </div>
   );
-}
+};
 
 export default Page;
