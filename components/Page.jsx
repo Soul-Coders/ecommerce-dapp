@@ -8,13 +8,13 @@ function Page({ children }) {
   const router = useRouter();
   var name = router.asPath.split('/').slice(2)[0];
   name = name[0].toUpperCase() + name.slice(1);
-  const [collapsed, setCollapse] = useState(false);
+  const [collapsed, setCollapsed] = useState(true);
   const changeCollapse = () => {
-    setCollapse(!collapsed);
+    setCollapsed(!collapsed);
   };
   const title = `${name} | ShoppingVerse`;
   return (
-    <div className="bg-black">
+    <div className="bg-background">
       <Head>
         <title>{title}</title>
         <meta
@@ -23,11 +23,13 @@ function Page({ children }) {
         />
         <link rel="icon" href="/icon.svg" />
       </Head>
-      <main className="text-brand-lavender">
+      <main>
         <Navbar onClick={changeCollapse} />
-        <div className="flex flex-1 min-h-[93vh]">
-          {!collapsed && <Sidebar />}
-          <div className="p-2">
+        <div className="container">
+          {!collapsed && (
+            <Sidebar onClick={changeCollapse} collapsed={collapsed} />
+          )}
+          <div className="p-2 mt-16">
             <h1 className="p-3 text-xl font-bold md:text-xl lg:text-2xl">
               {name}
             </h1>
