@@ -1,4 +1,4 @@
-import { BigNumber, ethers } from 'ethers';
+import { ethers } from 'ethers';
 import { useRouter } from 'next/router';
 import { createContext, useEffect, useState } from 'react';
 import Shoppingverse from '../backend/artifacts/contracts/Shoppingverse.sol/Shoppingverse.json';
@@ -27,7 +27,7 @@ export const ConnectionProvider = ({ children }) => {
     buyerStatus: false,
     sellerStatus: false,
   });
-  const [formType, setFormType] = useState('Buyer');
+  const [formType, setFormType] = useState('');
 
   const setAccount = async () => {
     try {
@@ -59,7 +59,7 @@ export const ConnectionProvider = ({ children }) => {
   const connectSeller = () => {
     try {
       if (currentAccount.sellerStatus) {
-        router.push('/');
+        router.push('/seller/dashboard');
       } else {
         setFormType('Seller');
         router.push('/auth/signup');
@@ -72,7 +72,7 @@ export const ConnectionProvider = ({ children }) => {
   const connectBuyer = () => {
     try {
       if (currentAccount.buyerStatus) {
-        router.push('/');
+        router.push('/buyer/dashboard');
       } else {
         setFormType('Buyer');
         router.push('/auth/signup');
@@ -101,7 +101,6 @@ export const ConnectionProvider = ({ children }) => {
       }
 
       const contract = getContract();
-      const value = BigNumber.from(9193000000000000n);
       const tx = await contract.addSeller(
         name,
         email,
@@ -110,13 +109,12 @@ export const ConnectionProvider = ({ children }) => {
         gender,
         addr,
         city,
-        zip,
-        { value: value }
+        zip
       );
       await tx.wait();
       console.log('Success');
       setAccount();
-      router.push('/');
+      router.push('/seller/dashboard');
     } catch (error) {
       console.log(error);
     }
@@ -154,7 +152,7 @@ export const ConnectionProvider = ({ children }) => {
       await tx.wait();
       console.log('Success');
       setAccount();
-      router.push('/');
+      router.push('/buyer/dashboard');
     } catch (error) {
       console.log(error);
     }

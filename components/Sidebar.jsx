@@ -1,10 +1,12 @@
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { XCircleIcon, SunIcon, BellIcon
- } from '@heroicons/react/20/solid';
+} from '@heroicons/react/20/solid';
 
 import seller_sidebar from '../utils/seller_sidebar';
 import buyer_sidebar from '../utils/buyer_sidebar';
+
+import UserProfile from './UserProfile';
 
 const Sidebar = ({ onClick, collapsed }) => {
   const router = useRouter();
@@ -19,15 +21,7 @@ const Sidebar = ({ onClick, collapsed }) => {
         <div>
           <div className='flex justify-between  px-2 py-5'>
             <div className="flex items-center space-x-4 font-light p-3">
-              <Link href="/">
-                <img
-                  src="/user.png"
-                  alt="User profile icon"
-                  className="cursor-pointer rounded"
-                  width={30}
-                  height={30}
-                />
-              </Link>
+              <UserProfile />
               <BellIcon className="h-6 w-6 sm:inline" />
               <SunIcon className="h-6 w-6 sm:inline" />
             </div>
