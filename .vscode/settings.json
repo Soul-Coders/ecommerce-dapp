@@ -5,6 +5,6 @@
     "editor.defaultFormatter": "JuanBlanco.solidity"
   },
   "[javascriptreact]": {
-    "editor.defaultFormatter": "vscode.typescript-language-features"
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
   }
 }

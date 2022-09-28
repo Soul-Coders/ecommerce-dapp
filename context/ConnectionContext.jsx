@@ -1,4 +1,4 @@
-import { ethers } from 'ethers';
+import { BigNumber, ethers } from 'ethers';
 import { useRouter } from 'next/router';
 import { createContext, useEffect, useState } from 'react';
 import Shoppingverse from '../backend/artifacts/contracts/Shoppingverse.sol/Shoppingverse.json';
@@ -27,7 +27,7 @@ export const ConnectionProvider = ({ children }) => {
     buyerStatus: false,
     sellerStatus: false,
   });
-  const [formType, setFormType] = useState('');
+  const [formType, setFormType] = useState('Buyer');
 
   const setAccount = async () => {
     try {
@@ -101,6 +101,7 @@ export const ConnectionProvider = ({ children }) => {
       }
 
       const contract = getContract();
+      const value = BigNumber.from(9193000000000000n);
       const tx = await contract.addSeller(
         name,
         email,
@@ -109,7 +110,8 @@ export const ConnectionProvider = ({ children }) => {
         gender,
         addr,
         city,
-        zip
+        zip,
+        { value: value }
       );
       await tx.wait();
       console.log('Success');

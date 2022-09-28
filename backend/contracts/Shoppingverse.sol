@@ -8,7 +8,7 @@ contract Shoppingverse {
     owner = payable(msg.sender);
   }
 
-  struct User {
+  struct Buyer {
     address walletAddress;
     string name;
     string email;
@@ -21,8 +21,22 @@ contract Shoppingverse {
     bool valid;
   }
 
-  mapping(address => User) public sellers;
-  mapping(address => User) public buyers;
+  struct Seller {
+    address walletAddress;
+    string name;
+    string email;
+    string phone;
+    string age;
+    string gender;
+    string streetAddress;
+    string city;
+    string pinCode;
+    bool valid;
+    bool isPaid;
+  }
+
+  mapping(address => Seller) public sellers;
+  mapping(address => Buyer) public buyers;
 
   function addSeller(
     string memory _name,
@@ -33,9 +47,14 @@ contract Shoppingverse {
     string memory _streetAddress,
     string memory _city,
     string memory _pinCode
-  ) public {
+  ) public payable {
     require(!sellers[msg.sender].valid, 'You are already registered as Seller');
-    sellers[msg.sender] = User(
+    require(
+      msg.value == 0.009193 ether,
+      'You dont have enough amount in your wallet'
+    );
+    owner.transfer(msg.value);
+    sellers[msg.sender] = Seller(
       msg.sender,
       _name,
       _email,
@@ -45,6 +64,7 @@ contract Shoppingverse {
       _streetAddress,
       _city,
       _pinCode,
+      true,
       true
     );
   }
@@ -60,7 +80,7 @@ contract Shoppingverse {
     string memory _pinCode
   ) public {
     require(!buyers[msg.sender].valid, 'You are already registered as Buyer');
-    buyers[msg.sender] = User(
+    buyers[msg.sender] = Buyer(
       msg.sender,
       _name,
       _email,
