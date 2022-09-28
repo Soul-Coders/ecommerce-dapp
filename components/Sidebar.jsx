@@ -1,7 +1,6 @@
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { XCircleIcon, SunIcon, BellIcon
-} from '@heroicons/react/20/solid';
+import { XCircleIcon, SunIcon, BellIcon } from '@heroicons/react/20/solid';
 
 import seller_sidebar from '../utils/seller_sidebar';
 import buyer_sidebar from '../utils/buyer_sidebar';
@@ -17,9 +16,9 @@ const Sidebar = ({ onClick, collapsed }) => {
     (parent.slice(1) == 'seller' && seller_sidebar) || buyer_sidebar;
   return (
     <div>
-      <div className="backdrop-blur-sm bg-black/30 flex flex-col justify-between text-brand-lavender bg-dimmed-black w-64 fixed top-0 left-0 h-full z-10">
+      <div className="backdrop-blur-sm bg-black/30 flex flex-col justify-between text-brand-lavender w-64 fixed top-0 left-0 h-full z-10">
         <div>
-          <div className='flex justify-between  px-2 py-5'>
+          <div className="flex justify-between p-2">
             <div className="flex items-center space-x-4 font-light p-3">
               <UserProfile />
               <BellIcon className="h-6 w-6 sm:inline" />
@@ -28,9 +27,7 @@ const Sidebar = ({ onClick, collapsed }) => {
             <button onClick={onClick}>
               <XCircleIcon className="h-7 w-7 sm:inline cursor-pointer" />
             </button>
-            
-          </div>          
-
+          </div>
           <ul>
             {sidebarItems.above.map(({ icon, title, id }) => (
               <li key={title} className="p-2">

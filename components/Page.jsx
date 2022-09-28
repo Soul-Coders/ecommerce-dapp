@@ -29,8 +29,8 @@ const Page = ({ children }) => {
           {!collapsed && (
             <Sidebar onClick={changeCollapse} collapsed={collapsed} />
           )}
-          <div className="p-2 mt-16">
-            <h1 className="p-3 text-xl font-bold md:text-xl lg:text-2xl">
+          <div className="mt-16">
+            <h1 className="text-xl py-4 font-bold md:text-2xl md:py-6 lg:pt-8 lg:text-3xl">
               {name}
             </h1>
             {children}
