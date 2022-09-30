@@ -54,7 +54,12 @@ const Form = () => {
           <EnvelopeIcon className="h-5 w-5" />
           <label htmlFor="email">Email</label>
         </div>
-        <input type="email" id="email" defaultValue='alex.hopkins@alexhopkins.com' required />
+        <input
+          type="email"
+          id="email"
+          defaultValue="alex.hopkins@alexhopkins.com"
+          required
+        />
       </div>
 
       {/* Phone no. */}
@@ -81,8 +86,12 @@ const Form = () => {
             <CakeIcon className="h-5 w-5" />
             <label htmlFor="dob">Birthday</label>
           </div>
-          <input defaultValue={'14/10/2000'} id="dob" name="birthday" required 
-          // type="date"
+          <input
+            defaultValue={'14/10/2000'}
+            id="dob"
+            name="birthday"
+            required
+            // type="date"
           />
         </div>
 
@@ -92,7 +101,7 @@ const Form = () => {
             <UserPlusIcon className="h-5 w-5 " />
             <label htmlFor="gender">Gender</label>
           </div>
-          <select id="gender" className="px-5 py-[9px]" defaultValue={"male"}>
+          <select id="gender" className="px-5 py-[9px]" defaultValue={'male'}>
             <option value="na">Do not specify</option>
             <option value="male">Male</option>
             <option value="female">Female</option>
@@ -106,7 +115,7 @@ const Form = () => {
           <MapPinIcon className="h-5 w-5" />
           <label htmlFor="address">Address</label>
         </div>
-        <input type="text" id="addr" value="NY" required />
+        <input type="text" id="addr" defaultValue="NY" required />
       </div>
 
       {/* City and Zip code */}
@@ -117,7 +126,7 @@ const Form = () => {
             <CursorArrowRippleIcon className="h-5 w-5" />
             <label htmlFor="City">City</label>
           </div>
-          <input type="text" id="city" defaultValue={"Brooklyn"} required />
+          <input type="text" id="city" defaultValue={'Brooklyn'} required />
         </div>
 
         {/* Zip code */}
@@ -126,7 +135,14 @@ const Form = () => {
             <CursorArrowRaysIcon className="h-5 w-5" />
             <label htmlFor="zip">Zip Code</label>
           </div>
-          <input defaultValue="12345" id="zip" name="zip" type="text" pattern="[0-9]*" required />
+          <input
+            defaultValue="12345"
+            id="zip"
+            name="zip"
+            type="text"
+            pattern="[0-9]*"
+            required
+          />
         </div>
       </div>
 
