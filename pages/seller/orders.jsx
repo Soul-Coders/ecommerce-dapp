@@ -1,9 +1,12 @@
 import Page from '../../components/Page';
+import Scheduler from '../../components/orders/Scheduler';
 
 const Orders = () => {
   return (
     <div>
-      <Page>{/* Main content here */}</Page>
+      <Page>
+        <Scheduler />
+      </Page>
     </div>
   );
 };
