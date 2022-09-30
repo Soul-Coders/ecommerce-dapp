@@ -2,8 +2,8 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { XCircleIcon, SunIcon, BellIcon } from '@heroicons/react/20/solid';
 
-import seller_sidebar from '../utils/seller_sidebar';
-import buyer_sidebar from '../utils/buyer_sidebar';
+import seller_sidebar from '../../utils/seller_sidebar';
+import buyer_sidebar from '../../utils/buyer_sidebar';
 
 import UserProfile from './UserProfile';
 

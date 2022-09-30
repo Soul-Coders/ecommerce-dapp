@@ -26,6 +26,7 @@ export const ConnectionProvider = ({ children }) => {
     walletAddress: '',
     buyerStatus: false,
     sellerStatus: false,
+    info: {}
   });
   const [formType, setFormType] = useState('Buyer');
 
@@ -45,11 +46,13 @@ export const ConnectionProvider = ({ children }) => {
       const contract = getContract();
       const Seller = await contract.isSeller();
       const Buyer = await contract.isBuyer();
+      const info_ = await (Seller && contract.getSellerInfo() || contract.getBuyerInfo());
 
       setCurrentAccount({
         walletAddress: accounts[0],
         buyerStatus: Buyer,
         sellerStatus: Seller,
+        info: info_,
       });
     } catch (error) {
       console.log(error);
@@ -159,6 +162,8 @@ export const ConnectionProvider = ({ children }) => {
       console.log(error);
     }
   };
+
+  const users = 
 
   useEffect(() => {
     setAccount();

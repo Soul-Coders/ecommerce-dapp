@@ -103,4 +103,12 @@ contract Shoppingverse {
     bool ans = buyers[msg.sender].valid;
     return ans;
   }
+
+  function getBuyerInfo() public view returns (Buyer memory) {
+    return buyers[msg.sender];
+  }
+
+  function getSellerInfo() public view returns (Seller memory) {
+    return sellers[msg.sender];
+  }
 }

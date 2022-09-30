@@ -1,5 +1,5 @@
 import Head from 'next/head';
-import Sidebar from './Sidebar';
+import Sidebar from './sidebar/Sidebar';
 import Navbar from './Navbar';
 import { useState } from 'react';
 import { useRouter } from 'next/router';
