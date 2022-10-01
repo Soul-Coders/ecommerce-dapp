@@ -1,7 +1,8 @@
 import React from 'react';
 import Page from '../../components/Page';
 import Order from '../../components/Order';
-
+import Sales from '../../components/charts/Sales';
+import PieChart from '../../components/charts/Pie';
 const Dashboard = () => {
   return (
     <div>
@@ -48,20 +49,12 @@ const Dashboard = () => {
               </div>
             </div>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-[60%_40%]">
-            <div className="flex">
-              <img
-                src="/barChart.svg"
-                alt="Bar"
-                className="object-cover object-center"
-              />
+          <div className="flex justify-between">
+            <div className="">
+              <Sales />
             </div>
             <div className="flex">
-              <img
-                src="/pieChart.svg"
-                alt="Pie"
-                className="object-contain object-center"
-              />
+              <PieChart />
             </div>
           </div>
           <div className="grid p-1">
