@@ -29,7 +29,7 @@ const Page = ({ children }) => {
           {!collapsed && (
             <Sidebar onClick={changeCollapse} collapsed={collapsed} />
           )}
-          <div className="mt-16">
+          <div className="mt-16 mb-8">
             <h1 className="text-xl py-4 font-bold md:text-2xl md:py-6 lg:pt-8 lg:text-3xl">
               {name}
             </h1>
