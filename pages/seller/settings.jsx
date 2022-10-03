@@ -2,10 +2,10 @@ import Page from '../../components/Page';
 
 const Settings = () => {
   return (
-    <div>
-      <Page><body class="text-blueGray-700 antialiased">
+      <Page>
+        <body class="text-blueGray-700 antialiased">
     
-    <div id="root">
+    <div>
       
       <div class="relative md:ml-64 ">
        
@@ -217,19 +217,12 @@ const Settings = () => {
                 </div>
               </div>
             </div>
-            
               </div>
             </div>
           </div>
-         
         </div>
-      
-    
-    
     </body>
-    
     </Page>
-    </div>
   );
 };
 

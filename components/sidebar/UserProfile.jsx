@@ -6,7 +6,7 @@ import { ConnectionContext } from '../../context/ConnectionContext';
 
 import { ClipboardDocumentCheckIcon } from '@heroicons/react/20/solid';
 
-function UserProfile() {
+const UserProfile = () => {
   const [invisible, setInvisible] = useState(true);
   const { currentAccount } = useContext(ConnectionContext);
 
