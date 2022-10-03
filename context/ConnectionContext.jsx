@@ -44,16 +44,16 @@ export const ConnectionProvider = ({ children }) => {
       });
 
       const contract = getContract();
-      const Seller = await contract.isSeller();
-      const Buyer = await contract.isBuyer();
-      const info_ = await ((Seller && contract.getSellerInfo()) ||
+      const seller = await contract.isSeller();
+      const buyer = await contract.isBuyer();
+      const info = await ((seller && contract.getSellerInfo()) ||
         contract.getBuyerInfo());
 
       setCurrentAccount({
         walletAddress: accounts[0],
-        buyerStatus: Buyer,
-        sellerStatus: Seller,
-        info: info_,
+        buyerStatus: buyer,
+        sellerStatus: seller,
+        info: info,
       });
     } catch (error) {
       console.log(error);

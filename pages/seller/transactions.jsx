@@ -50,7 +50,7 @@ const Transactions = () => {
           </div>
           <div className="mt-4 flex flex-col gap-4 md:gap-6">
             {transactions.map(({ tx, name, date, price }) => (
-              <div className="">
+              <div key={tx} className="">
                 <div className="md:hidden bg-[#252525]/70 p-4 rounded-md sm:p-6">
                   <div className="flex justify-between flex-grow">
                     <h3 className="font-medium text-sm uppercase sm:text-base">
@@ -76,7 +76,7 @@ const Transactions = () => {
                     </button>
                   </div>
                 </div>
-                <div className="hidden md:block bg-[#252525]/70 p-3 rounded-md lg:p-4">
+                <div className="hidden md:block  bg-[#252525]/70 p-3 rounded-md lg:p-4">
                   <div className="grid grid-cols-[25%_20%_25%_15%_15%] w-full items-center">
                     <h3 className="font-medium text-base uppercase lg:text-lg">
                       <span className="text-brand-purple">#</span>

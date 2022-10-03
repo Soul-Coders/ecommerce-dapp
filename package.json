@@ -10,11 +10,12 @@
   },
   "dependencies": {
     "@heroicons/react": "^2.0.10",
+    "chart.js": "^3.9.1",
     "deploy": "^1.0.3",
     "ethers": "^5.7.1",
     "next": "12.2.5",
     "react": "18.2.0",
-    "react-big-calendar": "^1.5.0",
+    "react-chartjs-2": "^4.3.1",
     "react-dom": "18.2.0",
     "serve": "^14.0.1",
     "yarn": "^1.22.19"
