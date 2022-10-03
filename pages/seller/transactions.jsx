@@ -76,7 +76,7 @@ const Transactions = () => {
                     </button>
                   </div>
                 </div>
-                <div className="hidden md:block bg-[#252525]/70 p-3 rounded-md lg:p-4">
+                <div className="hidden md:block  bg-[#252525]/70 p-3 rounded-md lg:p-4">
                   <div className="grid grid-cols-[25%_20%_25%_15%_15%] w-full items-center">
                     <h3 className="font-medium text-base uppercase lg:text-lg">
                       <span className="text-brand-purple">#</span>

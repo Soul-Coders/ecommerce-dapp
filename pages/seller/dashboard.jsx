@@ -1,9 +1,50 @@
 import React from 'react';
 import Page from '../../components/Page';
-import Order from '../../components/Order';
+import List from '../../components/List';
+import Label from '../../components/Label';
 import Sales from '../../components/charts/Sales';
 import PieChart from '../../components/charts/Pie';
 const Dashboard = () => {
+
+  const latest = [
+    {
+      id:2323,
+      name: 'Devon Lane',
+      mail: 'devon@gmail.com',
+      total: '₹ 778.35',
+      status: 'delivered',
+      date: '07.05.2020',
+      action: {name: 'More'}
+    },{
+      id:2323,
+      name: 'Devon Lane',
+      mail: 'devon@gmail.com',
+      total: '₹ 778.35',
+      status: 'delivered',
+      date: '07.05.2020',
+      action: {name: 'More'}
+    },{
+      id:2323,
+      name: 'Devon Lane',
+      mail: 'devon@gmail.com',
+      total: '₹ 778.35',
+      status: 'pending',
+      date: '07.05.2020',
+      action: {name: 'More'}
+    },{
+      id:2323,
+      name: 'Devon Lane',
+      mail: 'devon@gmail.com',
+      total: '₹ 778.35',
+      status: 'cancelled',
+      date: '07.05.2020',
+      action: {name: 'More'}
+    },
+    
+  ]
+
+  // const colnames = ['ID', 'Name', 'Mail', 'Total', 'Status', 'Action']
+
   return (
     <div>
       <Page name={'Dashboard'} parent="seller">
@@ -58,12 +99,25 @@ const Dashboard = () => {
             </div>
           </div>
           <div className="grid p-1">
-            <h1 className="p-3 text-xl font-bold lg:text-2xl">Latest Orders</h1>
+            <h1 className="p-3 text-base font-bold lg:text-xl">Latest Orders</h1>
             <div className="flex flex-col">
-              <Order />
+              <List colnames={[]}>
+                {latest.map(({id, mail, total, status, date, action}) => 
+                  <div>
+                    <p>{id}</p>
+                    <p>{mail}</p>
+                    <p>{total}</p>
+                    <p>{date}</p>
+                    <Label status={status} />
+                    <button className="flex justify-center items-center font-semibold px-9 h-10 bg-gradient-to-r from-brand-red to-brand-purple rounded-md">
+                      {action.name}
+                    </button>
+                  </div>
+                )}
+              </List>
             </div>
           </div>
-        </div>
+          </div>   
       </Page>
     </div>
   );
