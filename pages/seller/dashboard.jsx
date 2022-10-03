@@ -108,9 +108,7 @@ const Dashboard = () => {
             </div>
           </div>
           <div className="grid">
-            <h1 className="text-base font-bold lg:text-xl">
-              Latest Orders
-            </h1>
+            <h1 className="text-base font-bold lg:text-xl">Latest Orders</h1>
             <div className="flex flex-col">
               <List colnames={[]}>
                 {latest.map(({ id, mail, total, status, date, action }) => (

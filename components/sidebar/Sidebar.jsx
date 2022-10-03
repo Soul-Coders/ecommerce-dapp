@@ -6,7 +6,7 @@ import seller_sidebar from '../../utils/seller_sidebar';
 import buyer_sidebar from '../../utils/buyer_sidebar';
 
 import UserProfile from './UserProfile';
-import Notifications from './Notifications'
+import Notifications from './Notifications';
 
 const Sidebar = ({ onClick, collapsed }) => {
   const router = useRouter();

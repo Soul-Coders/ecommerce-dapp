@@ -33,13 +33,13 @@ export const data = {
 };
 
 const PieChart = () => {
-    return (
-    <div className='p-4'>
-        <Card className={''}>
-            <Pie data={data} className={'w-[23.5vw] h-[22vh]'} />
-        </Card>
+  return (
+    <div className="p-4">
+      <Card className={''}>
+        <Pie data={data} className={'w-[23.5vw] h-[22vh]'} />
+      </Card>
     </div>
-    )
-}
+  );
+};
 
-export default PieChart
+export default PieChart;

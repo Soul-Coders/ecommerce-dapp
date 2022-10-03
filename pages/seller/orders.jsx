@@ -9,9 +9,9 @@ const Orders = () => {
       name: 'Jensen Huang',
       email: 'jensen.huang@gmail.com',
       total: '₹ 200',
-      status: "done",
+      status: 'done',
       date: '29 Aug 2022',
-      action: {name:'View'},
+      action: { name: 'View' },
     },
     {
       id: '2340',
@@ -20,7 +20,7 @@ const Orders = () => {
       total: '₹ 240',
       status: 'cancelled',
       date: '29 Aug 2022',
-      action: {name:'View'},
+      action: { name: 'View' },
     },
     {
       id: '1410',
@@ -29,31 +29,31 @@ const Orders = () => {
       total: '₹ 240',
       status: 'pending',
       date: '20 Jan 2019',
-      action: {name:'View'},
+      action: { name: 'View' },
     },
   ];
-  const colnames = ['ID', 'Name', 'Email', 'Total', 'Status', 'Date', 'Action']
+  const colnames = ['ID', 'Name', 'Email', 'Total', 'Status', 'Date', 'Action'];
   return (
     <div>
       <Page>
         <List
-          colnames={colnames} 
+          colnames={colnames}
           align={'grid grid-cols-[10%_12%_30%_10%_15%_13%_10%]'}
-          className=''
+          className=""
         >
-            {orders.map(({id, name, email, total, status, date, action}) => 
+          {orders.map(({ id, name, email, total, status, date, action }) => (
             <div>
-                <p>{id}</p>
-                <p>{name}</p>
-                <p>{email}</p>
-                <p>{total}</p>
-                <Label status={status} />
-                <p>{date}</p>
-                <button className="flex justify-center items-center font-semibold px-9 h-10 bg-gradient-to-r from-brand-red to-brand-purple rounded-md">
-                  {action.name}
-                </button>
+              <p>{id}</p>
+              <p>{name}</p>
+              <p>{email}</p>
+              <p>{total}</p>
+              <Label status={status} />
+              <p>{date}</p>
+              <button className="flex justify-center items-center font-semibold px-9 h-10 bg-gradient-to-r from-brand-red to-brand-purple rounded-md">
+                {action.name}
+              </button>
             </div>
-            )}
+          ))}
         </List>
       </Page>
     </div>

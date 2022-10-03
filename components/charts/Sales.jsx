@@ -55,7 +55,7 @@ const data = {
     {
       label: 'Netto',
       borderRadius: 20,
-      
+
       data: [0.07, 0.3, 0.15, 0.2, 0.5, 0.3, 0.8, 0.2, 0.4],
       backgroundColor: '#D2DDEC',
       barThickness: 10,
@@ -101,12 +101,17 @@ const options = {
 
 const Sales = () => {
   return (
-    <div className=''>
-    <Card className="w-[87vw] md:w-[47.5vw] lg:w-[54.5vw]">
-      <Bar data={data} className={'w-full'} height={'md:h-96'} options={options}></Bar>
-    </Card>
+    <div className="">
+      <Card className="w-[87vw] md:w-[47.5vw] lg:w-[54.5vw]">
+        <Bar
+          data={data}
+          className={'w-full'}
+          height={'md:h-96'}
+          options={options}
+        ></Bar>
+      </Card>
     </div>
-  )
+  );
 };
 
 export default Sales;
