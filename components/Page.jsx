@@ -24,15 +24,29 @@ const Page = ({ children }) => {
         <link rel="icon" href="/icon.svg" />
       </Head>
       <main>
-        <Navbar onClick={changeCollapse} />
+        <Navbar onClick={changeCollapse} page={name} />
         <div className="container">
           {!collapsed && (
             <Sidebar onClick={changeCollapse} collapsed={collapsed} />
           )}
           <div className="mt-16 mb-8">
-            <h1 className="text-xl py-4 font-bold md:text-2xl md:py-6 lg:pt-8 lg:text-3xl">
-              {name}
-            </h1>
+            <div className='flex justify-between items-center'>
+              <h1 className="text-xl py-4 font-bold md:text-2xl md:py-6 lg:pt-8 lg:text-3xl">
+                {name}
+              </h1>
+              {['products', 'orders', 'transactions'].includes(name.toLowerCase()) && 
+                <select
+                id="status"
+                className="pr-1 bg-dimmed-black w-fit h-fit cursor-pointer text-white  !outline-none font-semibold"
+              >
+                <option value="All" defaultChecked>All</option>
+                <option value="Active">Active</option>
+                <option value="NA">Not Available</option>
+              </select>
+              ||
+              ''
+              }
+            </div>
             {children}
           </div>
         </div>
