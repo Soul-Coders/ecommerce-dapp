@@ -21,7 +21,7 @@ const Notifications = () => {
         <div className="flex justify-end">
           <BellIcon className="h-6 w-6 sm:inline cursor-pointer rounded" />
           {(notifications.length && (
-            <div className="w-4 h-4 rounded-full bg-red-600 flex items-center p-0.5">
+            <div className="w-4 h-4 rounded-full bg-red-600 flex text-xs justify-center font-semibold items-center p-0.5">
               {notifications.length}
             </div>
           )) ||
@@ -40,7 +40,7 @@ const DropdownMenu = ({ invisible, notifications }) => {
     <div
       className={`${
         invisible && 'hidden'
-      } px-5 py-1 absolute bg-dimmed-black/80 rounded-md backdrop-blur-sm`}
+      } px-5 py-1 absolute bg-dimmed-black/80 rounded-md backdrop-blur-sm w-full`}
     >
       <ul>
         {notifications.map((notification) => (
