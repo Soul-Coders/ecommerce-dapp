@@ -43,8 +43,8 @@ const DropdownMenu = ({ invisible, notifications }) => {
       } px-5 py-1 absolute bg-dimmed-black/80 rounded-md backdrop-blur-sm w-full`}
     >
       <ul>
-        {notifications.map((notification) => (
-          <div>
+        {notifications.map((notification, i) => (
+          <div key={i}>
             <li className="p-3">{notification}</li>
             <div className="w-full border border-white/20"></div>
           </div>

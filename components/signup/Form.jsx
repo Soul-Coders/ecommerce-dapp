@@ -12,7 +12,8 @@ import { useContext } from 'react';
 import { ConnectionContext } from '../../context/ConnectionContext';
 
 const Form = () => {
-  const { createSeller, createBuyer, formType } = useContext(ConnectionContext);
+  const { createSeller, createBuyer, formType, currentAccount } =
+    useContext(ConnectionContext);
 
   const handleSubmit = async (event) => {
     // Stop the form from submitting and refreshing the page.
@@ -45,7 +46,12 @@ const Form = () => {
           <UserIcon className="h-5 w-5" />
           <label htmlFor="name">Name</label>
         </div>
-        <input type="text" id="name" defaultValue="Alex Hopkins" required />
+        <input
+          type="text"
+          id="name"
+          defaultValue={currentAccount.name || 'Alex Hopkins'}
+          required
+        />
       </div>
 
       {/* e-mail field */}
@@ -57,7 +63,7 @@ const Form = () => {
         <input
           type="email"
           id="email"
-          defaultValue="alex.hopkins@alexhopkins.com"
+          defaultValue={currentAccount.email || 'alex.hopkins@alexhopkins.com'}
           required
         />
       </div>
@@ -72,7 +78,7 @@ const Form = () => {
           type="tel"
           id="phone"
           name="phone"
-          defaultValue="0000000000"
+          defaultValue={currentAccount.phone || '0000000000'}
           pattern="^(\+\d{1,2}\s)?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$"
           required
         />
@@ -87,7 +93,7 @@ const Form = () => {
             <label htmlFor="dob">Birthday</label>
           </div>
           <input
-            defaultValue={'14/10/2000'}
+            defaultValue={currentAccount.dob || '14/10/2000'}
             id="dob"
             name="birthday"
             required
@@ -101,7 +107,11 @@ const Form = () => {
             <UserPlusIcon className="h-5 w-5 " />
             <label htmlFor="gender">Gender</label>
           </div>
-          <select id="gender" className="px-5 py-[9px]" defaultValue={'male'}>
+          <select
+            id="gender"
+            className="px-5 py-[9px]"
+            defaultValue={currentAccount.gender || 'male'}
+          >
             <option value="na">Do not specify</option>
             <option value="male">Male</option>
             <option value="female">Female</option>
@@ -126,7 +136,12 @@ const Form = () => {
             <CursorArrowRippleIcon className="h-5 w-5" />
             <label htmlFor="City">City</label>
           </div>
-          <input type="text" id="city" defaultValue={'Brooklyn'} required />
+          <input
+            type="text"
+            id="city"
+            defaultValue={currentAccount.city || 'Brooklyn'}
+            required
+          />
         </div>
 
         {/* Zip code */}
@@ -136,7 +151,7 @@ const Form = () => {
             <label htmlFor="zip">Zip Code</label>
           </div>
           <input
-            defaultValue="12345"
+            defaultValue={currentAccount.zip || '12345'}
             id="zip"
             name="zip"
             type="text"

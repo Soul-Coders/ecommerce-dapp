@@ -28,7 +28,7 @@ export const ConnectionProvider = ({ children }) => {
     sellerStatus: false,
     info: {},
   });
-  const [formType, setFormType] = useState('Buyer');
+  const [formType, setFormType] = useState();
 
   const setAccount = async () => {
     try {

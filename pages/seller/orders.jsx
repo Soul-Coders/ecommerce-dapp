@@ -35,14 +35,27 @@ const Orders = () => {
   const colnames = ['ID', 'Name', 'Email', 'Total', 'Status', 'Date', 'Action'];
   return (
     <div>
-      <Page>
+      <Page
+        option={
+          <select
+            id="status"
+            className="pr-1 bg-dimmed-black w-fit h-fit cursor-pointer text-white  !outline-none font-semibold"
+          >
+            <option value="All" defaultChecked>
+              All
+            </option>
+            <option value="Active">Active</option>
+            <option value="NA">Not Available</option>
+          </select>
+        }
+      >
         <List
           colnames={colnames}
           align={'grid grid-cols-[10%_12%_30%_10%_15%_13%_10%]'}
           className=""
         >
           {orders.map(({ id, name, email, total, status, date, action }) => (
-            <div>
+            <div key={id}>
               <p>{id}</p>
               <p>{name}</p>
               <p>{email}</p>

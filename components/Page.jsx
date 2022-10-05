@@ -4,7 +4,7 @@ import Navbar from './Navbar';
 import { useState } from 'react';
 import { useRouter } from 'next/router';
 
-const Page = ({ children }) => {
+const Page = ({ children, option = '' }) => {
   const router = useRouter();
   var name = router.asPath.split('/').slice(2)[0];
   name = name[0].toUpperCase() + name.slice(1);
@@ -30,22 +30,11 @@ const Page = ({ children }) => {
             <Sidebar onClick={changeCollapse} collapsed={collapsed} />
           )}
           <div className="mt-16 mb-8">
-            <div className='flex justify-between items-center'>
+            <div className="flex justify-between items-center">
               <h1 className="text-xl py-4 font-bold md:text-2xl md:py-6 lg:pt-8 lg:text-3xl">
                 {name}
               </h1>
-              {['products', 'orders', 'transactions'].includes(name.toLowerCase()) && 
-                <select
-                id="status"
-                className="pr-1 bg-dimmed-black w-fit h-fit cursor-pointer text-white  !outline-none font-semibold"
-              >
-                <option value="All" defaultChecked>All</option>
-                <option value="Active">Active</option>
-                <option value="NA">Not Available</option>
-              </select>
-              ||
-              ''
-              }
+              {option}
             </div>
             {children}
           </div>
