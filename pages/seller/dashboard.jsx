@@ -107,12 +107,12 @@ const Dashboard = () => {
               <PieChart />
             </div>
           </div>
-          <div className="grid">
-            <h1 className="text-base font-bold lg:text-xl">Latest Orders</h1>
+          <div className="">
+            <h1 className="text-base font-bold md:text-xl lg:text-2xl py-4">Latest Orders</h1>
             <div className="flex flex-col">
               <List colnames={[]}>
                 {latest.map(({ id, mail, total, status, date, action }) => (
-                  <div>
+                  <div key={id}>
                     <p>{id}</p>
                     <p>{mail}</p>
                     <p>{total}</p>

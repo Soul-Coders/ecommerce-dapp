@@ -5,34 +5,34 @@ import { ProductCard } from '../../components/products/ProductCard';
 const Products = () => {
   const products = [
     {
-      img: '/product-1.png',
-      name: 'Bell & Ross Nightum',
-      price: '5000',
+      img: '/product-1.jpg',
+      name: 'Black fashion bag',
+      price: '2000',
     },
     {
-      img: '/product-2.png',
-      name: 'Bell & Ross Nightum',
-      price: '5000',
+      img: '/product-2.jpg',
+      name: 'Wood leather watch',
+      price: '1000',
     },
     {
-      img: '/product-3.png',
-      name: 'Bell & Ross Nightum',
-      price: '5000',
+      img: '/product-3.jpg',
+      name: 'Wireless headphones',
+      price: '1500',
     },
     {
-      img: '/product-4.png',
-      name: 'Bell & Ross Nightum',
-      price: '5000',
+      img: '/product-4.jpg',
+      name: 'Blue skate shoes',
+      price: '800',
     },
     {
-      img: '/product-5.png',
-      name: 'Bell & Ross Nightum',
-      price: '5000',
+      img: '/product-5.jpg',
+      name: 'Navy mens outerwear',
+      price: '2000',
     },
     {
-      img: '/product-6.png',
-      name: 'Bell & Ross Nightum',
-      price: '5000',
+      img: '/product-6.jpg',
+      name: 'Anchor leather bracelet',
+      price: '500',
     },
   ];
 
