@@ -8,7 +8,7 @@ const Settings = () => {
     const rfile = new File([file], 'user.png');
   };
   return (
-    <Page
+    <Page name='Settings'
       option={
         <div className="">
           <button

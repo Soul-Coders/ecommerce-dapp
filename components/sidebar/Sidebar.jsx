@@ -8,9 +8,8 @@ import buyer_sidebar from '../../utils/buyer_sidebar';
 import UserProfile from './UserProfile';
 import Notifications from './Notifications';
 
-const Sidebar = ({ onClick, collapsed }) => {
+const Sidebar = ({ onClick, collapsed, name }) => {
   const router = useRouter();
-  const child = router.asPath.split('/').pop();
   const parent = router.asPath.split('/').slice(0, -1).join('/');
 
   const sidebarItems =
@@ -35,7 +34,7 @@ const Sidebar = ({ onClick, collapsed }) => {
                 <Link href={`${parent}/${id}`}>
                   <div
                     className={`${
-                      child == id && 'bg-[#242323]/80 rounded-md'
+                      name.toLowerCase() == id && 'bg-[#242323]/80 rounded-md'
                     } p-3 hover:bg-blue-500 rounded-md`}
                   >
                     <div className="flex flex-wrap gap-2 w-fit h-fit cursor-pointer">
@@ -58,7 +57,7 @@ const Sidebar = ({ onClick, collapsed }) => {
                 <Link href={`${parent}/${id}`}>
                   <div
                     className={`${
-                      child == id && 'bg-[#242323]'
+                      name.toLowerCase() == id && 'bg-[#242323]'
                     } p-3 hover:bg-blue-500 rounded-md`}
                   >
                     <div className="flex flex-wrap gap-2 w-fit h-fit cursor-pointer">

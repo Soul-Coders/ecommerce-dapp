@@ -3,7 +3,6 @@ import { PlusIcon } from '@heroicons/react/20/solid';
 import { ProductCard } from '../../components/products/ProductCard';
 import { Dialog, Transition } from '@headlessui/react';
 import { Fragment, useState } from 'react';
-import Form from '../../components/signup/Form';
 import { ProductForm } from '../../components/products/ProductForm';
 
 const Products = () => {
@@ -44,7 +43,21 @@ const Products = () => {
 
   return (
     <div>
-      <Page>
+      <Page name='Products'
+        options={
+          <select
+            id="status"
+            className="pr-1 bg-dimmed-black w-fit h-fit cursor-pointer text-white  !outline-none font-semibold"
+          >
+            <option value="All" defaultChecked>
+              All
+            </option>
+            <option value="Active">Active</option>
+            <option value="NA">Not Available</option>
+          </select>
+        }
+      
+      >
         <div className="w-full px-3 py-5 mb-7 bg-dimmed-black rounded-md mt-2 md:px-5 xl:p-7">
           <div className="flex justify-end items-center border-b border-white/10 pb-5 md:pb-7">
             <button

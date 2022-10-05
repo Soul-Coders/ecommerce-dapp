@@ -1,5 +1,4 @@
 const List = ({ colnames, children, align, className }) => {
-  console.log(children);
   return (
     <div className="w-full px-3 p-5 py-5 mb-7 text-base bg-dimmed-black rounded-md mt-2 md:px-5 xl:p-7">
       <div
@@ -20,7 +19,6 @@ const List = ({ colnames, children, align, className }) => {
             {props.children}
           </Row>
         </div>
-        // console.log(props, i)
       ))}
     </div>
   );

@@ -1,7 +1,6 @@
 import React from 'react';
 
-import { useState } from 'react';
-import { useContext } from 'react';
+import { useState, useContext, useEffect } from 'react';
 import { ConnectionContext } from '../../context/ConnectionContext';
 
 import { ClipboardDocumentCheckIcon } from '@heroicons/react/20/solid';
@@ -9,6 +8,12 @@ import { ClipboardDocumentCheckIcon } from '@heroicons/react/20/solid';
 const UserProfile = () => {
   const [invisible, setInvisible] = useState(true);
   const { currentAccount } = useContext(ConnectionContext);
+
+  useEffect(() => {
+    const hideProfile = () => setInvisible(invisible ? invisible : !invisible)
+    window.addEventListener("mousedown", hideProfile)
+    return () => window.removeEventListener('mousedown', hideProfile)
+  }, [])
 
   return (
     <div>

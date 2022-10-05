@@ -102,7 +102,7 @@ const options = {
 const Sales = () => {
   return (
     <div className="">
-      <Card className="w-[87vw] md:w-[47.5vw] lg:w-[54.5vw]">
+      <Card className="w-[88vw] md:w-[47.5vw] lg:w-[54.5vw]">
         <Bar
           data={data}
           className={'w-full'}

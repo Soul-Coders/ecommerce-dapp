@@ -6,7 +6,6 @@ const Navbar = ({ onClick, page }) => {
     (['products', 'orders', 'transactions'].includes(page.toLowerCase()) &&
       page) ||
     'Products';
-  console.log(search);
   return (
     <header className="bg-dimmed-black shadow-md fixed top-0 w-full py-2 md:py-3 bordmer-b-2 border-b-rose-800">
       <div className="container flex justify-between gap-4 items-center">

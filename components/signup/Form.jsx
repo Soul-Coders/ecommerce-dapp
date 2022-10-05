@@ -49,7 +49,7 @@ const Form = () => {
         <input
           type="text"
           id="name"
-          defaultValue={currentAccount.name || 'Alex Hopkins'}
+          defaultValue={currentAccount.info.name || 'Alex Hopkins'}
           required
         />
       </div>
@@ -63,7 +63,7 @@ const Form = () => {
         <input
           type="email"
           id="email"
-          defaultValue={currentAccount.email || 'alex.hopkins@alexhopkins.com'}
+          defaultValue={currentAccount.info.email || 'alex.hopkins@alexhopkins.com'}
           required
         />
       </div>
@@ -78,7 +78,7 @@ const Form = () => {
           type="tel"
           id="phone"
           name="phone"
-          defaultValue={currentAccount.phone || '0000000000'}
+          defaultValue={currentAccount.info.phone || '0000000000'}
           pattern="^(\+\d{1,2}\s)?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$"
           required
         />
@@ -93,7 +93,7 @@ const Form = () => {
             <label htmlFor="dob">Birthday</label>
           </div>
           <input
-            defaultValue={currentAccount.dob || '14/10/2000'}
+            defaultValue={currentAccount.info.dob || '14/10/2000'}
             id="dob"
             name="birthday"
             required
@@ -110,7 +110,7 @@ const Form = () => {
           <select
             id="gender"
             className="px-5 py-[9px]"
-            defaultValue={currentAccount.gender || 'male'}
+            defaultValue={currentAccount.info.gender || 'male'}
           >
             <option value="na">Do not specify</option>
             <option value="male">Male</option>
@@ -125,7 +125,7 @@ const Form = () => {
           <MapPinIcon className="h-5 w-5" />
           <label htmlFor="address">Address</label>
         </div>
-        <input type="text" id="addr" defaultValue="NY" required />
+        <input type="text" id="addr" defaultValue={currentAccount.info.addr || "NY"} required />
       </div>
 
       {/* City and Zip code */}
@@ -139,7 +139,7 @@ const Form = () => {
           <input
             type="text"
             id="city"
-            defaultValue={currentAccount.city || 'Brooklyn'}
+            defaultValue={currentAccount.info.city || 'Brooklyn'}
             required
           />
         </div>
@@ -151,7 +151,7 @@ const Form = () => {
             <label htmlFor="zip">Zip Code</label>
           </div>
           <input
-            defaultValue={currentAccount.zip || '12345'}
+            defaultValue={currentAccount.info.zip || '12345'}
             id="zip"
             name="zip"
             type="text"

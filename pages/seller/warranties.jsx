@@ -3,7 +3,7 @@ import Page from '../../components/Page';
 const Warranties = () => {
   return (
     <div>
-      <Page>{/* Main content here */}</Page>
+      <Page name='Warranties'>{/* Main content here */}</Page>
     </div>
   );
 };

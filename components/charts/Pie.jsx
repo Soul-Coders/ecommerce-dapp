@@ -34,9 +34,9 @@ export const data = {
 
 const PieChart = () => {
   return (
-    <div className="p-4">
+    <div className="">
       <Card className={''}>
-        <Pie data={data} className={'w-[23.5vw] h-[22vh]'} />
+        <Pie data={data} className={'w-[80vw] md:w-[23.5vw]'} />
       </Card>
     </div>
   );

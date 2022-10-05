@@ -36,7 +36,8 @@ const Orders = () => {
   return (
     <div>
       <Page
-        option={
+        name='Orders'
+        options={
           <select
             id="status"
             className="pr-1 bg-dimmed-black w-fit h-fit cursor-pointer text-white  !outline-none font-semibold"

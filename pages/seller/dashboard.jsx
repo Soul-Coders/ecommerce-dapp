@@ -49,6 +49,7 @@ const Dashboard = () => {
   return (
     <div>
       <Page name={'Dashboard'} parent="seller">
+        {/* Quick Summary */}
         <div>
           <div className="grid gap-5 mb-5 grid-cols-1 md:grid-cols-3">
             <div className="px-3 py-4 flex gap-4 rounded-md bg-dimmed-black items-center">
@@ -99,14 +100,18 @@ const Dashboard = () => {
               </div>
             </div>
           </div>
-          <div className="flex justify-between">
+
+          {/* Charts */}
+          <div className="flex flex-col justify-between md:flex-row">
             <div className="">
               <Sales />
             </div>
-            <div className="flex">
+            <div className="pt-3">
               <PieChart />
             </div>
           </div>
+
+          {/* Latest Orders */}
           <div className="">
             <h1 className="text-base font-bold md:text-xl lg:text-2xl py-4">Latest Orders</h1>
             <div className="flex flex-col">

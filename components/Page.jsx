@@ -4,10 +4,7 @@ import Navbar from './Navbar';
 import { useState } from 'react';
 import { useRouter } from 'next/router';
 
-const Page = ({ children, option = '' }) => {
-  const router = useRouter();
-  var name = router.asPath.split('/').slice(2)[0];
-  name = name[0].toUpperCase() + name.slice(1);
+const Page = ({ children, name, options = ''}) => {
   const [collapsed, setCollapsed] = useState(true);
   const changeCollapse = () => {
     setCollapsed(!collapsed);
@@ -27,14 +24,14 @@ const Page = ({ children, option = '' }) => {
         <Navbar onClick={changeCollapse} page={name} />
         <div className="container">
           {!collapsed && (
-            <Sidebar onClick={changeCollapse} collapsed={collapsed} />
+            <Sidebar onClick={changeCollapse} collapsed={collapsed} name={name}/>
           )}
           <div className="mt-16 mb-8">
             <div className="flex justify-between items-center">
               <h1 className="text-xl py-4 font-bold md:text-2xl md:py-6 lg:pt-8 lg:text-3xl">
                 {name}
               </h1>
-              {option}
+              {options}
             </div>
             {children}
           </div>
