@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@headlessui/react": "^1.7.3",
     "@heroicons/react": "^2.0.10",
     "chart.js": "^3.9.1",
     "deploy": "^1.0.3",
