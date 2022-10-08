@@ -23,7 +23,7 @@ const UserProfile = () => {
         }}
       >
         <img
-          src="/user.png"
+          src={currentAccount.info.imgURL}
           alt="User profile icon"
           className="cursor-pointer rounded"
           width={30}

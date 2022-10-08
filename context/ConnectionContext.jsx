@@ -28,7 +28,7 @@ export const ConnectionProvider = ({ children }) => {
     sellerStatus: false,
     info: {},
   });
-  const [formType, setFormType] = useState();
+  const [formType, setFormType] = useState('Buyer');
 
   const setAccount = async () => {
     try {
@@ -87,6 +87,7 @@ export const ConnectionProvider = ({ children }) => {
   };
 
   const createSeller = async ({
+    imgURL,
     name,
     email,
     phone,
@@ -94,7 +95,7 @@ export const ConnectionProvider = ({ children }) => {
     gender,
     addr,
     city,
-    zip,
+    pinCode,
   }) => {
     try {
       if (!ethereum) {
@@ -107,6 +108,7 @@ export const ConnectionProvider = ({ children }) => {
       const contract = getContract();
       const value = BigNumber.from(9193000000000000n);
       const tx = await contract.addSeller(
+        imgURL,
         name,
         email,
         phone,
@@ -114,7 +116,7 @@ export const ConnectionProvider = ({ children }) => {
         gender,
         addr,
         city,
-        zip,
+        pinCode,
         { value: value }
       );
       await tx.wait();
@@ -127,6 +129,7 @@ export const ConnectionProvider = ({ children }) => {
   };
 
   const createBuyer = async ({
+    imgURL,
     name,
     email,
     phone,
@@ -134,7 +137,7 @@ export const ConnectionProvider = ({ children }) => {
     gender,
     addr,
     city,
-    zip,
+    pinCode,
   }) => {
     try {
       if (!ethereum) {
@@ -146,6 +149,7 @@ export const ConnectionProvider = ({ children }) => {
 
       const contract = getContract();
       const tx = await contract.addBuyer(
+        imgURL,
         name,
         email,
         phone,
@@ -153,7 +157,7 @@ export const ConnectionProvider = ({ children }) => {
         gender,
         addr,
         city,
-        zip
+        pinCode
       );
       await tx.wait();
       console.log('Success');
@@ -171,6 +175,60 @@ export const ConnectionProvider = ({ children }) => {
     }
   }, []);
 
+  const updateAccount = async ({
+    imgURL,
+    name,
+    email,
+    phone,
+    dob,
+    gender,
+    addr,
+    city,
+    pinCode,
+  }) => {
+    console.log(
+      imgURL,
+      name,
+      email,
+      phone,
+      dob,
+      gender,
+      addr,
+      city,
+      pinCode,
+    )
+    const contract = getContract();
+    if (currentAccount.buyerStatus) {
+      const tx = await contract.updateBuyerInfo(
+        imgURL,
+        name,
+        email,
+        phone,
+        dob,
+        gender,
+        addr,
+        city,
+        pinCode,
+      );
+      await tx.wait();
+      alert('Updated Buyer');
+    }
+    if (currentAccount.sellerStatus) {
+      const tx = await contract.updateSellerInfo(
+        imgURL,
+        name,
+        email,
+        phone,
+        dob,
+        gender,
+        addr,
+        city,
+        pinCode,
+      )
+      await tx.wait()
+      alert("Updated Seller")
+    }
+  }
   return (
     <ConnectionContext.Provider
       value={{
@@ -179,7 +237,9 @@ export const ConnectionProvider = ({ children }) => {
         connectBuyer,
         createSeller,
         createBuyer,
+        setFormType,
         formType,
+        updateAccount,
       }}
     >
       {children}

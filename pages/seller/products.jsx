@@ -45,29 +45,32 @@ const Products = () => {
     <div>
       <Page name='Products'
         options={
-          <select
-            id="status"
-            className="pr-1 bg-dimmed-black w-fit h-fit cursor-pointer text-white  !outline-none font-semibold"
-          >
-            <option value="All" defaultChecked>
-              All
-            </option>
-            <option value="Active">Active</option>
-            <option value="NA">Not Available</option>
-          </select>
+          <div className='flex'>
+            <div className="flex justify-end items-center pr-1">
+              <button
+                onClick={() => setIsOpen((prev) => !prev)}
+                className="text-sm px-1 md:text-base bg-blue-800 h-full font-semibold rounded-md flex items-center gap-1"
+              >
+                Add Product
+                <PlusIcon className="h-5 w-5" />
+              </button>
+            </div>
+
+            <select
+              id="status"
+              className="pr-1 bg-dimmed-black w-fit h-fit cursor-pointer text-white  !outline-none font-semibold"
+            >
+              <option value="All" defaultChecked>
+                All
+              </option>
+              <option value="Active">Active</option>
+              <option value="NA">Not Available</option>
+            </select>
+          </div>
         }
       
       >
         <div className="w-full px-3 py-5 mb-7 bg-dimmed-black rounded-md mt-2 md:px-5 xl:p-7">
-          <div className="flex justify-end items-center border-b border-white/10 pb-5 md:pb-7">
-            <button
-              onClick={() => setIsOpen((prev) => !prev)}
-              className="text-sm px-5 sm:px-6 py-3 md:text-base bg-blue-800 font-semibold rounded-md flex items-center gap-3"
-            >
-              Add Product
-              <PlusIcon className="h-5 w-5" />
-            </button>
-          </div>
           <Transition appear show={isOpen} as={Fragment}>
             <Dialog
               as="div"

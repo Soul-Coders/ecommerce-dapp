@@ -10,12 +10,13 @@ contract Shoppingverse {
 
   struct Buyer {
     address walletAddress;
+    string imgURL;
     string name;
     string email;
     string phone;
-    string age;
+    string dob;
     string gender;
-    string streetAddress;
+    string addr;
     string city;
     string pinCode;
     bool valid;
@@ -23,12 +24,13 @@ contract Shoppingverse {
 
   struct Seller {
     address walletAddress;
+    string imgURL;
     string name;
     string email;
     string phone;
-    string age;
+    string dob;
     string gender;
-    string streetAddress;
+    string addr;
     string city;
     string pinCode;
     bool valid;
@@ -39,12 +41,13 @@ contract Shoppingverse {
   mapping(address => Buyer) public buyers;
 
   function addSeller(
+    string memory _imgURL,
     string memory _name,
     string memory _email,
     string memory _phone,
-    string memory _age,
+    string memory _dob,
     string memory _gender,
-    string memory _streetAddress,
+    string memory _addr,
     string memory _city,
     string memory _pinCode
   ) public payable {
@@ -56,12 +59,13 @@ contract Shoppingverse {
     owner.transfer(msg.value);
     sellers[msg.sender] = Seller(
       msg.sender,
+      _imgURL,
       _name,
       _email,
       _phone,
-      _age,
+      _dob,
       _gender,
-      _streetAddress,
+      _addr,
       _city,
       _pinCode,
       true,
@@ -70,24 +74,26 @@ contract Shoppingverse {
   }
 
   function addBuyer(
+    string memory _imgURL,
     string memory _name,
     string memory _email,
     string memory _phone,
-    string memory _age,
+    string memory _dob,
     string memory _gender,
-    string memory _streetAddress,
+    string memory _addr,
     string memory _city,
     string memory _pinCode
   ) public {
     require(!buyers[msg.sender].valid, 'You are already registered as Buyer');
     buyers[msg.sender] = Buyer(
       msg.sender,
+      _imgURL,
       _name,
       _email,
       _phone,
-      _age,
+      _dob,
       _gender,
-      _streetAddress,
+      _addr,
       _city,
       _pinCode,
       true
@@ -110,5 +116,48 @@ contract Shoppingverse {
 
   function getSellerInfo() public view returns (Seller memory) {
     return sellers[msg.sender];
+  }
+
+  function updateBuyerInfo (
+    string memory _imgURL,
+    string memory _name,
+    string memory _email,
+    string memory _phone,
+    string memory _dob,
+    string memory _gender,
+    string memory _addr,
+    string memory _city,
+    string memory _pinCode) public {
+    buyers[msg.sender].imgURL = _imgURL;
+    buyers[msg.sender].name = _name;
+    buyers[msg.sender].email = _email;
+    buyers[msg.sender].phone = _phone;
+    buyers[msg.sender].dob = _dob;
+    buyers[msg.sender].gender = _gender;
+    buyers[msg.sender].addr = _addr;
+    buyers[msg.sender].city = _city;
+    buyers[msg.sender].pinCode = _pinCode;
+  }
+
+  function updateSellerInfo(
+    string memory _imgURL,
+    string memory _name,
+    string memory _email,
+    string memory _phone,
+    string memory _dob,
+    string memory _gender,
+    string memory _addr,
+    string memory _city,
+    string memory _pinCode
+  ) public {
+    sellers[msg.sender].imgURL = _imgURL;
+    sellers[msg.sender].name = _name;
+    sellers[msg.sender].email = _email;
+    sellers[msg.sender].phone = _phone;
+    sellers[msg.sender].dob = _dob;
+    sellers[msg.sender].gender = _gender;
+    sellers[msg.sender].addr = _addr;
+    sellers[msg.sender].city = _city;
+    sellers[msg.sender].pinCode = _pinCode;
   }
 }
