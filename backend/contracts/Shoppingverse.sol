@@ -8,7 +8,8 @@ contract Shoppingverse {
     owner = payable(msg.sender);
   }
 
-  struct Buyer {
+  //Structs
+  struct User {
     address walletAddress;
     string imgURL;
     string name;
@@ -22,23 +23,22 @@ contract Shoppingverse {
     bool valid;
   }
 
-  struct Seller {
-    address walletAddress;
-    string imgURL;
-    string name;
-    string email;
-    string phone;
-    string dob;
-    string gender;
-    string addr;
-    string city;
-    string pinCode;
-    bool valid;
-    bool isPaid;
+  struct Product {
+    string productName;
+    string productDescription;
+    string productPriceInr;
+    uint256 productPriceEth;
+    address payable seller;
+    string productStatus;
   }
 
-  mapping(address => Seller) public sellers;
-  mapping(address => Buyer) public buyers;
+  //Mappings
+  mapping(address => User) public sellers;
+  mapping(address => User) public buyers;
+  mapping(address => Product[]) public sellerProducts;
+
+  //Arrays
+  Product[] public allProducts;
 
   function addSeller(
     string memory _imgURL,
@@ -50,14 +50,14 @@ contract Shoppingverse {
     string memory _addr,
     string memory _city,
     string memory _pinCode
-  ) public payable {
+  ) external payable {
     require(!sellers[msg.sender].valid, 'You are already registered as Seller');
     require(
       msg.value == 0.009193 ether,
       'You dont have enough amount in your wallet'
     );
     owner.transfer(msg.value);
-    sellers[msg.sender] = Seller(
+    sellers[msg.sender] = User(
       msg.sender,
       _imgURL,
       _name,
@@ -68,7 +68,6 @@ contract Shoppingverse {
       _addr,
       _city,
       _pinCode,
-      true,
       true
     );
   }
@@ -83,9 +82,9 @@ contract Shoppingverse {
     string memory _addr,
     string memory _city,
     string memory _pinCode
-  ) public {
+  ) external {
     require(!buyers[msg.sender].valid, 'You are already registered as Buyer');
-    buyers[msg.sender] = Buyer(
+    buyers[msg.sender] = User(
       msg.sender,
       _imgURL,
       _name,
@@ -100,25 +99,45 @@ contract Shoppingverse {
     );
   }
 
-  function isSeller() public view returns (bool) {
+  function addProduct(
+    string memory _productName,
+    string memory _productDescription,
+    string memory _productPriceInr,
+    uint256 _productPriceEth,
+    string memory _productStatus
+  ) external {
+    require(sellers[msg.sender].valid, 'You are not authorized to add product');
+    Product memory product = Product(
+      _productName,
+      _productDescription,
+      _productPriceInr,
+      _productPriceEth,
+      payable(msg.sender),
+      _productStatus
+    );
+    allProducts.push(product);
+    sellerProducts[msg.sender].push(product);
+  }
+
+  function isSeller() external view returns (bool) {
     bool ans = sellers[msg.sender].valid;
     return ans;
   }
 
-  function isBuyer() public view returns (bool) {
+  function isBuyer() external view returns (bool) {
     bool ans = buyers[msg.sender].valid;
     return ans;
   }
 
-  function getBuyerInfo() public view returns (Buyer memory) {
+  function getBuyerInfo() external view returns (User memory) {
     return buyers[msg.sender];
   }
 
-  function getSellerInfo() public view returns (Seller memory) {
+  function getSellerInfo() external view returns (User memory) {
     return sellers[msg.sender];
   }
 
-  function updateBuyerInfo (
+  function updateBuyerInfo(
     string memory _imgURL,
     string memory _name,
     string memory _email,
@@ -127,7 +146,8 @@ contract Shoppingverse {
     string memory _gender,
     string memory _addr,
     string memory _city,
-    string memory _pinCode) public {
+    string memory _pinCode
+  ) external {
     buyers[msg.sender].imgURL = _imgURL;
     buyers[msg.sender].name = _name;
     buyers[msg.sender].email = _email;
@@ -149,7 +169,7 @@ contract Shoppingverse {
     string memory _addr,
     string memory _city,
     string memory _pinCode
-  ) public {
+  ) external {
     sellers[msg.sender].imgURL = _imgURL;
     sellers[msg.sender].name = _name;
     sellers[msg.sender].email = _email;
@@ -159,5 +179,13 @@ contract Shoppingverse {
     sellers[msg.sender].addr = _addr;
     sellers[msg.sender].city = _city;
     sellers[msg.sender].pinCode = _pinCode;
+  }
+
+  function getAllProducts() external view returns (Product[] memory) {
+    return allProducts;
+  }
+
+  function getSellerProducts() external view returns (Product[] memory) {
+    return sellerProducts[msg.sender];
   }
 }

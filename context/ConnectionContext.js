@@ -230,6 +230,7 @@ export const ConnectionProvider = ({ children }) => {
         setFormType,
         formType,
         updateAccount,
+        getContract,
       }}
     >
       {children}

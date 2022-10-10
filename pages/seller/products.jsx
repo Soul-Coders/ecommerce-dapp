@@ -2,11 +2,24 @@ import Page from '../../components/Page';
 import { PlusIcon } from '@heroicons/react/20/solid';
 import { ProductCard } from '../../components/products/ProductCard';
 import { Dialog, Transition } from '@headlessui/react';
-import { Fragment, useState } from 'react';
+import { Fragment, useContext, useEffect, useState } from 'react';
 import { ProductForm } from '../../components/products/ProductForm';
+import { ConnectionContext } from '../../context/ConnectionContext';
 
 const Products = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [sellerProducts, setSellerProducts] = useState([]);
+  const { getContract } = useContext(ConnectionContext);
+
+  const fetchSellerProducts = async () => {
+    const contract = getContract();
+    const products = await contract.getSellerProducts();
+    setSellerProducts(products);
+  };
+
+  useEffect(() => {
+    fetchSellerProducts();
+  }, [sellerProducts]);
 
   const products = [
     {
@@ -46,20 +59,17 @@ const Products = () => {
       <Page
         name="Products"
         options={
-          <div className="flex">
-            <div className="flex justify-end items-center pr-1">
-              <button
-                onClick={() => setIsOpen((prev) => !prev)}
-                className="text-sm px-1 md:text-base bg-blue-800 h-full font-semibold rounded-md flex items-center gap-1"
-              >
-                Add Product
-                <PlusIcon className="h-5 w-5" />
-              </button>
-            </div>
-
+          <div className="flex w-fit gap-5 items-center">
+            <button
+              onClick={() => setIsOpen((prev) => !prev)}
+              className="text-sm px-5 sm:px-6 py-3 md:text-base bg-blue-800 font-semibold rounded-md flex items-center gap-3"
+            >
+              Add Product
+              <PlusIcon className="h-5 w-5" />
+            </button>
             <select
               id="status"
-              className="pr-1 bg-dimmed-black w-fit h-fit cursor-pointer text-white  !outline-none font-semibold"
+              className="bg-dimmed-black w-32 md:w-40 text-sm py-3 md:text-base cursor-pointer text-white !outline-none font-semibold"
             >
               <option value="All" defaultChecked>
                 All
@@ -101,17 +111,35 @@ const Products = () => {
                     leaveTo="opacity-0 scale-95"
                   >
                     <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-dimmed-black p-6 text-left align-middle shadow-xl transition-all">
-                      <ProductForm setIsOpen={setIsOpen} />
+                      <ProductForm
+                        setIsOpen={setIsOpen}
+                        fetchSellerProducts={fetchSellerProducts}
+                      />
                     </Dialog.Panel>
                   </Transition.Child>
                 </div>
               </div>
             </Dialog>
           </Transition>
-          <div className="mt-4 grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-6 lg:grid-cols-3 xl:grid-cols-4">
+          <div className="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-6 lg:grid-cols-3 xl:grid-cols-4">
             {products.map(({ img, name, price }) => (
               <ProductCard key={img} img={img} name={name} price={price} />
             ))}
+            {sellerProducts.map(
+              ({
+                productName,
+                productDescription,
+                productPriceInr,
+                productPriceEth,
+              }) => (
+                <ProductCard
+                  key={productName}
+                  img={'https://placehold.jp/150x150.png?text=Product'}
+                  name={productName}
+                  price={productPriceInr}
+                />
+              )
+            )}
           </div>
         </div>
       </Page>
