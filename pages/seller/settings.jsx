@@ -7,10 +7,10 @@ import { ConnectionContext } from '../../context/ConnectionContext';
 
 const Settings = () => {
   const { currentAccount, updateAccount } = useContext(ConnectionContext);
-  var info = {...currentAccount.info}
+  var info = { ...currentAccount.info };
   const onChange = (e) => {
-    info[e.target.id] = e.target.value
-  }
+    info[e.target.id] = e.target.value;
+  };
   const setProfileImage = (e) => {
     const file = e.target.files[0];
     const rfile = new File([file], 'user.png');
@@ -26,10 +26,11 @@ const Settings = () => {
       addr: info.addr,
       city: info.city,
       pinCode: info.pinCode,
-    })
-  }
+    });
+  };
   return (
-    <Page name='Settings'
+    <Page
+      name="Settings"
       option={
         <div className="">
           <button
@@ -43,12 +44,12 @@ const Settings = () => {
     >
       <div className="bg-dimmed-black rounded-md p-3 flex flex-col ">
         <div className="flex items-center md:items-start flex-col-reverse md:flex-row justify-evenly">
-          <Form isUpdate={true} onChange={onChange}/>
+          <Form isUpdate={true} onChange={onChange} />
           <Card className={'mt-4 h-full'}>
             <div className="flex flex-col items-center p-4">
               <img
                 src={currentAccount.info.imgURL}
-                alt="User icon"
+                alt="User profile picture"
                 height={200}
                 width={200}
                 className="pb-4"
@@ -70,9 +71,9 @@ const Settings = () => {
           </Card>
         </div>
         <div className="flex justify-center items-center">
-          <button 
+          <button
             className="flex w-full md:w-fit h-10 justify-center items-center font-semibold px-9 bg-gradient-to-r from-brand-red to-brand-purple rounded-md"
-            onClick={onSave}  
+            onClick={onSave}
           >
             Save Changes
           </button>

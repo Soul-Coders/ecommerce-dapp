@@ -11,7 +11,7 @@ import {
 import { useContext } from 'react';
 import { ConnectionContext } from '../../context/ConnectionContext';
 
-const Form = ({isUpdate = false, onChange = () => {}}) => {
+const Form = ({ isUpdate = false, onChange = () => {} }) => {
   const { createSeller, createBuyer, formType, currentAccount } =
     useContext(ConnectionContext);
   const handleSubmit = async (event) => {
@@ -38,7 +38,11 @@ const Form = ({isUpdate = false, onChange = () => {}}) => {
   };
 
   return (
-    <form onSubmit={handleSubmit} onChange={onChange} className="mt-4 text-[#AEB6CA]">
+    <form
+      onSubmit={handleSubmit}
+      onChange={onChange}
+      className="mt-4 text-[#AEB6CA]"
+    >
       {/* Name field */}
       <div className="py-2 flex flex-col gap-2">
         <div className="flex gap-1 text-sm">
@@ -62,7 +66,9 @@ const Form = ({isUpdate = false, onChange = () => {}}) => {
         <input
           type="email"
           id="email"
-          defaultValue={currentAccount.info.email || 'alex.hopkins@alexhopkins.com'}
+          defaultValue={
+            currentAccount.info.email || 'alex.hopkins@alexhopkins.com'
+          }
           required
         />
       </div>
@@ -124,7 +130,12 @@ const Form = ({isUpdate = false, onChange = () => {}}) => {
           <MapPinIcon className="h-5 w-5" />
           <label htmlFor="address">Address</label>
         </div>
-        <input type="text" id="addr" defaultValue={currentAccount.info.addr || "NY"} required />
+        <input
+          type="text"
+          id="addr"
+          defaultValue={currentAccount.info.addr || 'NY'}
+          required
+        />
       </div>
 
       {/* City and pinCode code */}
@@ -160,25 +171,26 @@ const Form = ({isUpdate = false, onChange = () => {}}) => {
         </div>
       </div>
 
-      {!isUpdate && <div className="flex flex-col gap-4 mt-6 mb-2 md:gap-5 text-white font-medium">
-        {formType === 'Buyer' && (
-          <button
-            type="submit"
-            className="bg-gradient-to-r from-brand-red to-brand-purple rounded-md py-2.5 text-sm lg:text-base"
-          >
-            Signup as Buyer
-          </button>
-        )}
-        {formType === 'Seller' && (
-          <button
-            type="submit"
-            className="bg-gradient-to-r from-brand-red to-brand-purple rounded-md py-2.5 text-sm lg:text-base"
-          >
-            Signup as Seller
-          </button>
-        )}
-      </div>
-      }
+      {!isUpdate && (
+        <div className="flex flex-col gap-4 mt-6 mb-2 md:gap-5 text-white font-medium">
+          {formType === 'Buyer' && (
+            <button
+              type="submit"
+              className="bg-gradient-to-r from-brand-red to-brand-purple rounded-md py-2.5 text-sm lg:text-base"
+            >
+              Signup as Buyer
+            </button>
+          )}
+          {formType === 'Seller' && (
+            <button
+              type="submit"
+              className="bg-gradient-to-r from-brand-red to-brand-purple rounded-md py-2.5 text-sm lg:text-base"
+            >
+              Signup as Seller
+            </button>
+          )}
+        </div>
+      )}
     </form>
   );
 };

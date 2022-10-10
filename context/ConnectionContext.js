@@ -186,17 +186,7 @@ export const ConnectionProvider = ({ children }) => {
     city,
     pinCode,
   }) => {
-    console.log(
-      imgURL,
-      name,
-      email,
-      phone,
-      dob,
-      gender,
-      addr,
-      city,
-      pinCode,
-    )
+    console.log(imgURL, name, email, phone, dob, gender, addr, city, pinCode);
     const contract = getContract();
     if (currentAccount.buyerStatus) {
       const tx = await contract.updateBuyerInfo(
@@ -208,10 +198,10 @@ export const ConnectionProvider = ({ children }) => {
         gender,
         addr,
         city,
-        pinCode,
+        pinCode
       );
       await tx.wait();
-      alert('Updated Buyer');
+      alert('Updated Buyer; You have to refresh to reflect the changes.');
     }
     if (currentAccount.sellerStatus) {
       const tx = await contract.updateSellerInfo(
@@ -223,12 +213,12 @@ export const ConnectionProvider = ({ children }) => {
         gender,
         addr,
         city,
-        pinCode,
-      )
-      await tx.wait()
-      alert("Updated Seller")
+        pinCode
+      );
+      await tx.wait();
+      alert('Updated Seller; You have to refresh to reflect the changes.');
     }
-  }
+  };
   return (
     <ConnectionContext.Provider
       value={{

@@ -43,9 +43,10 @@ const Products = () => {
 
   return (
     <div>
-      <Page name='Products'
+      <Page
+        name="Products"
         options={
-          <div className='flex'>
+          <div className="flex">
             <div className="flex justify-end items-center pr-1">
               <button
                 onClick={() => setIsOpen((prev) => !prev)}
@@ -68,7 +69,6 @@ const Products = () => {
             </select>
           </div>
         }
-      
       >
         <div className="w-full px-3 py-5 mb-7 bg-dimmed-black rounded-md mt-2 md:px-5 xl:p-7">
           <Transition appear show={isOpen} as={Fragment}>

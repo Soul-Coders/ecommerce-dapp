@@ -113,7 +113,9 @@ const Dashboard = () => {
 
           {/* Latest Orders */}
           <div className="">
-            <h1 className="text-base font-bold md:text-xl lg:text-2xl py-4">Latest Orders</h1>
+            <h1 className="text-base font-bold md:text-xl lg:text-2xl py-4">
+              Latest Orders
+            </h1>
             <div className="flex flex-col">
               <List colnames={[]}>
                 {latest.map(({ id, mail, total, status, date, action }) => (

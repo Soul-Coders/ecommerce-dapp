@@ -1,19 +1,23 @@
 import React from 'react';
 
-import { useState, useContext, useEffect } from 'react';
+import { useState, useContext, useEffect, useRef } from 'react';
 import { ConnectionContext } from '../../context/ConnectionContext';
 
 import { ClipboardDocumentCheckIcon } from '@heroicons/react/20/solid';
 
 const UserProfile = () => {
   const [invisible, setInvisible] = useState(true);
+  const ref = useRef(null);
   const { currentAccount } = useContext(ConnectionContext);
 
   useEffect(() => {
-    const hideProfile = () => setInvisible(invisible ? invisible : !invisible)
-    window.addEventListener("mousedown", hideProfile)
-    return () => window.removeEventListener('mousedown', hideProfile)
-  }, [])
+    const hideProfile = (e) =>
+      ref.current &&
+      !ref.current.contains(e.target) &&
+      setInvisible(invisible ? invisible : !invisible);
+    window.addEventListener('mousedown', hideProfile);
+    return () => window.removeEventListener('mousedown', hideProfile);
+  }, []);
 
   return (
     <div>
@@ -24,7 +28,7 @@ const UserProfile = () => {
       >
         <img
           src={currentAccount.info.imgURL}
-          alt="User profile icon"
+          alt="User profile picture"
           className="cursor-pointer rounded"
           width={30}
           height={30}
@@ -57,15 +61,15 @@ const DropdownMenu = ({ invisible, info, address, user }) => {
     >
       <div className="p-3 flex justify-evenly items-center">
         <img
-          src="/user.png"
-          alt="User profile icon"
+          src={info.imgURL}
+          alt="User profile picture"
           className="cursor-pointer rounded"
           width={60}
           height={60}
         />
-        <div className="p-3">
-          <h1 className="font-extrabold">{info.name || 'Unknown'}</h1>
-          <p className="font-semibold">{info.email || 'Unknown'}</p>
+        <div className="p-3 w-full">
+          <h1 className="font-extrabold">{info.name || 'Unknown name'}</h1>
+          <p className="font-semibold">{info.email || 'Unknown email'}</p>
         </div>
       </div>
       <div className="w-full border border-white/20"></div>

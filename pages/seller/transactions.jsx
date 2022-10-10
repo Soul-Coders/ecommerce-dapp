@@ -36,7 +36,7 @@ const Transactions = () => {
 
   return (
     <div>
-      <Page name='Transactions'>
+      <Page name="Transactions">
         <div className="w-full px-3 py-5 mb-7 bg-dimmed-black rounded-md mt-2 md:px-5 xl:p-7">
           <div className="border-b border-white/10 pb-5 md:pb-7">
             <input type="text" placeholder="Search" />

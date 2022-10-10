@@ -36,7 +36,7 @@ const Orders = () => {
   return (
     <div>
       <Page
-        name='Orders'
+        name="Orders"
         options={
           <select
             id="status"

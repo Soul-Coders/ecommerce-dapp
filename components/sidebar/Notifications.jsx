@@ -1,14 +1,18 @@
 import { BellIcon } from '@heroicons/react/20/solid';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 
 const Notifications = () => {
   const [invisible, setInvisible] = useState(true);
+  const ref = useRef(null);
   useEffect(() => {
-    const hideNotifications = () => setInvisible(invisible ? invisible : !invisible)
-    window.addEventListener("mousedown", hideNotifications)
-    return () => window.removeEventListener('mousedown', hideNotifications)
-  }, [])
+    const hideNotifications = (e) =>
+      ref.current &&
+      !ref.current.contains(e.target) &&
+      setInvisible(invisible ? invisible : !invisible);
+    window.addEventListener('mousedown', hideNotifications);
+    return () => window.removeEventListener('mousedown', hideNotifications);
+  }, []);
   const notifications = [
     'PID is arriving tomorrow',
     'PID is on a discounted rate',

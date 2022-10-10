@@ -9,11 +9,10 @@ const List = ({ colnames, children, align, className }) => {
         ))}
       </div>
       {children.map(({ props }, i) => (
-        <div key={i} className=''>
+        <div key={i} className="">
           <Row
             className={
-              'flex gap-4 flex-wrap justify-between md:gap-0 md:' +
-              align
+              'flex gap-4 flex-wrap justify-between md:gap-0 md:' + align
             }
           >
             {props.children}
@@ -32,7 +31,11 @@ const Row = ({ children, className, key }) => {
         className + '  items-center mt-4  bg-[#252525]/70 p-4 rounded-md lg:p-4'
       }
     >
-      {children.map((child, i) => <div key={i} className="basis-1/3 md:basis-0">{child}</div>)}
+      {children.map((child, i) => (
+        <div key={i} className="basis-1/3 md:basis-0">
+          {child}
+        </div>
+      ))}
     </div>
   );
 };
