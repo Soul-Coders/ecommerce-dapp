@@ -4,6 +4,13 @@ import { useContext } from 'react';
 import { ConnectionContext } from '../../context/ConnectionContext';
 import { convertEthToInr } from '../../utils/convertEthToInr';
 
+import { Web3Storage } from 'web3.storage';
+
+// Construct with token and endpoint
+const client = new Web3Storage({
+  token: process.env.NEXT_PUBLIC_WEB3_STORAGE_API_TOKEN,
+});
+
 export const ProductForm = ({ setIsOpen, fetchSellerProducts }) => {
   const { getContract } = useContext(ConnectionContext);
 
@@ -14,6 +21,15 @@ export const ProductForm = ({ setIsOpen, fetchSellerProducts }) => {
       const productName = event.target.title.value;
       const productDescription = event.target.description.value;
       const productImage = event.target.image.files[0];
+      const fileName = productImage.name;
+      const newFile = new File([productImage], fileName, {
+        type: productImage.type,
+      });
+      const rootCid = await client.put([newFile], {
+        name: fileName,
+      });
+      console.log(rootCid);
+      const imageURI = `https://${rootCid}.ipfs.dweb.link/${fileName}`;
       const productPriceInr = event.target.price.value;
       const productPriceEth = parseEther(
         (parseFloat(productPriceInr) / inrRate).toString()
