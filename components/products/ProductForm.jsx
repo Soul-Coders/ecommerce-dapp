@@ -3,10 +3,8 @@ import { parseEther } from 'ethers/lib/utils';
 import { useContext } from 'react';
 import { ConnectionContext } from '../../context/ConnectionContext';
 import { convertEthToInr } from '../../utils/convertEthToInr';
-
 import { Web3Storage } from 'web3.storage';
 
-// Construct with token and endpoint
 const client = new Web3Storage({
   token: process.env.NEXT_PUBLIC_WEB3_STORAGE_API_TOKEN,
 });
@@ -28,7 +26,6 @@ export const ProductForm = ({ setIsOpen, fetchSellerProducts }) => {
       const rootCid = await client.put([newFile], {
         name: fileName,
       });
-      console.log(rootCid);
       const imageURI = `https://${rootCid}.ipfs.dweb.link/${fileName}`;
       const productPriceInr = event.target.price.value;
       const productPriceEth = parseEther(
@@ -39,6 +36,7 @@ export const ProductForm = ({ setIsOpen, fetchSellerProducts }) => {
       const tx = await contract.addProduct(
         productName,
         productDescription,
+        imageURI,
         productPriceInr,
         productPriceEth,
         'Active'

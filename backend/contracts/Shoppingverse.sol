@@ -26,6 +26,7 @@ contract Shoppingverse {
   struct Product {
     string productName;
     string productDescription;
+    string productImage;
     string productPriceInr;
     uint256 productPriceEth;
     address payable seller;
@@ -102,6 +103,7 @@ contract Shoppingverse {
   function addProduct(
     string memory _productName,
     string memory _productDescription,
+    string memory _productImage,
     string memory _productPriceInr,
     uint256 _productPriceEth,
     string memory _productStatus
@@ -110,6 +112,7 @@ contract Shoppingverse {
     Product memory product = Product(
       _productName,
       _productDescription,
+      _productImage,
       _productPriceInr,
       _productPriceEth,
       payable(msg.sender),
