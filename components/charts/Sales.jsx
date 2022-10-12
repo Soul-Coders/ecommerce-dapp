@@ -67,7 +67,7 @@ const options = {
   plugins: {
     legend: {
       position: 'top',
-      align: 'start',
+      align: 'center',
       labels: {
         boxWidth: 7,
         usePointStyle: true,
@@ -102,7 +102,7 @@ const options = {
 const Sales = () => {
   return (
     <div className="">
-      <Card className="w-[88vw] md:w-[47.5vw] lg:w-[54.5vw]">
+      <Card className="w-[85vw] md:w-[47.5vw] lg:w-[50vw] xl:w-[55vw]">
         <Bar
           data={data}
           className={'w-full'}

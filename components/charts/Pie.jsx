@@ -32,11 +32,38 @@ export const data = {
   ],
 };
 
+const options = {
+  plugins: {
+    legend: {
+      position: 'top',
+      align: 'center',
+      labels: {
+        boxWidth: 7,
+        usePointStyle: true,
+        pointStyle: 'circle',
+      },
+      scales: {
+        xAxis: {
+          display: false,
+        },
+        yAxis: {
+          max: 1,
+        },
+      },
+    },
+  },
+};
+
 const PieChart = () => {
   return (
     <div className="">
-      <Card className={''}>
-        <Pie data={data} className={'w-[80vw] md:w-[23.5vw]'} />
+      <Card className={'w-[85vw] md:w-[25.75vw] lg:w-[26.8vw] xl:w-[29vw]'}>
+        <Pie
+          data={data}
+          width={'w-fit'}
+          className={'w-[80vw] md:w-[23.5vw]'}
+          options={options}
+        />
       </Card>
     </div>
   );

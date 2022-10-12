@@ -106,7 +106,7 @@ const Dashboard = () => {
             <div className="">
               <Sales />
             </div>
-            <div className="pt-3">
+            <div className="pt-3 md:pt-0">
               <PieChart />
             </div>
           </div>
