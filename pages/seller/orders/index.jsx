@@ -1,37 +1,9 @@
 import Page from '../../../components/Page';
 import Label from '../../../components/Label';
 import List from '../../../components/List';
+import orders from './orders';
 
 const Orders = () => {
-  const orders = [
-    {
-      id: '2342',
-      name: 'Jensen Huang',
-      email: 'jensen.huang@gmail.com',
-      total: '₹ 200',
-      status: 'done',
-      date: '29 Aug 2022',
-      action: { name: 'View' },
-    },
-    {
-      id: '2340',
-      name: 'Alex Grim',
-      email: 'alex.grim@gmail.com',
-      total: '₹ 240',
-      status: 'cancelled',
-      date: '29 Aug 2022',
-      action: { name: 'View' },
-    },
-    {
-      id: '1410',
-      name: 'Saud Kadiri',
-      email: 'saud.kadiri@gmail.com',
-      total: '₹ 240',
-      status: 'pending',
-      date: '20 Jan 2019',
-      action: { name: 'View' },
-    },
-  ];
   const colnames = ['ID', 'Name', 'Email', 'Total', 'Status', 'Date', 'Action'];
   return (
     <div>
