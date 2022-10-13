@@ -1,6 +1,6 @@
-import Page from '../../components/Page';
-import Label from '../../components/Label';
-import List from '../../components/List';
+import Page from '../../../components/Page';
+import Label from '../../../components/Label';
+import List from '../../../components/List';
 
 const Orders = () => {
   const orders = [
