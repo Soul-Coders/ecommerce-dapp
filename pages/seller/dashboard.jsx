@@ -50,7 +50,7 @@ const Dashboard = () => {
 
   return (
     <div>
-      <Page name={'Dashboard'} parent="seller">
+      <Page name={'Dashboard'}>
         {/* Quick Summary */}
         <div>
           <div className="grid gap-5 mb-5 grid-cols-1 md:grid-cols-3">

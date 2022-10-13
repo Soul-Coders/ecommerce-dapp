@@ -4,8 +4,10 @@ const OrderDetails = () => {
   const router = useRouter()
   const id = router.query.orderId
   return (
-    <Page name={`Order Details`} parent="seller">
-
+    <Page name={`Order Details`}>
+        <div className="bg-dimmed-black rounded-md p-3 flex flex-col ">
+            {id}
+        </div>
     </Page>
   )
 }

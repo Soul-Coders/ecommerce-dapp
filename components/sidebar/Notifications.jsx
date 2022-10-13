@@ -49,7 +49,7 @@ const DropdownMenu = ({ invisible, notifications }) => {
     <div
       className={`${
         invisible && 'hidden'
-      } px-5 py-1 absolute bg-dimmed-black/80 rounded-md backdrop-blur-sm w-full`}
+      } px-5 py-1 absolute mt-7 bg-dimmed-black/80 rounded-md backdrop-blur-sm w-full`}
     >
       <ul>
         {notifications.map((notification, i) => (
