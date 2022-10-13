@@ -56,26 +56,26 @@ const data = {
 };
 
 const options = {
-    plugins: {
-      legend: {
-        position: 'top',
-        align: 'center',
-        labels: {
-          boxWidth: 7,
-          usePointStyle: true,
-          pointStyle: 'circle',
-        },      
-        scales: {
-          xAxis: {
-            display: false,
-          },
-          yAxis: {
-            max: 1,
-          },
+  plugins: {
+    legend: {
+      position: 'top',
+      align: 'center',
+      labels: {
+        boxWidth: 7,
+        usePointStyle: true,
+        pointStyle: 'circle',
+      },
+      scales: {
+        xAxis: {
+          display: false,
+        },
+        yAxis: {
+          max: 1,
         },
       },
     },
-  };
+  },
+};
 
 const LineChart = () => {
   return (

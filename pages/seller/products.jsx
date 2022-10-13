@@ -126,11 +126,7 @@ const Products = () => {
               <ProductCard key={img} img={img} name={name} price={price} />
             ))}
             {sellerProducts.map(
-              ({
-                productName,
-                productImage,
-                productPriceInr,
-              }) => (
+              ({ productName, productImage, productPriceInr }) => (
                 <ProductCard
                   key={productName}
                   img={productImage}

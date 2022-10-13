@@ -4,6 +4,8 @@ import List from '../../components/List';
 import Label from '../../components/Label';
 import Sales from '../../components/charts/Sales';
 import PieChart from '../../components/charts/Pie';
+import Stat from '../../components/Stat';
+
 const Dashboard = () => {
   const latest = [
     {
@@ -52,53 +54,33 @@ const Dashboard = () => {
         {/* Quick Summary */}
         <div>
           <div className="grid gap-5 mb-5 grid-cols-1 md:grid-cols-3">
-            <div className="px-3 py-4 flex gap-4 rounded-md bg-dimmed-black items-center">
-              <div className="p-4 flex justify-center bg-[#FF8500]/10 rounded-full w-fit h-fit">
-                <img
-                  src="/rupee.svg"
-                  alt="dollar"
-                  className="text-orange-600 w-6 lg:w-7"
-                />
-              </div>
-              <div className="flex lg:gap-2 flex-col justify-center text-bold text-md md:text-sm lg:text-md">
-                <h1 className="text-sm text-white/50 lg:text-base">
-                  Total Sales
-                </h1>
-                <h1 className="font-semibold md:text-lg lg:text-2xl">
-                  $19,616,051.20
-                </h1>
-              </div>
-            </div>
-            <div className="px-3 py-4 flex gap-4 rounded-md bg-dimmed-black items-center">
-              <div className="p-4 flex justify-center bg-[#00B517]/10 rounded-full w-fit h-fit">
-                <img
-                  src="/cart.svg"
-                  alt="cart"
-                  className="text-orange-600 w-6 lg:w-7"
-                />
-              </div>
-              <div className="flex lg:gap-2 flex-col justify-center text-bold text-md md:text-sm lg:text-md">
-                <h1 className="text-sm text-white/50 lg:text-base">
-                  Total Orders
-                </h1>
-                <h1 className="md:text-lg font-semibold lg:text-2xl">3290</h1>
-              </div>
-            </div>
-            <div className="px-3 py-4 flex gap-4 rounded-md bg-dimmed-black items-center">
-              <div className="p-4 flex justify-center bg-[#3167EB]/10 rounded-full w-fit h-fit">
-                <img
-                  src="/basket.svg"
-                  alt="basket"
-                  className="text-orange-600 w-6 lg:w-7"
-                />
-              </div>
-              <div className="flex lg:gap-2 flex-col justify-center text-bold text-md md:text-sm lg:text-md">
-                <h1 className="text-sm text-white/50 lg:text-base">
-                  Total Products
-                </h1>
-                <h1 className="md:text-lg font-semibold lg:text-2xl">332</h1>
-              </div>
-            </div>
+            <Stat
+              title={'Total Sales'}
+              imagePath={'/rupee.svg'}
+              value={''}
+              bgColor={'bg-[#FF8500]/10'}
+            >
+              <h1 className="font-semibold md:text-lg lg:text-2xl">
+                $19,616,051.20
+              </h1>
+            </Stat>
+
+            <Stat
+              title={'Total Orders'}
+              imagePath={'/cart.svg'}
+              value={'3290'}
+              bgColor={'bg-[#00B517]/10'}
+            >
+              <h1 className="font-semibold md:text-lg lg:text-2xl">3290</h1>
+            </Stat>
+
+            <Stat
+              title={'Total Products'}
+              imagePath={'/basket.svg'}
+              bgColor={'bg-[#3167EB]/10'}
+            >
+              <h1 className="font-semibold md:text-lg lg:text-2xl">332</h1>
+            </Stat>
           </div>
 
           {/* Charts */}
