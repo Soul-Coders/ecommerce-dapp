@@ -1,4 +1,15 @@
-function Label({ status }) {
+import { useRouter } from 'next/router';
+import { useEffect, useState } from 'react';
+const Label = ({ status }) => {
+  const router = useRouter();
+  const [currStatus, setCurrStatus] = useState('pending');
+
+  useEffect(() => {
+    if (router.isReady) {
+      setCurrStatus(status);
+    }
+  }, [router.isReady]);
+
   return (
     <div>
       {(status.toLowerCase() === 'pending' && (
@@ -29,6 +40,6 @@ function Label({ status }) {
         )}
     </div>
   );
-}
+};
 
 export default Label;

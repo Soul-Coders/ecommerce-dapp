@@ -5,49 +5,10 @@ import Label from '../../components/Label';
 import Sales from '../../components/charts/Sales';
 import PieChart from '../../components/charts/Pie';
 import Stat from '../../components/Stat';
+import orders from './orders/orders.json';
 
 const Dashboard = () => {
-  const latest = [
-    {
-      id: 2323,
-      name: 'Devon Lane',
-      mail: 'devon@gmail.com',
-      total: '₹778.35',
-      status: 'delivered',
-      date: '07.05.2020',
-      action: { name: 'More' },
-    },
-    {
-      id: 2323,
-      name: 'Devon Lane',
-      mail: 'devon@gmail.com',
-      total: '₹778.35',
-      status: 'delivered',
-      date: '07.05.2020',
-      action: { name: 'More' },
-    },
-    {
-      id: 2323,
-      name: 'Devon Lane',
-      mail: 'devon@gmail.com',
-      total: '₹778.35',
-      status: 'pending',
-      date: '07.05.2020',
-      action: { name: 'More' },
-    },
-    {
-      id: 2323,
-      name: 'Devon Lane',
-      mail: 'devon@gmail.com',
-      total: '₹778.35',
-      status: 'cancelled',
-      date: '07.05.2020',
-      action: { name: 'More' },
-    },
-  ];
-
-  // const colnames = ['ID', 'Name', 'Mail', 'Total', 'Status', 'Action']
-
+  const latest = orders;
   return (
     <div>
       <Page name={'Dashboard'}>
@@ -57,8 +18,8 @@ const Dashboard = () => {
             <Stat
               title={'Total Sales'}
               imagePath={'/rupee.svg'}
-              value={''}
               bgColor={'bg-[#FF8500]/10'}
+              imageColor={'fill-slate-50'}
             >
               <h1 className="font-semibold md:text-lg lg:text-2xl">
                 $19,616,051.20
@@ -68,7 +29,6 @@ const Dashboard = () => {
             <Stat
               title={'Total Orders'}
               imagePath={'/cart.svg'}
-              value={'3290'}
               bgColor={'bg-[#00B517]/10'}
             >
               <h1 className="font-semibold md:text-lg lg:text-2xl">3290</h1>
@@ -99,17 +59,19 @@ const Dashboard = () => {
               Latest Orders
             </h1>
             <div className="flex flex-col">
-              <List colnames={[]}>
-                {latest.map(({ id, mail, total, status, date, action }) => (
+              <List
+                colnames={[]}
+                align={'grid grid-cols-[15%_17%_30%_10%_15%_13%_]'}
+                className=""
+              >
+                {orders.map(({ id, name, email, total, status, date }) => (
                   <div key={id}>
                     <p>{id}</p>
-                    <p>{mail}</p>
+                    <p>{name}</p>
+                    <p>{email}</p>
                     <p>{total}</p>
-                    <p>{date}</p>
                     <Label status={status} />
-                    <button className="flex justify-center items-center font-semibold px-9 h-10 bg-gradient-to-r from-brand-red to-brand-purple rounded-md">
-                      {action.name}
-                    </button>
+                    <p>{date}</p>
                   </div>
                 ))}
               </List>

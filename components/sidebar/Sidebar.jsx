@@ -10,10 +10,9 @@ import Notifications from './Notifications';
 
 const Sidebar = ({ onClick, collapsed, name }) => {
   const router = useRouter();
-  const parent = router.asPath.split('/').slice(0, -1).join('/');
-  const root = router.asPath.split('/')[1]
-  const sidebarItems =
-    (root == 'seller' && seller_sidebar) || buyer_sidebar;
+  const root = router.asPath.split('/')[1];
+
+  const sidebarItems = (root == 'seller' && seller_sidebar) || buyer_sidebar;
   return (
     <div>
       <div className="backdrop-blur-sm bg-black/30 flex flex-col justify-between text-brand-lavender w-64 fixed top-0 left-0 h-full z-10">
@@ -54,7 +53,7 @@ const Sidebar = ({ onClick, collapsed, name }) => {
           <ul>
             {sidebarItems.below.map(({ icon, title, id }) => (
               <li key={title} className="p-2">
-                <Link href={`${parent}/${id}`}>
+                <Link href={`/${root}/${id}`}>
                   <div
                     className={`${
                       name.toLowerCase() == id && 'bg-[#242323]'

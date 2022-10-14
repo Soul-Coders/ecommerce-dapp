@@ -1,5 +1,5 @@
-import Link from "next/link";
-import { useRouter } from "next/router";
+import Link from 'next/link';
+import { useRouter } from 'next/router';
 const List = ({ colnames, children, align, className }) => {
   return (
     <div className="w-full px-3 p-5 py-5 mb-7 text-base bg-dimmed-black rounded-md mt-2 md:px-5 xl:p-7">
@@ -10,8 +10,8 @@ const List = ({ colnames, children, align, className }) => {
           <h2 key={i}>{colname}</h2>
         ))}
       </div>
-      {children.map(({ props }) => (
-        <div className="">
+      {children.map(({ props }, i) => (
+        <div key={i}>
           <Row
             className={
               'flex gap-4 flex-wrap justify-between md:gap-0 md:' + align
@@ -27,21 +27,20 @@ const List = ({ colnames, children, align, className }) => {
 };
 
 const Row = ({ children, className, id }) => {
-  const router = useRouter()
   return (
-    <Link
-    href={`${router.asPath}/${id}`}
-    key={id}
-      
-    >
-      <div className={
-        className + ' cursor-pointer items-center mt-4  bg-[#252525]/70 p-4 rounded-md lg:p-4'
-      }>
-      {children.map((child, i) => (
-        <div key={i} className=" basis-1/3 md:basis-0">
-          {child}
-        </div>
-      ))}
+    <Link href={`/seller/orders/${id}`} key={id}>
+      <div
+        className={
+          className +
+          ' cursor-pointer items-center mt-4  bg-[#252525]/70 p-4 rounded-md lg:p-4'
+        }
+        key={id}
+      >
+        {children.map((child, i) => (
+          <div key={i} className=" basis-1/3 md:basis-0">
+            {child}
+          </div>
+        ))}
       </div>
     </Link>
   );
