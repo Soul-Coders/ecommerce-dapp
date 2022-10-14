@@ -30,12 +30,12 @@ const Row = ({ children, className, id }) => {
   const router = useRouter()
   return (
     <Link
-    href={`/${router.asPath}/${id}`}
-      key={id}
+    href={`${router.asPath}/${id}`}
+    key={id}
       
     >
       <div className={
-        className + ' items-center mt-4  bg-[#252525]/70 p-4 rounded-md lg:p-4'
+        className + ' cursor-pointer items-center mt-4  bg-[#252525]/70 p-4 rounded-md lg:p-4'
       }>
       {children.map((child, i) => (
         <div key={i} className=" basis-1/3 md:basis-0">

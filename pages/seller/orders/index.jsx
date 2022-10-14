@@ -1,7 +1,7 @@
 import Page from '../../../components/Page';
 import Label from '../../../components/Label';
 import List from '../../../components/List';
-import orders from './orders';
+import orders from './orders.json';
 
 const Orders = () => {
   const colnames = ['ID', 'Name', 'Email', 'Total', 'Status', 'Date', 'Action'];
@@ -35,9 +35,6 @@ const Orders = () => {
               <p>{total}</p>
               <Label status={status} />
               <p>{date}</p>
-              <button className="flex justify-center items-center font-semibold px-9 h-10 bg-gradient-to-r from-brand-red to-brand-purple rounded-md">
-                {action.name}
-              </button>
             </div>
           ))}
         </List>
