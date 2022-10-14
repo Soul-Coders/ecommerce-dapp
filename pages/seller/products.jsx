@@ -135,19 +135,26 @@ const Products = () => {
                 img={img}
                 name={name}
                 price={price}
+                fetchSellerProducts={fetchSellerProducts}
               />
             ))}
             {sellerProducts &&
               sellerProducts.map(
-                ({ productId, productName, productImage, productPriceInr }) => (
-                  <ProductCard
-                    key={productId}
-                    id={productId}
-                    img={productImage}
-                    name={productName}
-                    price={productPriceInr}
-                  />
-                )
+                ({ productId, productName, productImage, productPriceInr }) => {
+                  if (productId.length > 0) {
+                    return (
+                      <ProductCard
+                        key={productId}
+                        id={productId}
+                        img={productImage}
+                        name={productName}
+                        price={productPriceInr}
+                        fetchSellerProducts={fetchSellerProducts}
+                      />
+                    );
+                  }
+                  return null;
+                }
               )}
           </div>
         </div>

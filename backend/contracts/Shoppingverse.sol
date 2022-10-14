@@ -122,6 +122,41 @@ contract Shoppingverse {
     sellerProducts[msg.sender].push(product);
   }
 
+  function deleteProduct(string memory _productId) external {
+    uint256 productIndex = getProductIndex(_productId);
+    uint256 sellerProductIndex = getSellerProductIndex(_productId);
+    delete allProducts[productIndex];
+    delete sellerProducts[msg.sender][sellerProductIndex];
+  }
+
+  function getSellerProductIndex(string memory _id)
+    internal
+    view
+    returns (uint256)
+  {
+    for (uint256 i = 0; i < sellerProducts[msg.sender].length; i++) {
+      if (
+        keccak256(abi.encodePacked(sellerProducts[msg.sender][i].productId)) ==
+        keccak256(abi.encodePacked(_id))
+      ) {
+        return i;
+      }
+    }
+    revert('Product not found');
+  }
+
+  function getProductIndex(string memory _id) internal view returns (uint256) {
+    for (uint256 i = 0; i < allProducts.length; i++) {
+      if (
+        keccak256(abi.encodePacked(allProducts[i].productId)) ==
+        keccak256(abi.encodePacked(_id))
+      ) {
+        return i;
+      }
+    }
+    revert('Product not found');
+  }
+
   function isSeller() external view returns (bool) {
     bool ans = sellers[msg.sender].valid;
     return ans;
