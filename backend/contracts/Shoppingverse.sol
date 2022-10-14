@@ -24,13 +24,13 @@ contract Shoppingverse {
   }
 
   struct Product {
+    string productId;
     string productName;
     string productDescription;
     string productImage;
     string productPriceInr;
     uint256 productPriceEth;
     address payable seller;
-    string productStatus;
   }
 
   //Mappings
@@ -101,22 +101,22 @@ contract Shoppingverse {
   }
 
   function addProduct(
+    string memory _productId,
     string memory _productName,
     string memory _productDescription,
     string memory _productImage,
     string memory _productPriceInr,
-    uint256 _productPriceEth,
-    string memory _productStatus
+    uint256 _productPriceEth
   ) external {
     require(sellers[msg.sender].valid, 'You are not authorized to add product');
     Product memory product = Product(
+      _productId,
       _productName,
       _productDescription,
       _productImage,
       _productPriceInr,
       _productPriceEth,
-      payable(msg.sender),
-      _productStatus
+      payable(msg.sender)
     );
     allProducts.push(product);
     sellerProducts[msg.sender].push(product);

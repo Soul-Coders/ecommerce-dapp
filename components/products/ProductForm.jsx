@@ -4,6 +4,7 @@ import { useContext } from 'react';
 import { ConnectionContext } from '../../context/ConnectionContext';
 import { convertEthToInr } from '../../utils/convertEthToInr';
 import { Web3Storage } from 'web3.storage';
+import { uid } from 'uid';
 
 const client = new Web3Storage({
   token: process.env.NEXT_PUBLIC_WEB3_STORAGE_API_TOKEN,
@@ -15,11 +16,12 @@ export const ProductForm = ({ setIsOpen, fetchSellerProducts }) => {
   const addProduct = async (event) => {
     try {
       event.preventDefault();
+      const productId = uid(6);
       const inrRate = await convertEthToInr();
       const productName = event.target.title.value;
       const productDescription = event.target.description.value;
       const productImage = event.target.image.files[0];
-      const fileName = productImage.name;
+      const fileName = uid(16);
       const newFile = new File([productImage], fileName, {
         type: productImage.type,
       });
@@ -29,17 +31,17 @@ export const ProductForm = ({ setIsOpen, fetchSellerProducts }) => {
       const imageURI = `https://${rootCid}.ipfs.dweb.link/${fileName}`;
       const productPriceInr = event.target.price.value;
       const productPriceEth = parseEther(
-        (parseFloat(productPriceInr) / inrRate).toString()
+        (parseFloat(productPriceInr) / inrRate).toFixed(6)
       );
 
       const contract = getContract();
       const tx = await contract.addProduct(
+        productId,
         productName,
         productDescription,
         imageURI,
         productPriceInr,
-        productPriceEth,
-        'Active'
+        productPriceEth
       );
 
       await tx.wait();

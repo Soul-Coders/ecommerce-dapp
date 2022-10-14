@@ -26,31 +26,37 @@ const Products = () => {
       img: '/product-1.jpg',
       name: 'Black fashion bag',
       price: '2000',
+      id: '321341',
     },
     {
       img: '/product-2.jpg',
       name: 'Wood leather watch',
       price: '1000',
+      id: '321342',
     },
     {
       img: '/product-3.jpg',
       name: 'Wireless headphones',
       price: '1500',
+      id: '321343',
     },
     {
       img: '/product-4.jpg',
       name: 'Blue skate shoes',
       price: '800',
+      id: '321344',
     },
     {
       img: '/product-5.jpg',
       name: 'Navy mens outerwear',
       price: '2000',
+      id: '321345',
     },
     {
       img: '/product-6.jpg',
       name: 'Anchor leather bracelet',
       price: '500',
+      id: '321346',
     },
   ];
 
@@ -122,19 +128,27 @@ const Products = () => {
             </Dialog>
           </Transition>
           <div className="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-6 lg:grid-cols-3 xl:grid-cols-4">
-            {products.map(({ img, name, price }) => (
-              <ProductCard key={img} img={img} name={name} price={price} />
+            {products.map(({ id, img, name, price }) => (
+              <ProductCard
+                key={id}
+                id={id}
+                img={img}
+                name={name}
+                price={price}
+              />
             ))}
-            {sellerProducts.map(
-              ({ productName, productImage, productPriceInr }) => (
-                <ProductCard
-                  key={productName}
-                  img={productImage}
-                  name={productName}
-                  price={productPriceInr}
-                />
-              )
-            )}
+            {sellerProducts &&
+              sellerProducts.map(
+                ({ productId, productName, productImage, productPriceInr }) => (
+                  <ProductCard
+                    key={productId}
+                    id={productId}
+                    img={productImage}
+                    name={productName}
+                    price={productPriceInr}
+                  />
+                )
+              )}
           </div>
         </div>
       </Page>
