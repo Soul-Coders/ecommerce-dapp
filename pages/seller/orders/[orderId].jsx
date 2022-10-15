@@ -116,25 +116,25 @@ const OrderDetails = () => {
 
               {/* Product Stats */}
               <div className="p-1 text-green-400 flex flex-col justify-evenly">
-                <h3 className="font-medium text-sm sm:text-base flex justify-between border p-2 rounded-md w-full">
+                <h3 className="font-medium text-sm sm:text-base flex justify-between p-2">
                   <p className="text-brand-lavender/70">Quantity: </p>
                   <p>{order.product.qty}</p>
                 </h3>
-                <h3 className="font-medium text-sm sm:text-base flex justify-between border p-2 rounded-md w-full">
+                <h3 className="font-medium text-sm sm:text-base flex justify-between p-2">
                   <p className="text-brand-lavender/70">Unit Price: </p>
                   <p>{order.product.unitPrice}</p>
                 </h3>
-                <h3 className="font-medium text-sm sm:text-base flex justify-between border p-2 rounded-md w-full">
+                <h3 className="font-medium text-sm sm:text-base flex justify-between p-2">
                   <span className="text-brand-lavender/70">Total Price: </span>
                   {order.product.totalPrice}
                 </h3>
-                <h3 className="font-medium text-sm sm:text-base flex justify-between border p-2 rounded-md w-full">
+                <h3 className="font-medium text-sm sm:text-base flex justify-between  p-2">
                   <span className="text-brand-lavender/70">
                     Shipping Price:{' '}
                   </span>
                   {order.product.shippingPrice}
                 </h3>
-                <h3 className="font-medium text-sm sm:text-base flex justify-between gap-20 border p-2 rounded-md w-full">
+                <h3 className="font-medium text-sm sm:text-base flex justify-between gap-20 p-2">
                   <span className="text-brand-lavender/70">Grand Total: </span>
                   {order.product.totalPrice + order.product.shippingPrice}
                 </h3>

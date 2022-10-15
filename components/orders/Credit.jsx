@@ -1,6 +1,6 @@
 const Credit = ({ name, txnHash, paymentMethod, method, block, value }) => {
   return (
-    <div class="shadow-brand-purple h-56 md:w-80 xl:w-96 m-auto bg-gradient-to-bl from-black to-slate-900 rounded-xl relative text-white shadow-md transition-transform transform hover:scale-110">
+    <div class=" h-56 md:w-80 xl:w-96 m-auto bg-dimmed-black rounded-xl relative text-brand-lavender">
       <div class="w-full px-8 absolute top-8">
         <div class="flex justify-between">
           <div class="">
