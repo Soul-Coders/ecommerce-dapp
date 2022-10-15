@@ -1,13 +1,13 @@
 import Page from '../../components/Page';
 
-const Dashboard = () => {
+const Settings = () => {
   return (
     <div>
-      <Page name={'Dashboard'}>
+      <Page name={'Settings'}>
         {/* Main Content Here */}
       </Page>
     </div>
   );
 };
 
-export default Dashboard;
+export default Settings;

@@ -1,13 +1,13 @@
 import Page from '../../components/Page';
 
-const Dashboard = () => {
+const Cart = () => {
   return (
     <div>
-      <Page name={'Dashboard'}>
+      <Page name={'My Cart'}>
         {/* Main Content Here */}
       </Page>
     </div>
   );
 };
 
-export default Dashboard;
+export default Cart;

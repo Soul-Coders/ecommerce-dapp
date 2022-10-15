@@ -1,13 +1,13 @@
 import Page from '../../components/Page';
 
-const Dashboard = () => {
+const Products = () => {
   return (
     <div>
-      <Page name={'Dashboard'}>
+      <Page name={'Products'}>
         {/* Main Content Here */}
       </Page>
     </div>
   );
 };
 
-export default Dashboard;
+export default Products;
