@@ -2,6 +2,7 @@
 pragma solidity ^0.8.9;
 
 contract Shoppingverse {
+  //Globals
   address payable private owner;
 
   constructor() {
@@ -41,6 +42,18 @@ contract Shoppingverse {
   //Arrays
   Product[] public allProducts;
 
+  //Modifiers
+  modifier asSeller() {
+    require(sellers[msg.sender].valid, 'You are not authorized as Seller');
+    _;
+  }
+
+  modifier asBuyer() {
+    require(buyers[msg.sender].valid, 'You are not authorized as Buyer');
+    _;
+  }
+
+  //Functions
   function addSeller(
     string memory _imgURL,
     string memory _name,
@@ -107,8 +120,7 @@ contract Shoppingverse {
     string memory _productImage,
     string memory _productPriceInr,
     uint256 _productPriceEth
-  ) external {
-    require(sellers[msg.sender].valid, 'You are not authorized to add product');
+  ) external asSeller {
     Product memory product = Product(
       _productId,
       _productName,
@@ -122,11 +134,34 @@ contract Shoppingverse {
     sellerProducts[msg.sender].push(product);
   }
 
-  function deleteProduct(string memory _productId) external {
+  function deleteProduct(string memory _productId) external asSeller {
     uint256 productIndex = getProductIndex(_productId);
     uint256 sellerProductIndex = getSellerProductIndex(_productId);
     delete allProducts[productIndex];
     delete sellerProducts[msg.sender][sellerProductIndex];
+  }
+
+  function updateProduct(
+    string memory _productId,
+    string memory _productName,
+    string memory _productDescription,
+    string memory _productPriceInr,
+    uint256 _productPriceEth
+  ) external asSeller {
+    uint256 productIndex = getProductIndex(_productId);
+    uint256 sellerProductIndex = getSellerProductIndex(_productId);
+    allProducts[productIndex].productName = _productName;
+    allProducts[productIndex].productDescription = _productDescription;
+    allProducts[productIndex].productPriceInr = _productPriceInr;
+    allProducts[productIndex].productPriceEth = _productPriceEth;
+
+    sellerProducts[msg.sender][sellerProductIndex].productName = _productName;
+    sellerProducts[msg.sender][sellerProductIndex]
+      .productDescription = _productDescription;
+    sellerProducts[msg.sender][sellerProductIndex]
+      .productPriceInr = _productPriceInr;
+    sellerProducts[msg.sender][sellerProductIndex]
+      .productPriceEth = _productPriceEth;
   }
 
   function getSellerProductIndex(string memory _id)
@@ -185,7 +220,7 @@ contract Shoppingverse {
     string memory _addr,
     string memory _city,
     string memory _pinCode
-  ) external {
+  ) external asBuyer {
     buyers[msg.sender].imgURL = _imgURL;
     buyers[msg.sender].name = _name;
     buyers[msg.sender].email = _email;
@@ -207,7 +242,7 @@ contract Shoppingverse {
     string memory _addr,
     string memory _city,
     string memory _pinCode
-  ) external {
+  ) external asSeller {
     sellers[msg.sender].imgURL = _imgURL;
     sellers[msg.sender].name = _name;
     sellers[msg.sender].email = _email;

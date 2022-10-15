@@ -1,8 +1,30 @@
 import { useContext } from 'react';
 import { ConnectionContext } from '../../context/ConnectionContext';
 
-export const ProductCard = ({ id, img, name, price, fetchSellerProducts }) => {
+export const ProductCard = ({
+  id,
+  img,
+  name,
+  description,
+  price,
+  fetchSellerProducts,
+  setIsOpen,
+  setFormType,
+  setFormData,
+}) => {
   const { getContract } = useContext(ConnectionContext);
+
+  const updateProduct = async () => {
+    setFormData({
+      id: id,
+      title: name,
+      desc: description,
+      price: price,
+    });
+    setFormType('Update');
+    setIsOpen((prev) => !prev);
+  };
+
   const deleteProduct = async () => {
     try {
       const contract = getContract();
@@ -33,7 +55,10 @@ export const ProductCard = ({ id, img, name, price, fetchSellerProducts }) => {
         <h3 className="text-xl mt-1 font-bold">₹{price}</h3>
       </div>
       <div className="flex flex-col md:flex-row justify-between gap-3 mt-6 font-medium">
-        <button className="w-full md:order-2 bg-white/20 rounded-md py-2">
+        <button
+          onClick={updateProduct}
+          className="w-full md:order-2 bg-white/20 rounded-md py-2"
+        >
           Edit
         </button>
         <button
