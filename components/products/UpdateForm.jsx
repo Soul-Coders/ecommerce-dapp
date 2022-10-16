@@ -79,7 +79,7 @@ export const UpdateForm = ({ setIsOpen, formData, fetchSellerProducts }) => {
       </div>
       <div className="w-full flex justify-end mt-4">
         <button className="px-5 py-2 bg-blue-800 font-semibold rounded-md">
-          Submit
+          Save
         </button>
       </div>
     </form>
