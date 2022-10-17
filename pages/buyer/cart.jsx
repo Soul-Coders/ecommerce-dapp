@@ -6,7 +6,8 @@ import { ConnectionContext } from '../../context/ConnectionContext';
 import { useEffect, useState, useContext } from 'react';
 
 const Cart = () => {
-  {/* For Later Use
+  {
+    /* For Later Use
   const [buyerCart, setBuyerCart] = useState([]);
   const { getContract } = useContext(ConnectionContext);
 
@@ -18,7 +19,8 @@ const Cart = () => {
 
   useEffect(() => {
     fetchBuyerCart();
-  }, [buyerCart]); */}
+  }, [buyerCart]); */
+  }
 
   const products = [
     {
