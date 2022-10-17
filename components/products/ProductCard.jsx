@@ -38,7 +38,7 @@ export const ProductCard = ({
   };
 
   return (
-    <div className="bg-[#252525] rounded-xl p-3">
+    <div className="bg-[#252525] rounded-xl min-w-100 p-3">
       <div className="">
         <img
           className="object-cover object-center w-full aspect-1 rounded-xl"
