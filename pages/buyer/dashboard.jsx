@@ -69,27 +69,28 @@ const Dashboard = () => {
   return (
     <Page name={'Dashboard'}>
       {/* Greet User */}
-      <div className="flex font-bold text-base md:text-2xl gap-1 items-center">
+      <div className="flex font-bold text-base md:text-3xl gap-1 items-center">
         <p>{greet}</p>
         <h1 className="font-extrabold text-transparent bg-clip-text bg-gradient-to-tr from-brand-purple to-brand-red">
           {(currentAccount.info.name &&
             currentAccount.info.name.split(' ')[0]) ||
-            'Alex'}
+            'Friend'}
         </h1>
         <p>!</p>
       </div>
 
       {/* You might be looking for */}
       <div className="flex justify-between">
-        <h1 className="mt-4 mb-1 text-base font-bold md:text-xl">
+        <h1 className="mt-6 mb-1 text-base font-bold md:text-xl">
           You might be looking for
         </h1>
-        <Link
-          href={'/buyer/products'}
-          className="border text-sm font-semibold px-9 h-10 bg-green-500 rounded-md"
-        >
-          View All
-        </Link>
+        <div className='h-fit p-2 rounded-md bg-indigo-800 cursor-pointer'>
+          <Link
+            href={'/buyer/products'}
+          >
+            View All
+          </Link>
+        </div>
       </div>
       <Row products={products} />
 
