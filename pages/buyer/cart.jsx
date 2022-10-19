@@ -6,21 +6,18 @@ import { ConnectionContext } from '../../context/ConnectionContext';
 import { useEffect, useState, useContext } from 'react';
 
 const Cart = () => {
-  {
-    /* For Later Use
-  const [buyerCart, setBuyerCart] = useState([]);
   const { getContract } = useContext(ConnectionContext);
+  const [buyerProducts, setBuyerProducts] = useState([]);
 
-  const fetchBuyerCart = async () => {
+  const fetchBuyerProducts = async () => {
     const contract = getContract();
-    const products = await contract.getBuyerCart();
-    setBuyerCart(products);
+    const products = await contract.getBuyerProducts();
+    setBuyerProducts(products);
   };
 
   useEffect(() => {
-    fetchBuyerCart();
-  }, [buyerCart]); */
-  }
+    fetchBuyerProducts();
+  }, [buyerProducts]);
 
   const products = [
     {
@@ -59,7 +56,7 @@ const Cart = () => {
   function sum(item) {
     TotalPrice += parseInt(item.price);
   }
-  products.forEach(sum);
+  buyerProducts.forEach(sum);
   return (
     <div>
       <Page name="My Cart">
@@ -67,7 +64,7 @@ const Cart = () => {
           <div className="flex flex-col md:flex-row w-full px-3 py-5 mb-7 bg-dimmed-black rounded-md mt-2 md:px-5 xl:p-7">
             <div className="md:w-full">
               <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4 md:gap-6 ">
-                {products.map(({ img, name, price }) => (
+                {/* {products.map(({ img, name, price }) => (
                   <div className="bg-[#252525] rounded-xl p-3 w-full ">
                     <div className="flex flex-col items-center">
                       <div className="flex flex-row md:items-center md:w-full">
@@ -92,17 +89,20 @@ const Cart = () => {
                       </button>
                     </div>
                   </div>
-                ))}
-                {/* {buyerCart.map(
-                  ({ productName, productImage, productPriceInr }) => (
+                ))} */}
+                {buyerProducts.map(
+                  ({ id, img, name, description, price, rating }) => (
                     <ProductCard
-                      key={productName}
-                      img={productImage}
-                      name={productName}
-                      price={productPriceInr}
+                      key={id}
+                      id={id}
+                      img={img}
+                      name={name}
+                      description={description}
+                      price={price}
+                      rating={rating}
                     />
                   )
-                )} */}
+                )}
               </div>
             </div>
             <div className="flex flex-col">

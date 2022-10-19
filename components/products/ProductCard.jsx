@@ -1,7 +1,8 @@
 import { useContext } from 'react';
 import { ConnectionContext } from '../../context/ConnectionContext';
-import ReactStars from "react-rating-stars-component";
+import ReactStars from 'react-rating-stars-component';
 import { useRouter } from 'next/router';
+import { useState } from 'react';
 
 export const ProductCard = ({
   id,
@@ -16,6 +17,14 @@ export const ProductCard = ({
   setFormData,
 }) => {
   const { getContract } = useContext(ConnectionContext);
+
+  const addToCart = async () => {
+    const contract = getContract();
+    const tx = awaitcontract.addToCart(id, {gasLimit:42544});
+    await tx.wait();
+    console.log('Success');
+    // router.push('/buyer/cart');
+  };
 
   const updateProduct = async () => {
     setFormData({
@@ -39,8 +48,8 @@ export const ProductCard = ({
       console.log(error);
     }
   };
-  const router = useRouter()
-  const root = router.asPath.split('/')[1]
+  const router = useRouter();
+  const root = router.asPath.split('/')[1];
 
   return (
     <div className="bg-[#252525] rounded-xl p-3 flex flex-col flex-1 justify-between min-h-full">
@@ -110,4 +119,3 @@ export const ProductCard = ({
     </div>
   );
 };
-
