@@ -147,7 +147,7 @@ const Products = () => {
               </div>
             </Dialog>
           </Transition>
-          <div className="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-6 lg:grid-cols-3 xl:grid-cols-4">
+          <div className="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-6 lg:grid-cols-3 xl:grid-cols-5">
             {products.map(({ id, img, name, description, price }) => (
               <ProductCard
                 key={id}
