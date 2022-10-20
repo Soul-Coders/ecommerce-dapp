@@ -1,6 +1,6 @@
 import {
   PresentationChartBarIcon,
-  ChartBarSquareIcon,
+  BookmarkIcon,
   InboxStackIcon,
   CreditCardIcon,
   ShoppingCartIcon,
@@ -17,8 +17,13 @@ const sidebarItems = {
     },
     {
       icon: <InboxStackIcon className="h-6 w-6 sm:inline p-1" />,
-      title: 'Cart',
+      title: 'Products',
       id: 'products',
+    },
+    {
+      icon: <BookmarkIcon className="h-6 w-6 sm:inline p-1" />,
+      title: 'My Cart',
+      id: 'cart',
     },
     {
       icon: <ShoppingCartIcon className="h-6 w-6 sm:inline p-1" />,
@@ -34,11 +39,6 @@ const sidebarItems = {
       icon: <BanknotesIcon className="h-6 w-6 sm:inline p-1" />,
       title: 'Warranties',
       id: 'warranties',
-    },
-    {
-      icon: <ChartBarSquareIcon className="h-6 w-6 sm:inline p-1" />,
-      title: 'Statistics',
-      id: 'statistics',
     },
   ],
   below: [

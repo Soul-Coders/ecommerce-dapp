@@ -80,7 +80,7 @@ const options = {
 const LineChart = () => {
   return (
     <div className="">
-      <Card className="w-[85vw] md:w-[47.5vw] lg:w-[50vw] xl:w-[55vw]">
+      <Card className="w-[78vw] md:w-[47.5vw] lg:w-[50vw] xl:w-[55vw]">
         <Line
           data={data}
           className={'w-full'}

@@ -45,7 +45,7 @@ const Dough = () => {
       <Card className={'w-[85vw] md:w-[25.75vw] lg:w-[26.8vw] xl:w-[29vw]'}>
         <Doughnut
           data={data}
-          width={'w-fit'}
+          width={'w-max'}
           className={'w-[80vw] md:w-[23.5vw]'}
           options={options}
         />
