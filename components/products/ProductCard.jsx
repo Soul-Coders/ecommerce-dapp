@@ -15,15 +15,16 @@ export const ProductCard = ({
   setIsOpen,
   setFormType,
   setFormData,
+  viewOnly,
 }) => {
   const { getContract } = useContext(ConnectionContext);
 
   const addToCart = async () => {
     const contract = getContract();
-    const tx = awaitcontract.addToCart(id, {gasLimit:42544});
+    const tx = await contract.addToCart(id, { gasLimit: 21544 });
     await tx.wait();
     console.log('Success');
-    // router.push('/buyer/cart');
+    router.push('/buyer/cart');
   };
 
   const updateProduct = async () => {
@@ -63,11 +64,13 @@ export const ProductCard = ({
           alt="product"
         />
         <div className="mt-4">
-          <div className='flex justify-between'>
-            {root == 'seller' && <h2 className="text-lg font-medium">
-              <span className="text-brand-purple">#</span>
-              {id.toUpperCase()}
-            </h2>}
+          <div className="flex justify-between">
+            {root == 'seller' && (
+              <h2 className="text-lg font-medium">
+                <span className="text-brand-purple">#</span>
+                {id.toUpperCase()}
+              </h2>
+            )}
             <ReactStars
               count={5}
               size={18}
@@ -77,45 +80,47 @@ export const ProductCard = ({
               activeColor="#ffd700"
             />
           </div>
-          <div className='flex justify-between items-baseline gap-2'>
+          <div className="flex justify-between items-baseline gap-2">
             <h2 className="text-xl font-medium text-white/70 mt-2">{name}</h2>
             <h3 className="text-xl mt-1 font-bold">₹{price}</h3>
           </div>
         </div>
       </div>
-      <div>
-        {root=='seller' && 
-          <div className="flex flex-col md:flex-row justify-between gap-3 mt-6 font-medium">
-            <button
-              onClick={updateProduct}
-              className="w-full md:order-2 bg-white/20 rounded-md py-2"
-            >
-              Edit
-            </button>
-            <button
-              onClick={deleteProduct}
-              className="w-full bg-red-500 rounded-md py-2"
-            >
-              Discard
-            </button>
-          </div>
-        ||
-          <div className="flex flex-col md:flex-row justify-between gap-3 mt-6 font-medium">
-            <button
-              // onClick={buyNow}
-              className="w-full md:order-2 bg-green-600 rounded-md py-2"
-            >
-              Buy Now
-            </button>
-            <button
-              // onClick={addToCart}
-              className="w-full bg-blue-600 rounded-md py-2"
-            >
-              To cart
-            </button>
-          </div>
-        }
-      </div>
+      {!viewOnly && (
+        <div>
+          {(root == 'seller' && (
+            <div className="flex flex-col md:flex-row justify-between gap-3 mt-6 font-medium">
+              <button
+                onClick={updateProduct}
+                className="w-full md:order-2 bg-white/20 rounded-md py-2"
+              >
+                Edit
+              </button>
+              <button
+                onClick={deleteProduct}
+                className="w-full bg-red-500 rounded-md py-2"
+              >
+                Discard
+              </button>
+            </div>
+          )) || (
+            <div className="flex flex-col md:flex-row justify-between gap-3 mt-6 font-medium">
+              <button
+                // onClick={buyNow}
+                className="w-full md:order-2 bg-green-600 rounded-md py-2"
+              >
+                Buy Now
+              </button>
+              <button
+                onClick={addToCart}
+                className="w-full bg-blue-600 rounded-md py-2"
+              >
+                To cart
+              </button>
+            </div>
+          )}
+        </div>  
+      )}
     </div>
   );
 };
