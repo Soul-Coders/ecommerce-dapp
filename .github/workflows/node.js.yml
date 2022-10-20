@@ -27,6 +27,11 @@ jobs:
           cache: 'yarn'
       - name: Install dependencies
         run: yarn install --frozen-lockfile
+      - name: Compiling the smart contract
+        run: | 
+          - cd backend
+          - yarn compile
+          - cd ..
       - name: Assessing code consistency using Eslint
         run: yarn lint
       - name: Ensuring code formatting using Prettier
