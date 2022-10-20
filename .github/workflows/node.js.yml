@@ -28,11 +28,10 @@ jobs:
       - name: Install dependencies
         run: yarn install --frozen-lockfile
       - name: Compiling the smart contract
-        run: | 
-          - cd backend
-          - yarn compile
-          - cd ..
+        working-directory: ./backend
+        run: yarn compile
       - name: Assessing code consistency using Eslint
+        working-directory: /
         run: yarn lint
       - name: Ensuring code formatting using Prettier
         run: yarn prettier --write .
