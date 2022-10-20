@@ -2,6 +2,7 @@
 pragma solidity ^0.8.9;
 
 contract Shoppingverse {
+  //Globals
   address payable private owner;
 
   constructor() {
@@ -24,13 +25,13 @@ contract Shoppingverse {
   }
 
   struct Product {
+    string productId;
     string productName;
     string productDescription;
     string productImage;
     string productPriceInr;
     uint256 productPriceEth;
     address payable seller;
-    string productStatus;
   }
 
   //Mappings
@@ -41,6 +42,18 @@ contract Shoppingverse {
   //Arrays
   Product[] public allProducts;
 
+  //Modifiers
+  modifier asSeller() {
+    require(sellers[msg.sender].valid, 'You are not authorized as Seller');
+    _;
+  }
+
+  modifier asBuyer() {
+    require(buyers[msg.sender].valid, 'You are not authorized as Buyer');
+    _;
+  }
+
+  //Functions
   function addSeller(
     string memory _imgURL,
     string memory _name,
@@ -101,25 +114,82 @@ contract Shoppingverse {
   }
 
   function addProduct(
+    string memory _productId,
     string memory _productName,
     string memory _productDescription,
     string memory _productImage,
     string memory _productPriceInr,
-    uint256 _productPriceEth,
-    string memory _productStatus
-  ) external {
-    require(sellers[msg.sender].valid, 'You are not authorized to add product');
+    uint256 _productPriceEth
+  ) external asSeller {
     Product memory product = Product(
+      _productId,
       _productName,
       _productDescription,
       _productImage,
       _productPriceInr,
       _productPriceEth,
-      payable(msg.sender),
-      _productStatus
+      payable(msg.sender)
     );
     allProducts.push(product);
     sellerProducts[msg.sender].push(product);
+  }
+
+  function deleteProduct(string memory _productId) external asSeller {
+    uint256 productIndex = getProductIndex(_productId);
+    uint256 sellerProductIndex = getSellerProductIndex(_productId);
+    delete allProducts[productIndex];
+    delete sellerProducts[msg.sender][sellerProductIndex];
+  }
+
+  function updateProduct(
+    string memory _productId,
+    string memory _productName,
+    string memory _productDescription,
+    string memory _productPriceInr,
+    uint256 _productPriceEth
+  ) external asSeller {
+    uint256 productIndex = getProductIndex(_productId);
+    uint256 sellerProductIndex = getSellerProductIndex(_productId);
+    allProducts[productIndex].productName = _productName;
+    allProducts[productIndex].productDescription = _productDescription;
+    allProducts[productIndex].productPriceInr = _productPriceInr;
+    allProducts[productIndex].productPriceEth = _productPriceEth;
+
+    sellerProducts[msg.sender][sellerProductIndex].productName = _productName;
+    sellerProducts[msg.sender][sellerProductIndex]
+      .productDescription = _productDescription;
+    sellerProducts[msg.sender][sellerProductIndex]
+      .productPriceInr = _productPriceInr;
+    sellerProducts[msg.sender][sellerProductIndex]
+      .productPriceEth = _productPriceEth;
+  }
+
+  function getSellerProductIndex(string memory _id)
+    internal
+    view
+    returns (uint256)
+  {
+    for (uint256 i = 0; i < sellerProducts[msg.sender].length; i++) {
+      if (
+        keccak256(abi.encodePacked(sellerProducts[msg.sender][i].productId)) ==
+        keccak256(abi.encodePacked(_id))
+      ) {
+        return i;
+      }
+    }
+    revert('Product not found');
+  }
+
+  function getProductIndex(string memory _id) internal view returns (uint256) {
+    for (uint256 i = 0; i < allProducts.length; i++) {
+      if (
+        keccak256(abi.encodePacked(allProducts[i].productId)) ==
+        keccak256(abi.encodePacked(_id))
+      ) {
+        return i;
+      }
+    }
+    revert('Product not found');
   }
 
   function isSeller() external view returns (bool) {
@@ -150,7 +220,7 @@ contract Shoppingverse {
     string memory _addr,
     string memory _city,
     string memory _pinCode
-  ) external {
+  ) external asBuyer {
     buyers[msg.sender].imgURL = _imgURL;
     buyers[msg.sender].name = _name;
     buyers[msg.sender].email = _email;
@@ -172,7 +242,7 @@ contract Shoppingverse {
     string memory _addr,
     string memory _city,
     string memory _pinCode
-  ) external {
+  ) external asSeller {
     sellers[msg.sender].imgURL = _imgURL;
     sellers[msg.sender].name = _name;
     sellers[msg.sender].email = _email;

@@ -1,5 +1,6 @@
-import { Bars3Icon, ArrowRightIcon } from '@heroicons/react/20/solid';
+import { Bars3Icon } from '@heroicons/react/20/solid';
 import Link from 'next/link';
+import Searchbar from './Searchbar';
 
 const Navbar = ({ onClick, page }) => {
   const search =
@@ -28,15 +29,7 @@ const Navbar = ({ onClick, page }) => {
             </div>
           </div>
         </div>
-
-        <div className="flex justify-between items-center w-36 h-8 rounded-md bg-gradient-to-br from-brand-red to-brand-purple md:w-96">
-          <input
-            placeholder={`Search in ${search}`}
-            type="text"
-            className="!outline-none text-[0.5em] md:text-xs w-11/12 h-full rounded-r-xl"
-          />
-          <ArrowRightIcon className="mr-1 md:mr-2 h-4 w-4 sm:inline md:w-6 md:h-6 cursor-pointer" />
-        </div>
+        <Searchbar searchFor={search} />
       </div>
     </header>
   );

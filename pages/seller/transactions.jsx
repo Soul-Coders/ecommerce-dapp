@@ -38,9 +38,6 @@ const Transactions = () => {
     <div>
       <Page name="Transactions">
         <div className="w-full px-3 py-5 mb-7 bg-dimmed-black rounded-md mt-2 md:px-5 xl:p-7">
-          <div className="border-b border-white/10 pb-5 md:pb-7">
-            <input type="text" placeholder="Search" />
-          </div>
           <div className="hidden md:grid px-3 text-white/50 pt-6 pb-2 text-sm grid-cols-[25%_20%_25%_15%_15%] w-full items-center md:pt-7">
             <h2>Transaction hash</h2>
             <h2>Date</h2>

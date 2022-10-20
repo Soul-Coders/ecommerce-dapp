@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { useRouter } from 'next/router';
+
 const List = ({ colnames, children, align, className }) => {
   return (
     <div className="w-full px-3 p-5 py-5 mb-7 text-base bg-dimmed-black rounded-md mt-2 md:px-5 xl:p-7">
@@ -14,9 +14,9 @@ const List = ({ colnames, children, align, className }) => {
         <div key={i}>
           <Row
             className={
-              'flex gap-4 flex-wrap justify-between md:gap-0 md:' + align
+              'flex gap-2 flex-wrap justify-between lg:gap-0 lg:' + align
             }
-            id={props.children[0].props.children}
+            id={props.children[0].props.children[1]}
           >
             {props.children}
           </Row>
