@@ -3,7 +3,7 @@ import List from '../../components/orders/List';
 import orders from '../../pages/seller/orders/orders.json';
 import Label from '../../components/Label';
 import Link from 'next/link';
-import { useContext } from 'react';
+import { useContext, useState, useEffect } from 'react';
 import { ConnectionContext } from '../../context/ConnectionContext';
 import Row from '../../components/Row';
 
@@ -59,12 +59,24 @@ const products = [
 ];
 
 const Dashboard = () => {
+  const [sellerProducts, setSellerProducts] = useState([]);
   const hrs = new Date().getHours();
   const greet =
     (hrs < 12 && 'Good morning') ||
     (hrs >= 12 && hrs <= 17 && 'Good afternoon') ||
     'Good evening';
   const { currentAccount } = useContext(ConnectionContext);
+  const { getContract } = useContext(ConnectionContext);
+
+  const fetchSellerProducts = async () => {
+    const contract = getContract();
+    const products = await contract.getAllProducts();
+    setSellerProducts(products);
+  };
+
+  useEffect(() => {
+    fetchSellerProducts();
+  }, [sellerProducts]);
 
   return (
     <Page name={'Dashboard'}>
@@ -84,15 +96,11 @@ const Dashboard = () => {
         <h1 className="mt-6 mb-1 text-base font-bold md:text-xl">
           You might be looking for
         </h1>
-        <div className='h-fit p-2 rounded-md bg-indigo-800 cursor-pointer'>
-          <Link
-            href={'/buyer/products'}
-          >
-            View All
-          </Link>
+        <div className="h-fit p-2 rounded-md bg-indigo-800 cursor-pointer">
+          <Link href={'/buyer/products'}>View All</Link>
         </div>
       </div>
-      <Row products={products} />
+      <Row products={sellerProducts} fetchSellerProducts={fetchSellerProducts} />
 
       {/* From your watchlist */}
       <h1 className="mt-4 mb-1 text-base font-bold md:text-xl">
