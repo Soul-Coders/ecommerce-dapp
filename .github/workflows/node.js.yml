@@ -29,7 +29,9 @@ jobs:
         run: yarn install --frozen-lockfile
       - name: Compiling the smart contract
         working-directory: backend
-        run: yarn compile
+        run: |
+          yarn
+          yarn compile
       - name: Assessing code consistency using Eslint
         run: yarn lint
       - name: Ensuring code formatting using Prettier
