@@ -37,7 +37,7 @@ contract Shoppingverse {
   //Mappings
   mapping(address => User) public sellers;
   mapping(address => User) public buyers;
-  mapping(address => Product[]) public sellerProducts;
+  mapping(address => string[]) public sellerProducts;
   mapping(address => Product[]) public buyerProducts;
 
   //Arrays
@@ -132,7 +132,7 @@ contract Shoppingverse {
       payable(msg.sender)
     );
     allProducts.push(product);
-    sellerProducts[msg.sender].push(product);
+    sellerProducts[msg.sender].push(_productId);
   }
 
   function addToCart(string memory _id) external asBuyer {
@@ -155,19 +155,10 @@ contract Shoppingverse {
     uint256 _productPriceEth
   ) external asSeller {
     uint256 productIndex = getProductIndex(_productId);
-    uint256 sellerProductIndex = getSellerProductIndex(_productId);
     allProducts[productIndex].productName = _productName;
     allProducts[productIndex].productDescription = _productDescription;
     allProducts[productIndex].productPriceInr = _productPriceInr;
     allProducts[productIndex].productPriceEth = _productPriceEth;
-
-    sellerProducts[msg.sender][sellerProductIndex].productName = _productName;
-    sellerProducts[msg.sender][sellerProductIndex]
-      .productDescription = _productDescription;
-    sellerProducts[msg.sender][sellerProductIndex]
-      .productPriceInr = _productPriceInr;
-    sellerProducts[msg.sender][sellerProductIndex]
-      .productPriceEth = _productPriceEth;
   }
 
   function getSellerProductIndex(string memory _id)
@@ -177,7 +168,7 @@ contract Shoppingverse {
   {
     for (uint256 i = 0; i < sellerProducts[msg.sender].length; i++) {
       if (
-        keccak256(abi.encodePacked(sellerProducts[msg.sender][i].productId)) ==
+        keccak256(abi.encodePacked(sellerProducts[msg.sender][i])) ==
         keccak256(abi.encodePacked(_id))
       ) {
         return i;
@@ -265,7 +256,14 @@ contract Shoppingverse {
   }
 
   function getSellerProducts() external view returns (Product[] memory) {
-    return sellerProducts[msg.sender];
+    Product[] memory products = new Product[](
+      sellerProducts[msg.sender].length
+    );
+    for (uint256 i = 0; i < sellerProducts[msg.sender].length; i++) {
+      uint256 index = getProductIndex(sellerProducts[msg.sender][i]);
+      products[i] = allProducts[index];
+    }
+    return products;
   }
 
   function getBuyerProducts() external view returns (Product[] memory) {
