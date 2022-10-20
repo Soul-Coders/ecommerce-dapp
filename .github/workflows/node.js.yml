@@ -15,7 +15,7 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [12.x, 14.x, 16.x]
+        node-version: [16.x]
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
 
     steps:
@@ -27,6 +27,11 @@ jobs:
           cache: 'yarn'
       - name: Install dependencies
         run: yarn install --frozen-lockfile
+      - name: Compiling the smart contract
+        working-directory: backend
+        run: |
+          yarn
+          yarn compile
       - name: Assessing code consistency using Eslint
         run: yarn lint
       - name: Ensuring code formatting using Prettier

@@ -8,66 +8,60 @@ import { ProductCard } from '../../components/products/ProductCard';
 const Statistics = () => {
   const products = [
     {
-      img: '/product-1.jpg',
-      name: 'Black fashion bag',
-      description: 'test',
-      price: '2000',
       id: '321341',
+      name: 'Black fashion bag',
+      img: '/product-1.jpg',
+      price: '2000',
       rating: 4,
     },
     {
-      img: '/product-2.jpg',
-      name: 'Wood leather watch',
-      description: 'test',
-      price: '1000',
       id: '321342',
+      name: 'Wood leather watch',
+      img: '/product-2.jpg',
+      price: '1000',
       rating: 1.5,
     },
     {
-      img: '/product-3.jpg',
-      name: 'Wireless headphones',
-      description: 'test',
-      price: '1500',
       id: '321343',
+      name: 'Wireless headphones',
+      img: '/product-3.jpg',
+      price: '1500',
       rating: 3.5,
     },
     {
-      img: '/product-4.jpg',
-      name: 'Blue skate shoes',
-      description: 'test',
-      price: '800',
       id: '321344',
+      name: 'Blue skate shoes',
+      img: '/product-4.jpg',
+      price: '800',
       rating: 2.5,
     },
   ];
   return (
     <div>
       <Page name="Statistics">
-        <div className="flex flex-col md:flex-row justify-evenly">
+        <div className="flex flex-col ">
           <div className="">
-            {products.map(
-              ({
-                productId,
-                productName,
-                productDescription,
-                productImage,
-                productPriceInr,
-              }) => {
+            <div className="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-6 lg:grid-cols-4 ">
+              {products.map(({ id, name, img, price, rating }) => (
                 <ProductCard
-                  id={productId}
-                  img={productImage}
-                  name={productName}
-                  description={productDescription}
-                  price={productPriceInr}
-                />;
-              }
-            )}
+                  key={id}
+                  id={id}
+                  img={img}
+                  name={name}
+                  price={price}
+                  rating={rating}
+                  viewOnly={true}
+                />
+              ))}
+            </div>
           </div>
-          <div className="pt-3 md:pt-5">
-            <LineChart />
-          </div>
-          <div className="pt-3 md:pt-5">
-            <Dough />
+          <div className="flex flex-col md:flex-row justify-evenly">
+            <div className="pt-3 md:pt-5">
+              <LineChart />
+            </div>
+            <div className="pt-3 md:pt-5 md:ml-5">
+              <Dough />
+            </div>
           </div>
         </div>
       </Page>
