@@ -54,9 +54,6 @@ export const ProductCard = ({
 
   return (
     <div className="bg-[#252525] rounded-xl p-3 flex flex-col flex-1 justify-between min-h-full">
-      {/* <div>
-
-      </div> */}
       <div className="">
         <img
           className="object-cover object-center w-full aspect-1 rounded-xl"
@@ -119,7 +116,7 @@ export const ProductCard = ({
               </button>
             </div>
           )}
-        </div>  
+        </div>
       )}
     </div>
   );

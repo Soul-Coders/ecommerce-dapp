@@ -1,7 +1,6 @@
 import Page from '../../components/Page';
-import { ProductCard } from '../../components/products/ProductCard';
+import { MiniProductCard } from '../../components/products/MiniProductCard';
 import { ArrowRightIcon } from '@heroicons/react/20/solid';
-import { PlusCircleIcon, MinusCircleIcon } from '@heroicons/react/20/solid';
 import { ConnectionContext } from '../../context/ConnectionContext';
 import { useEffect, useState, useContext } from 'react';
 
@@ -64,45 +63,13 @@ const Cart = () => {
           <div className="flex flex-col md:flex-row w-full px-3 py-5 mb-7 bg-dimmed-black rounded-md mt-2 md:px-5 xl:p-7">
             <div className="md:w-full">
               <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4 md:gap-6 ">
-                {/* {products.map(({ img, name, price }) => (
-                  <div className="bg-[#252525] rounded-xl p-3 w-full ">
-                    <div className="flex flex-col items-center">
-                      <div className="flex flex-row md:items-center md:w-full">
-                        <div className="w-3/5 md:w-3/5">
-                          <img
-                            className="object-cover object-center w-4/5 aspect-1 rounded-xl"
-                            src={img}
-                            alt="product"
-                          />
-                        </div>
-                        <div className="md:flex md:flex-col">
-                          <h2 className="text-sm lg:text-md xl:text-lg font-medium text-white/70">
-                            {name}
-                          </h2>
-                          <h3 className="text-sm lg:text-md xl:text-lg mt-1 font-bold">
-                            ₹{price}
-                          </h3>
-                        </div>
-                      </div>
-                      <button className="w-24 mt-2 md:mt-4 lg:w-56 text-xs md:h-8 lg:h-10 lg:text-sm xl:text-md bg-red-500 rounded-md py-2 md:py-0">
-                        Discard
-                      </button>
-                    </div>
-                  </div>
-                ))} */}
-                {buyerProducts.map(
-                  ({ id, img, name, description, price, rating }) => (
-                    <ProductCard
-                      key={id}
-                      id={id}
-                      img={img}
-                      name={name}
-                      description={description}
-                      price={price}
-                      rating={rating}
-                    />
+                {products.map(({ img, name, price }) => (
+                  <MiniProductCard img={img} name={name} price={price} />
+                ))}
+                {/* {buyerProducts.map(({ id, img, name, description, price, rating }) => (
+                    <MiniProductCard img={img} name={name} price={price} />
                   )
-                )}
+                )} */}
               </div>
             </div>
             <div className="flex flex-col">
@@ -138,10 +105,3 @@ const Cart = () => {
 };
 
 export default Cart;
-
-{
-  /* <div className="flex px-12 md:px-0 justify-between">
-  <PlusCircleIcon className="w-1/3 md:w-1/12 md:ml-10 lg:ml-0 mt-2 md:mt-0" />
-  <MinusCircleIcon className="w-1/3 md:w-1/12 md:ml-10 lg:ml-0 mt-2 md:mt-0" />
-</div>  */
-}
