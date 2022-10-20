@@ -21,8 +21,11 @@ module.exports = {
         'background': '#0F0E11',
         'brand-red': '#EB0C2B',
         'brand-purple': '#7B38BA',
+        'brand-lavender': '#E3ECFF',
+        'dimmed-black': '#181818',
+        'dimmer-black': '#969696',
       },
     },
   },
-  plugins: [],
+  plugins: [require('@tailwindcss/aspect-ratio')],
 };

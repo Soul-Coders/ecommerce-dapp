@@ -10,7 +10,8 @@
   }
 
   input,
-  select {
+  select,
+  textarea {
     @apply px-5 py-2 bg-[#252525] rounded-md w-full box-border outline-none focus:outline-2 focus:outline-offset-0 focus:outline-neutral-400;
   }
 }

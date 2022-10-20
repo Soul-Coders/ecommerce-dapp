@@ -9,12 +9,22 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@headlessui/react": "^1.7.3",
     "@heroicons/react": "^2.0.10",
+    "chart.js": "^3.9.1",
+    "deploy": "^1.0.3",
+    "ethers": "^5.7.1",
     "next": "12.2.5",
     "react": "18.2.0",
-    "react-dom": "18.2.0"
+    "react-chartjs-2": "^4.3.1",
+    "react-dom": "18.2.0",
+    "serve": "^14.0.1",
+    "uid": "^2.0.1",
+    "web3.storage": "^4.4.0",
+    "yarn": "^1.22.19"
   },
   "devDependencies": {
+    "@tailwindcss/aspect-ratio": "^0.4.2",
     "autoprefixer": "^10.4.8",
     "eslint": "8.23.0",
     "eslint-config-next": "12.2.5",
