@@ -3,7 +3,7 @@ import Sidebar from './sidebar/Sidebar';
 import Navbar from './Navbar';
 import { useState } from 'react';
 
-const Page = ({ children, name, options = '' }) => {
+const Page = ({ children, name, username='', options = '' }) => {
   const [collapsed, setCollapsed] = useState(true);
   const changeCollapse = () => {
     setCollapsed(!collapsed);
@@ -31,9 +31,14 @@ const Page = ({ children, name, options = '' }) => {
           )}
           <div className="mt-16 mb-8">
             <div className="flex flex-col md:flex-row md:justify-between md:items-center mb-8 md:mb-0">
-              <h1 className="text-xl py-4 font-bold md:text-2xl md:py-6 lg:pt-8 lg:text-3xl">
+              <div className={`flex items-center text-xl py-4 font-bold md:text-2xl md:py-6 lg:pt-8 lg:text-3xl ${username && 'gap-2'}`}>
+              <h3 className="font-extrabold text-transparent bg-clip-text bg-gradient-to-tr from-brand-purple to-brand-red">
+                {`${username}${username && "'s"}`}
+              </h3>
+              <h3>
                 {name}
-              </h1>
+              </h3>
+              </div>
               {options}
             </div>
             {children}

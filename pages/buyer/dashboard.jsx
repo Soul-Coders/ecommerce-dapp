@@ -3,9 +3,9 @@ import List from '../../components/orders/List';
 import orders from '../../pages/seller/orders/orders.json';
 import Label from '../../components/Label';
 import Link from 'next/link';
-import { useContext, useState, useEffect } from 'react';
+import { useContext } from 'react';
 import { ConnectionContext } from '../../context/ConnectionContext';
-import Row from '../../components/Row';
+import ProductSlider from '../../components/products/ProductSlider';
 
 const products = [
   {
@@ -59,58 +59,75 @@ const products = [
 ];
 
 const Dashboard = () => {
-  const [sellerProducts, setSellerProducts] = useState([]);
-  const hrs = new Date().getHours();
-  const greet =
-    (hrs < 12 && 'Good morning') ||
-    (hrs >= 12 && hrs <= 17 && 'Good afternoon') ||
-    'Good evening';
   const { currentAccount } = useContext(ConnectionContext);
-  const { getContract } = useContext(ConnectionContext);
 
-  const fetchSellerProducts = async () => {
-    const contract = getContract();
-    const products = await contract.getAllProducts();
-    setSellerProducts(products);
-  };
-
-  useEffect(() => {
-    fetchSellerProducts();
-  }, [sellerProducts]);
-
+  const username = currentAccount.info.name && currentAccount.info.name.split(' ')[0] || 'Saud'
   return (
-    <Page name={'Dashboard'}>
-      {/* Greet User */}
-      <div className="flex font-bold text-base md:text-3xl gap-1 items-center">
-        <p>{greet}</p>
-        <h1 className="font-extrabold text-transparent bg-clip-text bg-gradient-to-tr from-brand-purple to-brand-red">
-          {(currentAccount.info.name &&
-            currentAccount.info.name.split(' ')[0]) ||
-            'Friend'}
-        </h1>
-        <p>!</p>
-      </div>
-
+    <Page name={'Dashboard'}
+      username={username}
+    >
       {/* You might be looking for */}
       <div className="flex justify-between">
-        <h1 className="mt-6 mb-1 text-base font-bold md:text-xl">
-          You might be looking for
+        <h1 className="mt-6 mb-1 text-base font-bold md:text-xl flex gap-1">
+          {username}, you might like this!
         </h1>
-        <div className="h-fit p-2 rounded-md bg-indigo-800 cursor-pointer">
+        <div className="h-fit p-2 rounded-md bg-blue-700 cursor-pointer">
           <Link href={'/buyer/products'}>View All</Link>
         </div>
       </div>
-      <Row products={sellerProducts} fetchSellerProducts={fetchSellerProducts} />
+      <ProductSlider products={products} /> {/* fetchSellerProducts={fetchSellerProducts} /> */}
 
       {/* From your watchlist */}
       <h1 className="mt-4 mb-1 text-base font-bold md:text-xl">
         Your watchlist
       </h1>
+      <ProductSlider products={products} /> {/* fetchSellerProducts={fetchSellerProducts} /> */}
 
       {/* Active orders / Orders */}
       <h1 className="mt-4 mb-1 text-base font-bold md:text-xl">
         Arriving Soon
       </h1>
+      <div className="flex flex-col">
+        <List
+          colnames={[]}
+          align={'grid grid-cols-[10%_22%_30%_15%_10%_13%_]'}
+          className=""
+        >
+          {orders.map(({ id, name, email, total, status, date }) => (
+            <div key={id}>
+              {/* Order ID */}
+              <h3 className="font-medium text-sm uppercase sm:text-base">
+                <span className="text-brand-purple">#</span>
+                {id}
+              </h3>
+
+              {/* Customer Name */}
+              <h2 className="font-light text-sm sm:text-base tracking-wide text-white/80">
+                {name}
+              </h2>
+
+              {/* Customer Email */}
+              <h2 className="font-light text-sm sm:text-base tracking-wide text-white/80">
+                {email}
+              </h2>
+
+              {/* Total bill */}
+              <h1 className="font-semibold text-xl mt-1">
+                <span className="mr-1">₹</span>
+                {total}
+              </h1>
+
+              {/* Order Status */}
+              <Label status={status} />
+
+              {/* Order Date */}
+              <h2 className="font-light text-sm sm:text-base text-white/80">
+                {date}
+              </h2>
+            </div>
+          ))}
+        </List>
+      </div>
     </Page>
   );
 };

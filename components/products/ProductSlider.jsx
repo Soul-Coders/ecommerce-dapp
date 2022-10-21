@@ -1,4 +1,4 @@
-import { ProductCard } from './products/ProductCard';
+import { ProductCard } from './ProductCard';
 // import { ChevronLeftIcon, ChevronRightIcon }from '@heroicons/react/24/outline'
 
 const Row = ({ products }) => {
@@ -9,7 +9,7 @@ const Row = ({ products }) => {
       <div className="flex flex-nowrap overflow-scroll overscroll-x-contain scrollbar-hide gap-2 p-2 z-10 w-full">
         {products.map(({ id, img, name, description, price, rating }, i) => (
           <div
-            className="basis-1/2 md:basis-1/3 lg:basis-1/4 xl:basis-1/5 flex-shrink-0"
+            className="basis-1 sm:basis-1/2 md:basis-1/3 lg:basis-1/4 xl:basis-1/5 flex-shrink-0"
             key={i}
           >
             <ProductCard
