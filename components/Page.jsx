@@ -3,7 +3,7 @@ import Sidebar from './sidebar/Sidebar';
 import Navbar from './Navbar';
 import { useState } from 'react';
 
-const Page = ({ children, name, username='', options = '' }) => {
+const Page = ({ children, name, username='', options = '', items, setSearches }) => {
   const [collapsed, setCollapsed] = useState(true);
   const changeCollapse = () => {
     setCollapsed(!collapsed);
@@ -20,7 +20,7 @@ const Page = ({ children, name, username='', options = '' }) => {
         <link rel="icon" href="/icon.svg" />
       </Head>
       <main>
-        <Navbar onClick={changeCollapse} page={name} />
+        <Navbar onClick={changeCollapse} page={name} items={items} setSearches={setSearches} />
         <div className="container">
           {!collapsed && (
             <Sidebar

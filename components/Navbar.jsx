@@ -1,8 +1,8 @@
 import { Bars3Icon } from '@heroicons/react/20/solid';
 import Link from 'next/link';
-import Searchbar from './Searchbar';
+import SearchBar from './Searchbar';
 
-const Navbar = ({ onClick, page }) => {
+const Navbar = ({ onClick, page, items, setSearches }) => {
   const search =
     (['products', 'orders', 'transactions'].includes(page.toLowerCase()) &&
       page) ||
@@ -29,7 +29,7 @@ const Navbar = ({ onClick, page }) => {
             </div>
           </div>
         </div>
-        <Searchbar searchFor={search} />
+        <SearchBar searchFor={search} items={items} setSearches={setSearches} />
       </div>
     </header>
   );
