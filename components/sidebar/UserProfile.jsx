@@ -14,7 +14,7 @@ const UserProfile = () => {
     const hideProfile = (e) =>
       ref.current &&
       !ref.current.contains(e.target) &&
-      setInvisible(invisible ? invisible : !invisible);
+      setInvisible(true);
     window.addEventListener('mousedown', hideProfile);
     return () => window.removeEventListener('mousedown', hideProfile);
   }, []);
@@ -22,9 +22,7 @@ const UserProfile = () => {
   return (
     <div>
       <button
-        onClick={() => {
-          setInvisible(!invisible);
-        }}
+        onClick={() => setInvisible(false)}
       >
         <img
           src={currentAccount.info.imgURL}
@@ -35,6 +33,7 @@ const UserProfile = () => {
         />
       </button>
       <DropdownMenu
+        wrapperRef={ref}
         invisible={invisible}
         info={currentAccount.info}
         address={currentAccount.walletAddress || 'No wallet found'}
@@ -51,10 +50,11 @@ const UserProfile = () => {
 
 export default UserProfile;
 
-const DropdownMenu = ({ invisible, info, address, user }) => {
+const DropdownMenu = ({ wrapperRef, invisible, info, address, user }) => {
   const [copied, setCopied] = useState(false);
-  return (
+  return (!invisible &&
     <div
+      ref={wrapperRef}
       className={`${
         invisible && 'hidden'
       } px-5 py-1 absolute bg-dimmed-black/80 rounded-md backdrop-blur-sm`}

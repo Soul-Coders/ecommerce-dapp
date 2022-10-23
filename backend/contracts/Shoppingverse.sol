@@ -38,7 +38,7 @@ contract Shoppingverse {
   mapping(address => User) public sellers;
   mapping(address => User) public buyers;
   mapping(address => string[]) public sellerProducts;
-  mapping(address => Product[]) public buyerProducts;
+  mapping(address => Product[]) public cart;
 
   //Arrays
   Product[] public allProducts;
@@ -137,7 +137,7 @@ contract Shoppingverse {
 
   function addToCart(string memory _id) external asBuyer {
     uint256 productIndex = getProductIndex(_id);
-    buyerProducts[msg.sender].push(allProducts[productIndex]);
+    cart[msg.sender].push(allProducts[productIndex]);
   }
 
   function deleteProduct(string memory _productId) external asSeller {
@@ -266,7 +266,7 @@ contract Shoppingverse {
     return products;
   }
 
-  function getBuyerProducts() external view returns (Product[] memory) {
-    return buyerProducts[msg.sender];
+  function getCart() external view returns (Product[] memory) {
+    return cart[msg.sender];
   }
 }

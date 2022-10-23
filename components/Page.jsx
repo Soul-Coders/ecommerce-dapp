@@ -5,9 +5,6 @@ import { useState } from 'react';
 
 const Page = ({ children, name, username='', options = '', items, setSearches }) => {
   const [collapsed, setCollapsed] = useState(true);
-  const changeCollapse = () => {
-    setCollapsed(!collapsed);
-  };
   const title = `${name} | ShoppingVerse`;
   return (
     <div className="bg-background">
@@ -20,11 +17,12 @@ const Page = ({ children, name, username='', options = '', items, setSearches })
         <link rel="icon" href="/icon.svg" />
       </Head>
       <main>
-        <Navbar onClick={changeCollapse} page={name} items={items} setSearches={setSearches} />
+        <Navbar onClick={() => setCollapsed(false)} page={name} items={items} setSearches={setSearches} />
         <div className="container">
           {!collapsed && (
             <Sidebar
-              onClick={changeCollapse}
+              setCollapsed={setCollapsed}
+              onClick={() => setCollapsed(true)}
               collapsed={collapsed}
               name={name}
             />

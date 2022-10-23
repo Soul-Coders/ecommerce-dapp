@@ -6,56 +6,23 @@ import { useEffect, useState, useContext } from 'react';
 
 const Cart = () => {
   const { getContract } = useContext(ConnectionContext);
-  const [buyerProducts, setBuyerProducts] = useState([]);
+  const [cart, setCart] = useState([]);
 
   const fetchBuyerProducts = async () => {
     const contract = getContract();
-    const products = await contract.getBuyerProducts();
-    setBuyerProducts(products);
+    const products = await contract.getCart();
+    setCart(products);
   };
 
   useEffect(() => {
     fetchBuyerProducts();
-  }, [buyerProducts]);
-
-  const products = [
-    {
-      img: '/product-1.jpg',
-      name: 'Black fashion bag',
-      price: '2000',
-    },
-    {
-      img: '/product-2.jpg',
-      name: 'Wood leather watch',
-      price: '1000',
-    },
-    {
-      img: '/product-3.jpg',
-      name: 'Wireless headphones',
-      price: '1500',
-    },
-    {
-      img: '/product-4.jpg',
-      name: 'Blue skate shoes',
-      price: '800',
-    },
-    {
-      img: '/product-5.jpg',
-      name: 'Navy mens outerwear',
-      price: '2000',
-    },
-    {
-      img: '/product-6.jpg',
-      name: 'Anchor leather bracelet',
-      price: '500',
-    },
-  ];
+  }, [cart]);
 
   let TotalPrice = 0;
   function sum(item) {
     TotalPrice += parseInt(item.price);
   }
-  buyerProducts.forEach(sum);
+  cart.forEach(sum);
   return (
     <div>
       <Page name="My Cart">
@@ -63,13 +30,13 @@ const Cart = () => {
           <div className="flex flex-col md:flex-row w-full px-3 py-5 mb-7 bg-dimmed-black rounded-md mt-2 md:px-5 xl:p-7">
             <div className="md:w-full">
               <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4 md:gap-6 ">
-                {products.map(({ img, name, price }) => (
+                {/* {products.map(({ img, name, price }) => (
                   <MiniProductCard img={img} name={name} price={price} />
-                ))}
-                {/* {buyerProducts.map(({ id, img, name, description, price, rating }) => (
+                ))} */}
+                {cart.map(({ id, img, name, description, price, rating }) => (
                     <MiniProductCard img={img} name={name} price={price} />
                   )
-                )} */}
+                )}
               </div>
             </div>
             <div className="flex flex-col">

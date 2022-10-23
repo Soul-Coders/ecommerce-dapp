@@ -7,10 +7,13 @@ import buyer_sidebar from '../../utils/buyer_sidebar';
 
 import UserProfile from './UserProfile';
 import Notifications from './Notifications';
+import { useState } from 'react';
 
-const Sidebar = ({ onClick, collapsed, name }) => {
+const Sidebar = ({ onClick, collapsed, setCollapsed, name }) => {
+
   const router = useRouter();
   const root = router.asPath.split('/')[1];
+  const pageID = router.asPath.split('/')[2];
 
   const sidebarItems = (root == 'seller' && seller_sidebar) || buyer_sidebar;
   return (
@@ -31,10 +34,12 @@ const Sidebar = ({ onClick, collapsed, name }) => {
             {sidebarItems.above.map(({ icon, title, id }) => (
               <li key={title} className="p-2">
                 <Link href={`/${root}/${id}`}>
-                  <div
+                  <button
+                    id={id}
+                    onClick={() => id === pageID && setCollapsed(true)}
                     className={`${
                       name.toLowerCase() == id && 'bg-[#242323]/80 rounded-md'
-                    } p-3 hover:bg-blue-500 rounded-md`}
+                    } p-3 hover:bg-blue-500 rounded-md w-full`}
                   >
                     <div className="flex flex-wrap gap-2 w-fit h-fit cursor-pointer">
                       {icon}
@@ -42,7 +47,7 @@ const Sidebar = ({ onClick, collapsed, name }) => {
                         {title}
                       </h3>
                     </div>
-                  </div>
+                  </button>
                 </Link>
               </li>
             ))}
@@ -54,10 +59,12 @@ const Sidebar = ({ onClick, collapsed, name }) => {
             {sidebarItems.below.map(({ icon, title, id }) => (
               <li key={title} className="p-2">
                 <Link href={`/${root}/${id}`}>
-                  <div
+                  <button
+                    id={id}
+                    onClick={() => id === pageID && setCollapsed(true)}
                     className={`${
                       name.toLowerCase() == id && 'bg-[#242323]'
-                    } p-3 hover:bg-blue-500 rounded-md`}
+                    } p-3 hover:bg-blue-500 rounded-md w-full`}
                   >
                     <div className="flex flex-wrap gap-2 w-fit h-fit cursor-pointer">
                       {icon}
@@ -65,7 +72,7 @@ const Sidebar = ({ onClick, collapsed, name }) => {
                         {title}
                       </h3>
                     </div>
-                  </div>
+                  </button>
                 </Link>
               </li>
             ))}

@@ -9,7 +9,7 @@ const Notifications = () => {
     const hideNotifications = (e) =>
       ref.current &&
       !ref.current.contains(e.target) &&
-      setInvisible(invisible ? invisible : !invisible);
+      setInvisible(true);
     window.addEventListener('mousedown', hideNotifications);
     return () => window.removeEventListener('mousedown', hideNotifications);
   }, []);
@@ -24,7 +24,7 @@ const Notifications = () => {
     <div className="flex">
       <button
         onClick={() => {
-          setInvisible(!invisible);
+          setInvisible(false);
         }}
       >
         <div className="flex justify-end">
@@ -37,18 +37,20 @@ const Notifications = () => {
             ''}
         </div>
       </button>
-      <DropdownMenu invisible={invisible} notifications={notifications} />
+      <DropdownMenu wrapperRef={ref} invisible={invisible}
+       notifications={notifications} />
     </div>
   );
 };
 
 export default Notifications;
 
-const DropdownMenu = ({ invisible, notifications }) => {
-  return (
+const DropdownMenu = ({ invisible, wrapperRef, notifications }) => {
+  return ( !invisible &&
     <div
+      ref={wrapperRef}
       className={`${
-        invisible && 'hidden'
+         'invisiblehidden'
       } px-5 py-1 absolute mt-7 bg-dimmed-black/80 rounded-md backdrop-blur-sm w-full`}
     >
       <ul>
