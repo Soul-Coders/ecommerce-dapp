@@ -61,28 +61,28 @@ const products = [
 const Dashboard = () => {
   const { currentAccount } = useContext(ConnectionContext);
 
-  const username = currentAccount.info.name && currentAccount.info.name.split(' ')[0] || 'Saud'
+  const username =
+    (currentAccount.info.name && currentAccount.info.name.split(' ')[0]) ||
+    'Saud';
   return (
-    <Page name={'Dashboard'}
-      username={username}
-    >
-      {/* You might be looking for */}
+    <Page name={'Dashboard'} username={username}>
+      {/* You may be looking for */}
       <div className="flex justify-between">
         <h1 className="mt-6 mb-1 text-base font-bold md:text-xl flex gap-1">
-          {username}, you might like this!
+          {username}, you may like this!
         </h1>
         <div className="h-fit p-2 rounded-md bg-blue-700 cursor-pointer">
           <Link href={'/buyer/products'}>View All</Link>
         </div>
       </div>
-      <ProductSlider products={products} /> {/* fetchSellerProducts={fetchSellerProducts} /> */}
-
+      <ProductSlider products={products} />{' '}
+      {/* fetchSellerProducts={fetchSellerProducts} /> */}
       {/* From your watchlist */}
       <h1 className="mt-4 mb-1 text-base font-bold md:text-xl">
         Your watchlist
       </h1>
-      <ProductSlider products={products} /> {/* fetchSellerProducts={fetchSellerProducts} /> */}
-
+      <ProductSlider products={products} />{' '}
+      {/* fetchSellerProducts={fetchSellerProducts} /> */}
       {/* Active orders / Orders */}
       <h1 className="mt-4 mb-1 text-base font-bold md:text-xl">
         Arriving Soon

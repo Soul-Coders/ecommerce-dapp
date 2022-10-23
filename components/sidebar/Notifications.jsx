@@ -7,9 +7,7 @@ const Notifications = () => {
   const ref = useRef(null);
   useEffect(() => {
     const hideNotifications = (e) =>
-      ref.current &&
-      !ref.current.contains(e.target) &&
-      setInvisible(true);
+      ref.current && !ref.current.contains(e.target) && setInvisible(true);
     window.addEventListener('mousedown', hideNotifications);
     return () => window.removeEventListener('mousedown', hideNotifications);
   }, []);
@@ -37,8 +35,11 @@ const Notifications = () => {
             ''}
         </div>
       </button>
-      <DropdownMenu wrapperRef={ref} invisible={invisible}
-       notifications={notifications} />
+      <DropdownMenu
+        wrapperRef={ref}
+        invisible={invisible}
+        notifications={notifications}
+      />
     </div>
   );
 };
@@ -46,21 +47,21 @@ const Notifications = () => {
 export default Notifications;
 
 const DropdownMenu = ({ invisible, wrapperRef, notifications }) => {
-  return ( !invisible &&
-    <div
-      ref={wrapperRef}
-      className={`${
-         'invisiblehidden'
-      } px-5 py-1 absolute mt-7 bg-dimmed-black/80 rounded-md backdrop-blur-sm w-full`}
-    >
-      <ul>
-        {notifications.map((notification, i) => (
-          <div key={i}>
-            <li className="p-3">{notification}</li>
-            <div className="w-full border border-white/20"></div>
-          </div>
-        ))}
-      </ul>
-    </div>
+  return (
+    !invisible && (
+      <div
+        ref={wrapperRef}
+        className={`${'invisiblehidden'} px-5 py-1 absolute mt-7 bg-dimmed-black/80 rounded-md backdrop-blur-sm w-full`}
+      >
+        <ul>
+          {notifications.map((notification, i) => (
+            <div key={i}>
+              <li className="p-3">{notification}</li>
+              <div className="w-full border border-white/20"></div>
+            </div>
+          ))}
+        </ul>
+      </div>
+    )
   );
 };

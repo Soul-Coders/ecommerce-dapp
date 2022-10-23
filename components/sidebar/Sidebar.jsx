@@ -10,7 +10,6 @@ import Notifications from './Notifications';
 import { useState } from 'react';
 
 const Sidebar = ({ onClick, collapsed, setCollapsed, name }) => {
-
   const router = useRouter();
   const root = router.asPath.split('/')[1];
   const pageID = router.asPath.split('/')[2];
@@ -30,53 +29,21 @@ const Sidebar = ({ onClick, collapsed, setCollapsed, name }) => {
               <XCircleIcon className="h-7 w-7 sm:inline cursor-pointer" />
             </button>
           </div>
-          <ul>
-            {sidebarItems.above.map(({ icon, title, id }) => (
-              <li key={title} className="p-2">
-                <Link href={`/${root}/${id}`}>
-                  <button
-                    id={id}
-                    onClick={() => id === pageID && setCollapsed(true)}
-                    className={`${
-                      name.toLowerCase() == id && 'bg-[#242323]/80 rounded-md'
-                    } p-3 hover:bg-blue-500 rounded-md w-full`}
-                  >
-                    <div className="flex flex-wrap gap-2 w-fit h-fit cursor-pointer">
-                      {icon}
-                      <h3 className="text-sm lg:text-base xl:text-base font-semibold">
-                        {title}
-                      </h3>
-                    </div>
-                  </button>
-                </Link>
-              </li>
-            ))}
-          </ul>
+          <List
+            sidebarItems={sidebarItems.above}
+            root={root}
+            pageID={pageID}
+            setCollapsed={setCollapsed}
+          />
         </div>
         <div className="p-1">
           <div className="w-full h-[1px] bg-white/20"></div>
-          <ul>
-            {sidebarItems.below.map(({ icon, title, id }) => (
-              <li key={title} className="p-2">
-                <Link href={`/${root}/${id}`}>
-                  <button
-                    id={id}
-                    onClick={() => id === pageID && setCollapsed(true)}
-                    className={`${
-                      name.toLowerCase() == id && 'bg-[#242323]'
-                    } p-3 hover:bg-blue-500 rounded-md w-full`}
-                  >
-                    <div className="flex flex-wrap gap-2 w-fit h-fit cursor-pointer">
-                      {icon}
-                      <h3 className="text-sm lg:text-base xl:text-base font-semibold">
-                        {title}
-                      </h3>
-                    </div>
-                  </button>
-                </Link>
-              </li>
-            ))}
-          </ul>
+          <List
+            sidebarItems={sidebarItems.below}
+            root={root}
+            pageID={pageID}
+            setCollapsed={setCollapsed}
+          />
         </div>
       </div>
       {!collapsed && (
@@ -90,3 +57,32 @@ const Sidebar = ({ onClick, collapsed, setCollapsed, name }) => {
 };
 
 export default Sidebar;
+
+const List = ({ sidebarItems, root, pageID, setCollapsed }) => {
+  return (
+    <div>
+      <ul>
+        {sidebarItems.map(({ icon, title, id }) => (
+          <li key={title} className="p-2">
+            <Link href={`/${root}/${id}`}>
+              <button
+                id={id}
+                onClick={() => id === pageID && setCollapsed(true)}
+                className={`${
+                  id === pageID && 'bg-[#242323]'
+                } p-3 hover:bg-blue-500 rounded-md w-full`}
+              >
+                <div className="flex flex-wrap gap-2 w-fit h-fit cursor-pointer">
+                  {icon}
+                  <h3 className="text-sm lg:text-base xl:text-base font-semibold">
+                    {title}
+                  </h3>
+                </div>
+              </button>
+            </Link>
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+};

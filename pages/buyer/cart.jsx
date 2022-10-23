@@ -34,9 +34,8 @@ const Cart = () => {
                   <MiniProductCard img={img} name={name} price={price} />
                 ))} */}
                 {cart.map(({ id, img, name, description, price, rating }) => (
-                    <MiniProductCard img={img} name={name} price={price} />
-                  )
-                )}
+                  <MiniProductCard img={img} name={name} price={price} />
+                ))}
               </div>
             </div>
             <div className="flex flex-col">
