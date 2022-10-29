@@ -23,9 +23,10 @@ const Orders = () => {
         }
       >
         <List
+          ordersFor={'seller'}
           colnames={colnames}
           align={'grid grid-cols-[10%_22%_30%_15%_10%_13%_]'}
-          className=""
+          ids={orders?.map(({id}) => id)}
         >
           {orders.map(({ id, name, email, total, status, date }) => (
             <div key={id}>

@@ -51,7 +51,7 @@ const DropdownMenu = ({ invisible, wrapperRef, notifications }) => {
     !invisible && (
       <div
         ref={wrapperRef}
-        className={`${'invisiblehidden'} px-5 py-1 absolute mt-7 bg-dimmed-black/80 rounded-md backdrop-blur-sm w-full`}
+        className="px-5 py-1 absolute mt-7 bg-dimmed-black/80 rounded-md backdrop-blur-sm w-full"
       >
         <ul>
           {notifications.map((notification, i) => (

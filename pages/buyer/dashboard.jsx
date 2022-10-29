@@ -1,7 +1,6 @@
 import Page from '../../components/Page';
 import List from '../../components/orders/List';
 import orders from '../../pages/seller/orders/orders.json';
-import Label from '../../components/Label';
 import Link from 'next/link';
 import { useContext } from 'react';
 import { ConnectionContext } from '../../context/ConnectionContext';
@@ -90,20 +89,17 @@ const Dashboard = () => {
       <div className="flex flex-col">
         <List
           colnames={[]}
-          align={'grid grid-cols-[10%_22%_30%_15%_10%_13%_]'}
-          className=""
+          ordersFor={'buyer'}
+          align={'grid grid-cols-[15%_25%_25%_20%_15%]'}
+          ids={orders?.map(({id}) => id)}
         >
-          {orders.map(({ id, name, email, total, status, date }) => (
+          {orders?.map(({ product, id, email, total, date }) => (
             <div key={id}>
-              {/* Order ID */}
-              <h3 className="font-medium text-sm uppercase sm:text-base">
-                <span className="text-brand-purple">#</span>
-                {id}
-              </h3>
-
+              {/* Order Image */}
+              <img src={product.img} alt="product image" className='w-16 xl:w-24 rounded-md' />
               {/* Customer Name */}
               <h2 className="font-light text-sm sm:text-base tracking-wide text-white/80">
-                {name}
+                {product.name}
               </h2>
 
               {/* Customer Email */}
@@ -116,9 +112,6 @@ const Dashboard = () => {
                 <span className="mr-1">₹</span>
                 {total}
               </h1>
-
-              {/* Order Status */}
-              <Label status={status} />
 
               {/* Order Date */}
               <h2 className="font-light text-sm sm:text-base text-white/80">

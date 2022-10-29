@@ -1,6 +1,6 @@
 import Link from 'next/link';
 
-const List = ({ colnames, children, align, className }) => {
+const List = ({ colnames, children, align, className, ordersFor, ids }) => {
   return (
     <div className="w-full px-3 p-5 py-5 mb-7 text-base bg-dimmed-black rounded-md mt-2 md:px-5 xl:p-7">
       <div
@@ -13,10 +13,11 @@ const List = ({ colnames, children, align, className }) => {
       {children.map(({ props }, i) => (
         <div key={i}>
           <Row
+            categ={ordersFor}
             className={
               'flex gap-2 flex-wrap justify-between lg:gap-0 lg:' + align
             }
-            id={props.children[0].props.children[1]}
+            id={ids[i]}
           >
             {props.children}
           </Row>
@@ -26,9 +27,9 @@ const List = ({ colnames, children, align, className }) => {
   );
 };
 
-const Row = ({ children, className, id }) => {
+const Row = ({ children, categ, className, id }) => {
   return (
-    <Link href={`/seller/orders/${id}`} key={id}>
+    <Link href={`/${categ}/orders/${id}`} key={id}>
       <div
         className={
           className +
