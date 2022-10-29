@@ -21,7 +21,8 @@ contract Shoppingverse {
     string addr;
     string city;
     string pinCode;
-    bool valid;
+    bool isSeller;
+    bool isBuyer;
   }
 
   struct Product {
@@ -35,27 +36,16 @@ contract Shoppingverse {
   }
 
   //Mappings
-  mapping(address => User) public sellers;
-  mapping(address => User) public buyers;
+  mapping(address => User) public users;
   mapping(address => string[]) public sellerProducts;
   mapping(address => Product[]) public cart;
 
   //Arrays
   Product[] public allProducts;
 
-  //Modifiers
-  modifier asSeller() {
-    require(sellers[msg.sender].valid, 'Seller not found!');
-    _;
-  }
-
-  modifier asBuyer() {
-    require(buyers[msg.sender].valid, 'Buyer not found!');
-    _;
-  }
-
   //Functions
-  function addSeller(
+  function addUser(
+    bool sellerAccount,
     string memory _imgURL,
     string memory _name,
     string memory _email,
@@ -66,13 +56,17 @@ contract Shoppingverse {
     string memory _city,
     string memory _pinCode
   ) external payable {
-    require(!sellers[msg.sender].valid, 'Existing Seller');
-    require(
-      msg.value == 0.009193 ether,
-      'Insufficient wallet funds!'
-    );
-    owner.transfer(msg.value);
-    sellers[msg.sender] = User(
+    if (sellerAccount) {
+      require(!users[msg.sender].isSeller, 'Existing Seller');
+      require(
+        msg.value == 0.009193 ether,
+        'Insufficient wallet funds!'
+      );
+      owner.transfer(msg.value);
+    } else {
+      require(!users[msg.sender].isBuyer, 'Existing Buyer');
+    }
+    users[msg.sender] = User(
       msg.sender,
       _imgURL,
       _name,
@@ -83,34 +77,8 @@ contract Shoppingverse {
       _addr,
       _city,
       _pinCode,
-      true
-    );
-  }
-
-  function addBuyer(
-    string memory _imgURL,
-    string memory _name,
-    string memory _email,
-    string memory _phone,
-    string memory _dob,
-    string memory _gender,
-    string memory _addr,
-    string memory _city,
-    string memory _pinCode
-  ) external {
-    require(!buyers[msg.sender].valid, 'Existing Buyer');
-    buyers[msg.sender] = User(
-      msg.sender,
-      _imgURL,
-      _name,
-      _email,
-      _phone,
-      _dob,
-      _gender,
-      _addr,
-      _city,
-      _pinCode,
-      true
+      sellerAccount || users[msg.sender].isSeller,
+      !sellerAccount || users[msg.sender].isBuyer
     );
   }
 
@@ -121,7 +89,7 @@ contract Shoppingverse {
     string memory _productImage,
     string memory _productPriceInr,
     uint256 _productPriceEth
-  ) external asSeller {
+  ) external {
     Product memory product = Product(
       _productId,
       _productName,
@@ -135,12 +103,12 @@ contract Shoppingverse {
     sellerProducts[msg.sender].push(_productId);
   }
 
-  function addToCart(string memory _id) external asBuyer {
+  function addToCart(string memory _id) external {
     uint256 productIndex = getProductIndex(_id);
     cart[msg.sender].push(allProducts[productIndex]);
   }
 
-  function deleteProduct(string memory _productId) external asSeller {
+  function deleteProduct(string memory _productId) external {
     uint256 productIndex = getProductIndex(_productId);
     uint256 sellerProductIndex = getSellerProductIndex(_productId);
     delete allProducts[productIndex];
@@ -153,7 +121,7 @@ contract Shoppingverse {
     string memory _productDescription,
     string memory _productPriceInr,
     uint256 _productPriceEth
-  ) external asSeller {
+  ) external {
     uint256 productIndex = getProductIndex(_productId);
     allProducts[productIndex].productName = _productName;
     allProducts[productIndex].productDescription = _productDescription;
@@ -189,23 +157,11 @@ contract Shoppingverse {
     revert('Product not found');
   }
 
-  function isSeller() external view returns (bool) {
-    return sellers[msg.sender].valid;
+  function getUserInfo() external view returns (User memory) {
+    return users[msg.sender];
   }
 
-  function isBuyer() external view returns (bool) {
-    return buyers[msg.sender].valid;
-  }
-
-  function getBuyerInfo() external view returns (User memory) {
-    return buyers[msg.sender];
-  }
-
-  function getSellerInfo() external view returns (User memory) {
-    return sellers[msg.sender];
-  }
-
-  function updateBuyerInfo(
+  function updateUserInfo(
     string memory _imgURL,
     string memory _name,
     string memory _email,
@@ -215,38 +171,16 @@ contract Shoppingverse {
     string memory _addr,
     string memory _city,
     string memory _pinCode
-  ) external asBuyer {
-    buyers[msg.sender].imgURL = _imgURL;
-    buyers[msg.sender].name = _name;
-    buyers[msg.sender].email = _email;
-    buyers[msg.sender].phone = _phone;
-    buyers[msg.sender].dob = _dob;
-    buyers[msg.sender].gender = _gender;
-    buyers[msg.sender].addr = _addr;
-    buyers[msg.sender].city = _city;
-    buyers[msg.sender].pinCode = _pinCode;
-  }
-
-  function updateSellerInfo(
-    string memory _imgURL,
-    string memory _name,
-    string memory _email,
-    string memory _phone,
-    string memory _dob,
-    string memory _gender,
-    string memory _addr,
-    string memory _city,
-    string memory _pinCode
-  ) external asSeller {
-    sellers[msg.sender].imgURL = _imgURL;
-    sellers[msg.sender].name = _name;
-    sellers[msg.sender].email = _email;
-    sellers[msg.sender].phone = _phone;
-    sellers[msg.sender].dob = _dob;
-    sellers[msg.sender].gender = _gender;
-    sellers[msg.sender].addr = _addr;
-    sellers[msg.sender].city = _city;
-    sellers[msg.sender].pinCode = _pinCode;
+  ) external {
+    users[msg.sender].imgURL = _imgURL;
+    users[msg.sender].name = _name;
+    users[msg.sender].email = _email;
+    users[msg.sender].phone = _phone;
+    users[msg.sender].dob = _dob;
+    users[msg.sender].gender = _gender;
+    users[msg.sender].addr = _addr;
+    users[msg.sender].city = _city;
+    users[msg.sender].pinCode = _pinCode;
   }
 
   function getAllProducts() external view returns (Product[] memory) {

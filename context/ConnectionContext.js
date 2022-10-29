@@ -34,7 +34,7 @@ export const ConnectionProvider = ({ children }) => {
     try {
       if (!ethereum) {
         alert(
-          'Metamask not detected. Please try again from a Metamask enabled browser.'
+          'No wallet detected. Please add a wallet to your web3 supported browser.'
         );
         return;
       }
@@ -44,15 +44,12 @@ export const ConnectionProvider = ({ children }) => {
       });
 
       const contract = getContract();
-      const seller = await contract.isSeller();
-      const buyer = await contract.isBuyer();
-      const info = await ((seller && contract.getSellerInfo()) ||
-        contract.getBuyerInfo());
+      const info = await contract.getUserInfo()
 
       setCurrentAccount({
         walletAddress: accounts[0],
-        buyerStatus: buyer,
-        sellerStatus: seller,
+        buyerStatus: info.isBuyer,
+        sellerStatus: info.isSeller,
         info: info,
       });
     } catch (error) {
@@ -100,14 +97,15 @@ export const ConnectionProvider = ({ children }) => {
     try {
       if (!ethereum) {
         alert(
-          'Metamask not detected. Please try again from a Metamask enabled browser.'
+          'No wallet detected. Please add a wallet to your web3 supported browser.'
         );
         return;
       }
 
       const contract = getContract();
       const value = BigNumber.from(9193000000000000n);
-      const tx = await contract.addSeller(
+      const tx = await contract.addUser(
+        true, // true as we're adding seller account
         imgURL,
         name,
         email,
@@ -142,13 +140,14 @@ export const ConnectionProvider = ({ children }) => {
     try {
       if (!ethereum) {
         alert(
-          'Metamask not detected. Please try again from a Metamask enabled browser.'
+          'No wallet detected. Please add a wallet to your web3 supported browser.'
         );
         return;
       }
 
       const contract = getContract();
-      const tx = await contract.addBuyer(
+      const tx = await contract.addUser(
+        false, // false because we're not adding seller account and indded a buyer account
         imgURL,
         name,
         email,
@@ -188,8 +187,8 @@ export const ConnectionProvider = ({ children }) => {
   }) => {
     console.log(imgURL, name, email, phone, dob, gender, addr, city, pinCode);
     const contract = getContract();
-    if (currentAccount.buyerStatus) {
-      const tx = await contract.updateBuyerInfo(
+    if (currentAccount) {
+      const tx = await contract.updateUserInfo(
         imgURL,
         name,
         email,
@@ -201,22 +200,7 @@ export const ConnectionProvider = ({ children }) => {
         pinCode
       );
       await tx.wait();
-      alert('Updated Buyer; You have to refresh to reflect the changes.');
-    }
-    if (currentAccount.sellerStatus) {
-      const tx = await contract.updateSellerInfo(
-        imgURL,
-        name,
-        email,
-        phone,
-        dob,
-        gender,
-        addr,
-        city,
-        pinCode
-      );
-      await tx.wait();
-      alert('Updated Seller; You have to refresh to reflect the changes.');
+      alert('Updated User; You have to refresh to reflect the changes.');
     }
   };
   return (
