@@ -45,12 +45,12 @@ contract Shoppingverse {
 
   //Modifiers
   modifier asSeller() {
-    require(sellers[msg.sender].valid, 'You are not authorized as Seller');
+    require(sellers[msg.sender].valid, 'Seller not found!');
     _;
   }
 
   modifier asBuyer() {
-    require(buyers[msg.sender].valid, 'You are not authorized as Buyer');
+    require(buyers[msg.sender].valid, 'Buyer not found!');
     _;
   }
 
@@ -66,10 +66,10 @@ contract Shoppingverse {
     string memory _city,
     string memory _pinCode
   ) external payable {
-    require(!sellers[msg.sender].valid, 'You are already registered as Seller');
+    require(!sellers[msg.sender].valid, 'Existing Seller');
     require(
       msg.value == 0.009193 ether,
-      'You dont have enough amount in your wallet'
+      'Insufficient wallet funds!'
     );
     owner.transfer(msg.value);
     sellers[msg.sender] = User(
@@ -98,7 +98,7 @@ contract Shoppingverse {
     string memory _city,
     string memory _pinCode
   ) external {
-    require(!buyers[msg.sender].valid, 'You are already registered as Buyer');
+    require(!buyers[msg.sender].valid, 'Existing Buyer');
     buyers[msg.sender] = User(
       msg.sender,
       _imgURL,
@@ -190,13 +190,11 @@ contract Shoppingverse {
   }
 
   function isSeller() external view returns (bool) {
-    bool ans = sellers[msg.sender].valid;
-    return ans;
+    return sellers[msg.sender].valid;
   }
 
   function isBuyer() external view returns (bool) {
-    bool ans = buyers[msg.sender].valid;
-    return ans;
+    return buyers[msg.sender].valid;
   }
 
   function getBuyerInfo() external view returns (User memory) {

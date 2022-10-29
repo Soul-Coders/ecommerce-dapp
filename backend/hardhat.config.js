@@ -1,4 +1,5 @@
 require('@nomicfoundation/hardhat-toolbox');
+require('hardhat-contract-sizer');
 
 task('accounts', 'Prints the list of accounts', async () => {
   const accounts = await ethers.getSigners();
