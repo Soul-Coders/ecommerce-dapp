@@ -3,20 +3,34 @@ import { MiniProductCard } from '../../components/products/MiniProductCard';
 import { ArrowRightIcon } from '@heroicons/react/20/solid';
 import { ConnectionContext } from '../../context/ConnectionContext';
 import { useEffect, useState, useContext } from 'react';
+import { doc, getDoc } from 'firebase/firestore';
+import { db } from '../../firebase-config';
 
 const Cart = () => {
-  const { getContract } = useContext(ConnectionContext);
+  const { getContract, currentAccount } = useContext(ConnectionContext);
   const [cart, setCart] = useState([]);
+  const [removeFromCart, setRemoveFromCart] = useState(false);
 
-  const fetchBuyerProducts = async () => {
-    const contract = getContract();
-    const products = await contract.getCart();
-    setCart(products);
+  const fetchCart = async () => {
+    try {
+      const docRef = doc(db, 'cart', currentAccount.walletAddress);
+      const docSnap = await getDoc(docRef);
+      if (docSnap.exists()) {
+        const data = docSnap.data();
+        const productIds = data.productId;
+        const contract = getContract();
+        const products = await contract.getCart(productIds);
+        setCart(products);
+        console.log('h');
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   useEffect(() => {
-    fetchBuyerProducts();
-  }, [cart]);
+    fetchCart();
+  }, [currentAccount, removeFromCart]);
 
   let TotalPrice = 0;
   function sum(item) {
@@ -33,9 +47,23 @@ const Cart = () => {
                 {/* {products.map(({ img, name, price }) => (
                   <MiniProductCard img={img} name={name} price={price} />
                 ))} */}
-                {cart.map(({ id, img, name, description, price, rating }) => (
-                  <MiniProductCard img={img} name={name} price={price} />
-                ))}
+                {cart.map(
+                  ({
+                    productId,
+                    productImage,
+                    productName,
+                    productPriceInr,
+                  }) => (
+                    <MiniProductCard
+                      key={productId}
+                      id={productId}
+                      img={productImage}
+                      name={productName}
+                      price={productPriceInr}
+                      setRemoveFromCart={setRemoveFromCart}
+                    />
+                  )
+                )}
               </div>
             </div>
             <div className="flex flex-col">

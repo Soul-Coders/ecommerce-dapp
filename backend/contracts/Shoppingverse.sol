@@ -38,7 +38,6 @@ contract Shoppingverse {
   //Mappings
   mapping(address => User) public users;
   mapping(address => string[]) public sellerProducts;
-  mapping(address => Product[]) public cart;
 
   //Arrays
   Product[] public allProducts;
@@ -58,10 +57,7 @@ contract Shoppingverse {
   ) external payable {
     if (sellerAccount) {
       require(!users[msg.sender].isSeller, 'Existing Seller');
-      require(
-        msg.value == 0.009193 ether,
-        'Insufficient wallet funds!'
-      );
+      require(msg.value == 0.009193 ether, 'Insufficient wallet funds!');
       owner.transfer(msg.value);
     } else {
       require(!users[msg.sender].isBuyer, 'Existing Buyer');
@@ -101,11 +97,6 @@ contract Shoppingverse {
     );
     allProducts.push(product);
     sellerProducts[msg.sender].push(_productId);
-  }
-
-  function addToCart(string memory _id) external {
-    uint256 productIndex = getProductIndex(_id);
-    cart[msg.sender].push(allProducts[productIndex]);
   }
 
   function deleteProduct(string memory _productId) external {
@@ -198,7 +189,16 @@ contract Shoppingverse {
     return products;
   }
 
-  function getCart() external view returns (Product[] memory) {
-    return cart[msg.sender];
+  function getCart(string[] memory _productId)
+    external
+    view
+    returns (Product[] memory)
+  {
+    Product[] memory products = new Product[](_productId.length);
+    for (uint256 i = 0; i < _productId.length; i++) {
+      uint256 productIndex = getProductIndex(_productId[i]);
+      products[i] = allProducts[productIndex];
+    }
+    return products;
   }
 }

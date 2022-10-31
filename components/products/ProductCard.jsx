@@ -2,7 +2,8 @@ import { useContext } from 'react';
 import { ConnectionContext } from '../../context/ConnectionContext';
 import ReactStars from 'react-rating-stars-component';
 import { useRouter } from 'next/router';
-import { useState } from 'react';
+import { arrayUnion, doc, getDoc, setDoc, updateDoc } from 'firebase/firestore';
+import { db } from '../../firebase-config';
 
 export const ProductCard = ({
   id,
@@ -17,14 +18,26 @@ export const ProductCard = ({
   setFormData,
   viewOnly,
 }) => {
-  const { getContract } = useContext(ConnectionContext);
+  const { getContract, currentAccount } = useContext(ConnectionContext);
 
   const addToCart = async () => {
-    const contract = getContract();
-    const tx = await contract.addToCart(id, { gasLimit: 21544 });
-    await tx.wait();
-    console.log('Success');
-    router.push('/buyer/cart');
+    try {
+      const docRef = doc(db, 'cart', currentAccount.walletAddress);
+      const docSnap = await getDoc(docRef);
+      if (docSnap.exists()) {
+        await updateDoc(docRef, {
+          productId: arrayUnion(id),
+        });
+      } else {
+        await setDoc(docRef, {
+          productId: [id],
+        });
+      }
+      console.log('Success');
+      router.push('/buyer/cart');
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const updateProduct = async () => {

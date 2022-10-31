@@ -1,7 +1,27 @@
 import { XCircleIcon } from '@heroicons/react/20/solid';
+import { arrayRemove, doc, getDoc, updateDoc } from 'firebase/firestore';
+import { useContext } from 'react';
+import { ConnectionContext } from '../../context/ConnectionContext';
+import { db } from '../../firebase-config';
 
-export const MiniProductCard = ({ img, name, price }) => {
-  const close = () => {};
+export const MiniProductCard = ({
+  id,
+  img,
+  name,
+  price,
+  setRemoveFromCart,
+}) => {
+  const { currentAccount } = useContext(ConnectionContext);
+  const close = async () => {
+    const docRef = doc(db, 'cart', currentAccount.walletAddress);
+    const docSnap = await getDoc(docRef);
+    if (docSnap.exists()) {
+      await updateDoc(docRef, {
+        productId: arrayRemove(id),
+      });
+      setRemoveFromCart((prev) => !prev);
+    }
+  };
   return (
     <div className="bg-[#252525] rounded-xl p-3 w-full flex">
       <div className="flex flex-col items-center">
