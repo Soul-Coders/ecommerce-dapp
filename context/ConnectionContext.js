@@ -44,7 +44,7 @@ export const ConnectionProvider = ({ children }) => {
       });
 
       const contract = getContract();
-      const info = await contract.getUserInfo()
+      const info = await contract.getUserInfo();
 
       setCurrentAccount({
         walletAddress: accounts[0],

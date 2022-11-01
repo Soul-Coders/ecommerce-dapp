@@ -44,9 +44,6 @@ const Cart = () => {
           <div className="flex flex-col md:flex-row w-full px-3 py-5 mb-7 bg-dimmed-black rounded-md mt-2 md:px-5 xl:p-7">
             <div className="md:w-full">
               <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4 md:gap-6 ">
-                {/* {products.map(({ img, name, price }) => (
-                  <MiniProductCard img={img} name={name} price={price} />
-                ))} */}
                 {cart.map(
                   ({
                     productId,

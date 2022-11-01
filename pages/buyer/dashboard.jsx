@@ -91,12 +91,16 @@ const Dashboard = () => {
           colnames={[]}
           ordersFor={'buyer'}
           align={'grid grid-cols-[15%_25%_25%_20%_15%]'}
-          ids={orders?.map(({id}) => id)}
+          ids={orders?.map(({ id }) => id)}
         >
           {orders?.map(({ product, id, email, total, date }) => (
             <div key={id}>
               {/* Order Image */}
-              <img src={product.img} alt="product image" className='w-16 xl:w-24 rounded-md' />
+              <img
+                src={product.img}
+                alt="product image"
+                className="w-16 xl:w-24 rounded-md"
+              />
               {/* Customer Name */}
               <h2 className="font-light text-sm sm:text-base tracking-wide text-white/80">
                 {product.name}
