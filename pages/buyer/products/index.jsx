@@ -1,7 +1,7 @@
-import Page from '../../components/Page';
+import Page from '../../../components/Page';
 import { useContext, useEffect, useState } from 'react';
-import { ConnectionContext } from '../../context/ConnectionContext';
-import { ProductCard } from '../../components/products/ProductCard';
+import { ConnectionContext } from '../../../context/ConnectionContext';
+import { ProductCard } from '../../../components/products/ProductCard';
 
 const Products = () => {
   const [allProducts, setAllProducts] = useState([]);

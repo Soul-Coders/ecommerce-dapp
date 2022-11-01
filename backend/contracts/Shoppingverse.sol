@@ -178,6 +178,10 @@ contract Shoppingverse {
     return allProducts;
   }
 
+  function getProduct(string memory _id) public view returns (Product memory) {
+    return allProducts[getProductIndex(_id)];
+  }
+
   function getSellerProducts() external view returns (Product[] memory) {
     Product[] memory products = new Product[](
       sellerProducts[msg.sender].length
