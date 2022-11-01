@@ -4,7 +4,7 @@ import { useContext } from 'react';
 import { ConnectionContext } from '../../context/ConnectionContext';
 import { useRouter } from 'next/router';
 
-const CartButton = ({ id }) => {
+export const CartButton = ({ id }) => {
   const router = useRouter();
   const { currentAccount } = useContext(ConnectionContext);
   const addToCart = async () => {
@@ -30,7 +30,7 @@ const CartButton = ({ id }) => {
   return (
     <div>
       <button
-        id='button'
+        id="button"
         onClick={addToCart}
         className="w-full bg-blue-600 rounded-md py-2"
       >
@@ -39,5 +39,3 @@ const CartButton = ({ id }) => {
     </div>
   );
 };
-
-export default CartButton;

@@ -2,8 +2,8 @@ import { useContext } from 'react';
 import { ConnectionContext } from '../../context/ConnectionContext';
 import ReactStars from 'react-rating-stars-component';
 import { useRouter } from 'next/router';
-import BuyButton from './BuyButton';
-import CartButton from './CartButton';
+import { BuyButton } from './BuyButton';
+import { CartButton } from './CartButton';
 
 export const ProductCard = ({
   id,
@@ -20,18 +20,6 @@ export const ProductCard = ({
   viewOnly,
 }) => {
   const { getContract } = useContext(ConnectionContext);
-
-  const buyProduct = async () => {
-    try {
-      const contract = getContract();
-      const tx = await contract.buyProduct(id, { value: ethPrice });
-      await tx.wait();
-      console.log('Success');
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
   const updateProduct = async () => {
     setFormData({
       id: id,
@@ -113,7 +101,7 @@ export const ProductCard = ({
             )) || (
               <div className="z-0 flex flex-col md:grid md:grid-cols-2 justify-between gap-3 mt-6 font-medium">
                 <CartButton id={id} />
-                <BuyButton id={id} />
+                <BuyButton id={id} ethPrice={ethPrice} />
               </div>
             )}
           </div>

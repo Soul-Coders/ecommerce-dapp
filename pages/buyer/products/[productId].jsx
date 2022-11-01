@@ -4,8 +4,8 @@ import ReactStars from 'react-rating-stars-component';
 import { useState, useEffect, useContext } from 'react';
 import { useRouter } from 'next/router';
 import { ConnectionContext } from '../../../context/ConnectionContext';
-import BuyButton from '../../../components/products/BuyButton';
-import CartButton from '../../../components/products/CartButton';
+import { BuyButton } from '../../../components/products/BuyButton';
+import { CartButton } from '../../../components/products/CartButton';
 
 const seller = {
   name: 'Mynt Clothings',

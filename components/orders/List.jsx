@@ -38,7 +38,7 @@ const Row = ({ children, categ, className, id }) => {
         key={id}
       >
         {children.map((child, i) => (
-          <div key={i} className=" basis-1/3 md:basis-0">
+          <div key={i} className=" basis-1/3 md:basis-[10%]">
             {child}
           </div>
         ))}

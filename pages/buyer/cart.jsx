@@ -49,6 +49,7 @@ const Cart = () => {
                     productImage,
                     productName,
                     productPriceInr,
+                    productPriceEth,
                   }) => (
                     <MiniProductCard
                       key={productId}
@@ -56,6 +57,7 @@ const Cart = () => {
                       img={productImage}
                       name={productName}
                       price={productPriceInr}
+                      ethPrice={productPriceEth}
                       setRemoveFromCart={setRemoveFromCart}
                     />
                   )
