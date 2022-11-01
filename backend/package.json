@@ -26,6 +26,7 @@
     "compile": "npx hardhat compile",
     "test": "npx hardhat test",
     "serve": "npx hardhat node",
-    "deploy": "npx hardhat run scripts/deploy.js --network localhost"
+    "deploy": "npx hardhat run scripts/deploy.js --network localhost",
+    "size": "yarn run hardhat size-contracts"
   }
 }

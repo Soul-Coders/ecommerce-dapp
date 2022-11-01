@@ -38,6 +38,7 @@ const Products = () => {
                 productDescription,
                 productImage,
                 productPriceInr,
+                productPriceEth,
               }) => {
                 if (productId.length > 0) {
                   return (
@@ -48,6 +49,7 @@ const Products = () => {
                       name={productName}
                       description={productDescription}
                       price={productPriceInr}
+                      ethPrice={productPriceEth}
                     />
                   );
                 }

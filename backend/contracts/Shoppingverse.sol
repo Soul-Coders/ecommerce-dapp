@@ -120,6 +120,12 @@ contract Shoppingverse {
     allProducts[productIndex].productPriceEth = _productPriceEth;
   }
 
+  function buyProduct(string memory _productId) external payable {
+    uint256 productIndex = getProductIndex(_productId);
+    require(msg.value == allProducts[productIndex].productPriceEth);
+    allProducts[productIndex].seller.transfer(msg.value);
+  }
+
   function getSellerProductIndex(string memory _id)
     internal
     view

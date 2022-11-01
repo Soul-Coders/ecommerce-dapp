@@ -21,7 +21,6 @@ const Cart = () => {
         const contract = getContract();
         const products = await contract.getCart(productIds);
         setCart(products);
-        console.log('h');
       }
     } catch (error) {
       console.log(error);
