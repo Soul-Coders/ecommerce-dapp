@@ -49,20 +49,14 @@ const ProductDetails = () => {
     return await contract.getProduct(id);
   };
   const [product, setProduct] = useState();
+  const [web3URI, setweb3URI] = useState('');
 
   useEffect(() => {
-    router.isReady &&
+    if (router.isReady) {
       getProduct(productId).then((product) => setProduct(product));
+    }
   }, [productId, router.isReady]);
   const rating = 5;
-  const galley = [
-    '/product-1.jpg',
-    '/product-2.jpg',
-    '/product-3.jpg',
-    '/product-4.jpg',
-    '/product-5.jpg',
-  ];
-  const [imageSRC, setImgSRC] = useState();
   return (
     <div>
       <Page name={'Product Details'}>
@@ -73,24 +67,51 @@ const ProductDetails = () => {
           <div className="grid grid-cols-1 md:grid-cols-[55%_45%] gap-2">
             {/* Image gallery */}
             <div className="bg-[#252525] p-2 rounded-lg">
-              {(product && (
-                <img
-                  src={imageSRC || product.productImage}
-                  alt="product image"
-                  className="object-cover object-center w-full max-h-96 aspect-1 rounded-xl"
-                />
-              )) ||
+              {(product &&
+                (((web3URI?.split('|')[0] ||
+                  product.productGallery[0].split('|')[0]) === 'image' && (
+                  <img
+                    src={
+                      web3URI?.split('|')[1] ||
+                      product.productGallery[0].split('|')[1]
+                    }
+                    alt="product image"
+                    className="object-cover object-center w-full max-h-96 aspect-1 rounded-xl"
+                  />
+                )) || (
+                  <video
+                    className="object-cover object-center w-full max-h-96 aspect-1 rounded-xl"
+                    controls
+                  >
+                    <source src={web3URI?.split('|')[1]} type="video/mp4" />
+                  </video>
+                ))) ||
                 'Loading'}
               <hr className="mt-2" />
               <div className="w-full rounded-lg mt-2 flex gap-2 scrollbar-hide overflow-x-scroll">
-                {galley?.map((imgURL) => (
-                  <img
-                    src={imgURL}
-                    alt="product image"
-                    className="w-40 rounded-lg cursor-pointer"
-                    onClick={() => setImgSRC(imgURL)}
-                  />
-                ))}
+                {product &&
+                  product.productGallery.map((web3URI) => (
+                      (web3URI?.split('|')[0] === 'image' && (
+                        <img
+                          src={web3URI?.split('|')[1]}
+                          alt="product image"
+                          className="w-24 rounded-lg cursor-pointer"
+                          onClick={() => setweb3URI(web3URI)}
+                        />
+                      )) || (
+                        <video
+                          className="w-24"
+                          onClick={() => setweb3URI(web3URI)}
+                          
+                        >
+                          <source
+                            src={web3URI?.split('|')[1]}
+                            type="video/mp4"
+                          />
+                        </video>
+                      )
+                    // </div>
+                  ))}
               </div>
             </div>
 

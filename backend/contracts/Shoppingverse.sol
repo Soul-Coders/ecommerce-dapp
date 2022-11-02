@@ -29,7 +29,7 @@ contract Shoppingverse {
     string productId;
     string productName;
     string productDescription;
-    string productImage;
+    string [] productGallery;
     string productPriceInr;
     uint256 productPriceEth;
     address payable seller;
@@ -82,7 +82,7 @@ contract Shoppingverse {
     string memory _productId,
     string memory _productName,
     string memory _productDescription,
-    string memory _productImage,
+    string[] memory _productGallery,
     string memory _productPriceInr,
     uint256 _productPriceEth
   ) external {
@@ -90,7 +90,7 @@ contract Shoppingverse {
       _productId,
       _productName,
       _productDescription,
-      _productImage,
+      _productGallery,
       _productPriceInr,
       _productPriceEth,
       payable(msg.sender)

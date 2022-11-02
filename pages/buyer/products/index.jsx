@@ -36,7 +36,7 @@ const Products = () => {
                 productId,
                 productName,
                 productDescription,
-                productImage,
+                productGallery,
                 productPriceInr,
                 productPriceEth,
               }) => {
@@ -45,7 +45,7 @@ const Products = () => {
                     <ProductCard
                       key={productId}
                       id={productId}
-                      img={productImage}
+                      img={productGallery[0].split('|')[1]}
                       name={productName}
                       description={productDescription}
                       price={productPriceInr}

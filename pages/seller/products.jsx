@@ -168,7 +168,7 @@ const Products = () => {
                   productId,
                   productName,
                   productDescription,
-                  productImage,
+                  productGallery,
                   productPriceInr,
                 }) => {
                   if (productId.length > 0) {
@@ -176,7 +176,7 @@ const Products = () => {
                       <ProductCard
                         key={productId}
                         id={productId}
-                        img={productImage}
+                        img={productGallery[0].split('|')[1]}
                         name={productName}
                         description={productDescription}
                         price={productPriceInr}

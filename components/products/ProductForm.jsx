@@ -20,15 +20,23 @@ export const ProductForm = ({ setIsOpen, fetchSellerProducts }) => {
       const inrRate = await convertEthToInr();
       const productName = event.target.title.value;
       const productDescription = event.target.description.value;
-      const productImage = event.target.image.files[0];
-      const fileName = uid(16);
-      const newFile = new File([productImage], fileName, {
-        type: productImage.type,
-      });
-      const rootCid = await client.put([newFile], {
-        name: fileName,
-      });
-      const imageURI = `https://${rootCid}.ipfs.dweb.link/${fileName}`;
+      const productGallery = event.target.image.files;
+      const web3URIs = await Promise.all(
+        Object.values(productGallery).map(async (media) => {
+          const fileName = uid(16);
+          const newFile = new File([media], fileName, {
+            type: media.type,
+          });
+          const rootCid = await client.put([newFile], {
+            name: fileName,
+          });
+          const web3URI = `${
+            media.type.split('/')[0]
+          }|https://${rootCid}.ipfs.dweb.link/${fileName}`;
+          return web3URI;
+        })
+      );
+
       const productPriceInr = event.target.price.value;
       const productPriceEth = parseEther(
         (parseFloat(productPriceInr) / inrRate).toFixed(6)
@@ -39,7 +47,7 @@ export const ProductForm = ({ setIsOpen, fetchSellerProducts }) => {
         productId,
         productName,
         productDescription,
-        imageURI,
+        web3URIs,
         productPriceInr,
         productPriceEth
       );
@@ -82,7 +90,8 @@ export const ProductForm = ({ setIsOpen, fetchSellerProducts }) => {
           type="file"
           id="image"
           className="file:py-2 file:px-5 file:border-0 file:text-sm hover:file:cursor-pointer file:rounded-md file:mr-5 file:bg-white/10 file:text-white file:-ml-3"
-          accept="image/png, image/jpeg"
+          accept="image/png, image/jpeg, video/mp4"
+          multiple
           required
         />
       </div>

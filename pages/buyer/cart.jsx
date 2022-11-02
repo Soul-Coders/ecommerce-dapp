@@ -46,7 +46,7 @@ const Cart = () => {
                 {cart.map(
                   ({
                     productId,
-                    productImage,
+                    productGallery,
                     productName,
                     productPriceInr,
                     productPriceEth,
@@ -54,7 +54,7 @@ const Cart = () => {
                     <MiniProductCard
                       key={productId}
                       id={productId}
-                      img={productImage}
+                      img={productGallery[0].split('|')[1]}
                       name={productName}
                       price={productPriceInr}
                       ethPrice={productPriceEth}
