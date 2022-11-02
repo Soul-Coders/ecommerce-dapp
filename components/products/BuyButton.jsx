@@ -1,13 +1,19 @@
 import { useContext } from 'react';
 import { ConnectionContext } from '../../context/ConnectionContext';
+import { uploadJsonToIpfs } from '../../utils/uploadJsonToIpfs';
 
-export const BuyButton = ({ id, ethPrice }) => {
-  const { getContract } = useContext(ConnectionContext);
+export const BuyButton = ({ id, ethPrice, name, description, image }) => {
+  const { getContract, getNftContract } = useContext(ConnectionContext);
   const buyProduct = async () => {
     try {
       const contract = getContract();
       const tx = await contract.buyProduct(id, { value: ethPrice });
       await tx.wait();
+      const nftMetadata = { name, description, image };
+      const tokenUri = await uploadJsonToIpfs(nftMetadata);
+      const nftContract = getNftContract();
+      const token = await nftContract.mint(tokenUri);
+      await token.wait();
       console.log('Success');
     } catch (error) {
       console.log(error);

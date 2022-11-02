@@ -2,6 +2,7 @@ import { BigNumber, ethers } from 'ethers';
 import { useRouter } from 'next/router';
 import { createContext, useEffect, useState } from 'react';
 import Shoppingverse from '../backend/artifacts/contracts/Shoppingverse.sol/Shoppingverse.json';
+import NftWarranty from '../backend/artifacts/contracts/NftWarranty.sol/NftWarranty.json';
 
 export const ConnectionContext = createContext();
 
@@ -13,6 +14,21 @@ const getContract = () => {
     const smartContract = new ethers.Contract(
       process.env.NEXT_PUBLIC_CONTRACT_ADDRESS,
       Shoppingverse.abi,
+      signer
+    );
+
+    return smartContract;
+  }
+};
+
+const getNftContract = () => {
+  if (typeof window.ethereum !== 'undefined') {
+    const { ethereum } = window;
+    const provider = new ethers.providers.Web3Provider(ethereum);
+    const signer = provider.getSigner();
+    const smartContract = new ethers.Contract(
+      process.env.NEXT_PUBLIC_NFT_CONTRACT_ADDRESS,
+      NftWarranty.abi,
       signer
     );
 
@@ -215,6 +231,7 @@ export const ConnectionProvider = ({ children }) => {
         formType,
         updateAccount,
         getContract,
+        getNftContract,
       }}
     >
       {children}

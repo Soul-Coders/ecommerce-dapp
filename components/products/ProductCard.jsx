@@ -101,7 +101,13 @@ export const ProductCard = ({
             )) || (
               <div className="z-0 flex flex-col md:grid md:grid-cols-2 justify-between gap-3 mt-6 font-medium">
                 <CartButton id={id} />
-                <BuyButton id={id} ethPrice={ethPrice} />
+                <BuyButton
+                  id={id}
+                  ethPrice={ethPrice}
+                  name={name}
+                  description={description}
+                  image={img}
+                />
               </div>
             )}
           </div>
