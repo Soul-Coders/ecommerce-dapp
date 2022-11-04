@@ -9,6 +9,7 @@ contract NftWarranty is ERC721, Ownable {
   using Counters for Counters.Counter;
   Counters.Counter private _tokenIds;
   mapping(uint256 => string) private _tokenURIs;
+  mapping(address => uint256[]) public userNfts;
 
   constructor(string memory name, string memory symbol) ERC721(name, symbol) {}
 
@@ -17,6 +18,7 @@ contract NftWarranty is ERC721, Ownable {
     _tokenIds.increment();
     _safeMint(msg.sender, tokenId);
     _setTokenURI(tokenId, _tokenURI);
+    userNfts[msg.sender].push(tokenId);
   }
 
   function _setTokenURI(uint256 _tokenId, string memory _tokenURI)
@@ -36,5 +38,9 @@ contract NftWarranty is ERC721, Ownable {
   {
     require(_exists(_tokenId), 'ERC721Metadata: URI set of nonexistent token');
     return _tokenURIs[_tokenId];
+  }
+
+  function getUserNfts() external view returns (uint256[] memory) {
+    return userNfts[msg.sender];
   }
 }

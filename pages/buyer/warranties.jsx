@@ -1,34 +1,45 @@
+import { useContext, useEffect, useState } from 'react';
 import Page from '../../components/Page';
-import { WarrantyCard } from '../../components/warranties/WarrantyCard';
+import { NftCard } from '../../components/warranties/NftCard';
+import { ConnectionContext } from '../../context/ConnectionContext';
 
 const Warranties = () => {
-  const warranties = [
-    {
-      productImage: '/product-5.jpg',
-      expiryDate: '29 Aug 2024',
-      productName: 'Navy Mens Outerwear',
-    },
-    {
-      productImage: '/product-3.jpg',
-      expiryDate: '20 Aug 2023',
-      productName: 'Wireless Headphones',
-    },
-  ];
+  const [userNfts, setUserNfts] = useState([]);
+  const { getNftContract } = useContext(ConnectionContext);
+  const fetchUserNfts = async () => {
+    try {
+      const contract = getNftContract();
+      const tokens = await contract.getUserNfts();
+      const nfts = await Promise.all(
+        tokens.map(async (id) => {
+          const tokenURI = await contract.tokenURI(id);
+          const data = await fetch(tokenURI).then((data) => data.json());
+          const nft = {
+            id: id,
+            name: data.name,
+            image: data.image,
+          };
+          return nft;
+        })
+      );
+      setUserNfts(nfts);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    fetchUserNfts();
+  }, []);
 
   return (
     <div>
-      <Page name="Warranties">
-        <div className="w-full px-3 py-5 mb-7 bg-dimmed-black rounded-md mt-2 md:px-5 xl:p-7">
-          <div className="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-6 xl:gap-8">
-            {warranties.map(({ productImage, expiryDate, productName }) => (
-              <WarrantyCard
-                key={productImage}
-                productImage={productImage}
-                expiryDate={expiryDate}
-                productName={productName}
-              />
+      <Page name={'Warranties'}>
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-6 lg:grid-cols-3 xl:grid-cols-5">
+          {userNfts.length > 0 &&
+            userNfts.map(({ image, name }, index) => (
+              <NftCard index={index} image={image} name={name} />
             ))}
-          </div>
         </div>
       </Page>
     </div>
