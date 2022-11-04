@@ -1,9 +1,9 @@
-import { useContext } from 'react';
-import { ConnectionContext } from '../../context/ConnectionContext';
 import ReactStars from 'react-rating-stars-component';
 import { useRouter } from 'next/router';
 import { BuyButton } from './BuyButton';
 import { CartButton } from './CartButton';
+import DiscardButton from './DiscardButton';
+import EditButton from './EditButton';
 
 export const ProductCard = ({
   id,
@@ -19,7 +19,6 @@ export const ProductCard = ({
   setFormData,
   viewOnly,
 }) => {
-  const { getContract } = useContext(ConnectionContext);
   const updateProduct = async () => {
     setFormData({
       id: id,
@@ -31,17 +30,6 @@ export const ProductCard = ({
     setIsOpen((prev) => !prev);
   };
 
-  const deleteProduct = async () => {
-    try {
-      const contract = getContract();
-      const tx = await contract.deleteProduct(id);
-      await tx.wait();
-      console.log('Success');
-      fetchSellerProducts();
-    } catch (error) {
-      console.log(error);
-    }
-  };
   const router = useRouter();
   const root = router.asPath.split('/')[1];
 
@@ -84,21 +72,9 @@ export const ProductCard = ({
         {!viewOnly && (
           <div>
             {(root == 'seller' && (
-              <div className="flex flex-col md:flex-row justify-between gap-3 mt-6 font-medium">
-                <button
-                  id={'button'}
-                  onClick={updateProduct}
-                  className="w-full md:order-2 bg-white/20 rounded-md py-2"
-                >
-                  Edit
-                </button>
-                <button
-                  id={'button'}
-                  onClick={deleteProduct}
-                  className="w-full bg-red-500 rounded-md py-2"
-                >
-                  Discard
-                </button>
+              <div className="z-0 flex flex-col md:grid md:grid-cols-2 justify-between gap-3 mt-6 font-medium">
+                <EditButton updateProduct={updateProduct}/> 
+                <DiscardButton id={id} fetchSellerProducts={fetchSellerProducts}/>
               </div>
             )) || (
               <div className="z-0 flex flex-col md:grid md:grid-cols-2 justify-between gap-3 mt-6 font-medium">

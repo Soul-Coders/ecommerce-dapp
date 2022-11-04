@@ -1,11 +1,11 @@
-import Page from '../../components/Page';
+import Page from '../../../components/Page';
 import { PlusIcon } from '@heroicons/react/20/solid';
-import { ProductCard } from '../../components/products/ProductCard';
+import { ProductCard } from '../../../components/products/ProductCard';
 import { Dialog, Transition } from '@headlessui/react';
 import { Fragment, useContext, useEffect, useState } from 'react';
-import { ProductForm } from '../../components/products/ProductForm';
-import { ConnectionContext } from '../../context/ConnectionContext';
-import { UpdateForm } from '../../components/products/UpdateForm';
+import { ProductForm } from '../../../components/products/ProductForm';
+import { ConnectionContext } from '../../../context/ConnectionContext';
+import { UpdateForm } from '../../../components/products/UpdateForm';
 
 const Products = () => {
   const [isOpen, setIsOpen] = useState(false);
