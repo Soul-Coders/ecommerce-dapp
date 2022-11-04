@@ -18,6 +18,7 @@ const List = ({ colnames, children, align, className, ordersFor, ids }) => {
               'flex gap-2 flex-wrap justify-between lg:gap-0 lg:' + align
             }
             id={ids[i]}
+            i={i}
           >
             {props.children}
           </Row>
@@ -27,7 +28,7 @@ const List = ({ colnames, children, align, className, ordersFor, ids }) => {
   );
 };
 
-const Row = ({ children, categ, className, id }) => {
+const Row = ({ children, categ, className, id, i }) => {
   return (
     <Link href={`/${categ}/orders/${id}`} key={id}>
       <div
@@ -35,7 +36,7 @@ const Row = ({ children, categ, className, id }) => {
           className +
           ' cursor-pointer items-center mt-4  bg-[#252525]/70 p-4 rounded-md lg:p-4'
         }
-        key={id}
+        key={i}
       >
         {children.map((child, i) => (
           <div key={i} className=" basis-1/3 md:basis-[10%]">

@@ -86,12 +86,14 @@ export const ProductCard = ({
             {(root == 'seller' && (
               <div className="flex flex-col md:flex-row justify-between gap-3 mt-6 font-medium">
                 <button
+                  id={'button'}
                   onClick={updateProduct}
                   className="w-full md:order-2 bg-white/20 rounded-md py-2"
                 >
                   Edit
                 </button>
                 <button
+                  id={'button'}
                   onClick={deleteProduct}
                   className="w-full bg-red-500 rounded-md py-2"
                 >
