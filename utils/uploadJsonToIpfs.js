@@ -8,8 +8,9 @@ const client = new Web3Storage({
 export const uploadJsonToIpfs = async (nftMetadata) => {
   try {
     const fileName = uid(12);
-    const newFile = new File([nftMetadata], fileName, {
-      type: nftMetadata.type,
+    const buffer = Buffer.from(JSON.stringify(nftMetadata));
+    const newFile = new File([buffer], fileName, {
+      type: 'object',
     });
     const rootCid = await client.put([newFile], {
       name: fileName,
