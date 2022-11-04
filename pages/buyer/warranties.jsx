@@ -30,7 +30,7 @@ const Warranties = () => {
 
   useEffect(() => {
     fetchUserNfts();
-  }, []);
+  }, [fetchUserNfts]);
 
   return (
     <div>
@@ -38,7 +38,7 @@ const Warranties = () => {
         <div className="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-6 lg:grid-cols-3 xl:grid-cols-5">
           {userNfts.length > 0 &&
             userNfts.map(({ image, name }, index) => (
-              <NftCard index={index} image={image} name={name} />
+              <NftCard index={index} image={image} name={name} key={index}/>
             ))}
         </div>
       </Page>

@@ -30,12 +30,8 @@ const Cart = () => {
   useEffect(() => {
     fetchCart();
   }, [currentAccount, removeFromCart]);
-
-  let TotalPrice = 0;
-  function sum(item) {
-    TotalPrice += parseInt(item.price);
-  }
-  cart.forEach(sum);
+  const totalPrice = cart?.map((item)=> parseInt(item[4])).reduce((a, b) => a + b, 0)
+  
   return (
     <div>
       <Page name="My Cart">
@@ -80,7 +76,7 @@ const Cart = () => {
                   Total Amount :
                 </label>
                 <label htmlFor="" className="text-xs ">
-                  {TotalPrice}
+                  {totalPrice}
                 </label>
               </div>
               <div className="mt-7 md:ml-11 md:mr-1">
