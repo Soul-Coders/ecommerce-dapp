@@ -21,7 +21,7 @@ export const BuyButton = ({ id, ethPrice, name, description, image }) => {
         currentAccount.info,
         product,
         1,
-        50, {gasLimit: 0}
+        50
       )
       await orderTx.wait()
       console.log(token.hash)

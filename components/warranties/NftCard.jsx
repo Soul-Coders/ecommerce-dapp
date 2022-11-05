@@ -1,4 +1,7 @@
-export const NftCard = ({ index, name, image }) => {
+import { useRouter } from "next/router"
+
+export const NftCard = ({ id, index, name, image }) => {
+  const router = useRouter();
   return (
     <div
       key={index}
@@ -15,7 +18,7 @@ export const NftCard = ({ index, name, image }) => {
         </div>
         <div className="flex flex-col justify-between gap-3 mt-6 font-medium">
           <button
-            //onClick={updateProduct}
+            onClick={() => router.push(`https://testnets.opensea.io/assets/goerli/${process.env.NEXT_PUBLIC_NFT_CONTRACT_ADDRESS}/${id}`)}
             className="w-full bg-gradient-to-r from-brand-red to-brand-purple rounded-md py-2"
           >
             View NFT

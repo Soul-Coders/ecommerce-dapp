@@ -1,3 +1,4 @@
+import { BigNumber } from 'ethers';
 import { useContext, useEffect, useState } from 'react';
 import Page from '../../components/Page';
 import { NftCard } from '../../components/warranties/NftCard';
@@ -15,7 +16,7 @@ const Warranties = () => {
           const tokenURI = await contract.tokenURI(id);
           const data = await fetch(tokenURI).then((data) => data.json());
           const nft = {
-            id: id,
+            id: id.toNumber(),
             name: data.name,
             image: data.image,
           };
@@ -37,8 +38,8 @@ const Warranties = () => {
       <Page name={'Warranties'}>
         <div className="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-6 lg:grid-cols-3 xl:grid-cols-5">
           {userNfts.length > 0 &&
-            userNfts.map(({ image, name }, index) => (
-              <NftCard index={index} image={image} name={name} key={index}/>
+            userNfts.map(({ id, image, name }, index) => (
+              <NftCard index={index} id={id} image={image} name={name} key={index}/>
             ))}
         </div>
       </Page>

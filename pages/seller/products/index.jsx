@@ -148,20 +148,6 @@ const Products = () => {
             </Dialog>
           </Transition>
           <div className="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-6 lg:grid-cols-3 xl:grid-cols-5">
-            {products.map(({ id, img, name, description, price }) => (
-              <ProductCard
-                key={id}
-                id={id}
-                img={img}
-                name={name}
-                description={description}
-                price={price}
-                fetchSellerProducts={fetchSellerProducts}
-                setIsOpen={setIsOpen}
-                setFormType={setFormType}
-                setFormData={setFormData}
-              />
-            ))}
             {sellerProducts &&
               sellerProducts.map(
                 ({
