@@ -1,20 +1,37 @@
 import Page from '../../components/Page';
 import Card from '../../components/Card';
 import Form from '../../components/signup/Form';
-
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import { ConnectionContext } from '../../context/ConnectionContext';
+import { Web3Storage } from 'web3.storage';
 
 const Settings = () => {
+  const client = new Web3Storage({
+    token: process.env.NEXT_PUBLIC_WEB3_STORAGE_API_TOKEN,
+  });
   const { currentAccount, updateAccount } = useContext(ConnectionContext);
   var info = { ...currentAccount.info };
   const onChange = (e) => {
     info[e.target.id] = e.target.value;
   };
-  const setProfileImage = (e) => {
-    const file = e.target.files[0];
-    const rfile = new File([file], 'user.png');
+
+  const handleChange = async (event) => {
+    const file = event.target.files[0];
+    console.log(file);
+    const fileName = 'user.png';
+    const newFile = new File([file], fileName, {
+      type: file.type,
+    });
+    console.log(newFile);
+    const rootCid = await client.put([newFile], {
+      name: fileName,
+    });
+    console.log(rootCid);
+    const web3URI = `https://${rootCid}.ipfs.dweb.link/${fileName}`;
+    info.imgURL = web3URI;
+    console.log(info.imgURL);
   };
+
   const onSave = () => {
     updateAccount({
       imgURL: info.imgURL,
@@ -52,12 +69,12 @@ const Settings = () => {
                 alt="User profile picture"
                 height={200}
                 width={200}
-                className="pb-4"
+                className="pb-4 "
               />
               <input
                 type={'file'}
                 id="imgupload"
-                onClick={(e) => setProfileImage(e)}
+                onChange={(e) => handleChange(e)}
                 className="hidden"
                 accept="image/png, image/jpeg"
               />
