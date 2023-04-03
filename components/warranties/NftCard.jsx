@@ -1,7 +1,6 @@
-import { useRouter } from "next/router"
+import Link from 'next/link';
 
 export const NftCard = ({ id, index, name, image }) => {
-  const router = useRouter();
   return (
     <div
       key={index}
@@ -17,12 +16,16 @@ export const NftCard = ({ id, index, name, image }) => {
           <h2 className="text-lg font-medium text-white mt-2">{name}</h2>
         </div>
         <div className="flex flex-col justify-between gap-3 mt-6 font-medium">
-          <button
-            onClick={() => router.push(`https://testnets.opensea.io/assets/goerli/${process.env.NEXT_PUBLIC_NFT_CONTRACT_ADDRESS}/${id}`)}
-            className="w-full bg-gradient-to-r from-brand-red to-brand-purple rounded-md py-2"
+          <Link
+            href={`https://testnets.opensea.io/assets/goerli/${process.env.NEXT_PUBLIC_NFT_CONTRACT_ADDRESS}/${id}`}
+            passHref={true}
           >
-            View NFT
-          </button>
+            <a target="_blank" rel="noopener noreferrer">
+              <button className="w-full bg-gradient-to-r from-brand-red to-brand-purple rounded-md py-2">
+                View NFT
+              </button>
+            </a>
+          </Link>
           <button
             //onClick={deleteProduct}
             className="w-full bg-white/10 rounded-md py-2"
