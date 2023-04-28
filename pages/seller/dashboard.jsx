@@ -6,9 +6,34 @@ import Sales from '../../components/charts/Sales';
 import PieChart from '../../components/charts/Pie';
 import Stat from '../../components/Stat';
 import orders from './orders/orders.json';
+import { useContext, useEffect, useState } from 'react';
+import { ConnectionContext } from '../../context/ConnectionContext';
 
 const Dashboard = () => {
-  const latest = orders;
+  const [sellerOrders, setSellerOrders] = useState([]);
+  const [sellerProducts, setSellerProducts] = useState([]);
+  const { getContract } = useContext(ConnectionContext);
+  
+  const fetchSellerOrders = async () => {
+    const contract = getContract();
+    const orders = await contract.getSellerOrders();
+    setSellerOrders(orders);
+  };
+
+  useEffect(() => {
+    fetchSellerOrders();
+  }, []);
+
+  const fetchSellerProducts = async () => {
+    const contract = getContract();
+    const products = await contract.getSellerProducts()
+    setSellerProducts(products)
+  }
+
+  useEffect(() => {
+    fetchSellerProducts();
+  }, []);
+
   return (
     <div>
       <Page name={'Dashboard'}>
@@ -21,7 +46,7 @@ const Dashboard = () => {
               bgColor={'bg-[#FF8500]/10'}
             >
               <h1 className="font-semibold md:text-lg lg:text-2xl">
-                $19,616,051.20
+                ₹{sellerOrders.map(({ product})  => parseFloat(product[4]))?.reduce((a, b) => a + b, 0)}
               </h1>
             </Stat>
 
@@ -30,7 +55,7 @@ const Dashboard = () => {
               imagePath={'/cart.svg'}
               bgColor={'bg-[#00B517]/10'}
             >
-              <h1 className="font-semibold md:text-lg lg:text-2xl">3290</h1>
+              <h1 className="font-semibold md:text-lg lg:text-2xl">{sellerOrders?.length}</h1>
             </Stat>
 
             <Stat
@@ -38,7 +63,7 @@ const Dashboard = () => {
               imagePath={'/basket.svg'}
               bgColor={'bg-[#3167EB]/10'}
             >
-              <h1 className="font-semibold md:text-lg lg:text-2xl">332</h1>
+              <h1 className="font-semibold md:text-lg lg:text-2xl">{sellerProducts.length}</h1>
             </Stat>
           </div>
 
