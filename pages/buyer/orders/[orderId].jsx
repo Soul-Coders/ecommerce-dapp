@@ -146,7 +146,7 @@ const OrderDetails = () => {
           {(order && (
             <Credit
               name={order?.buyer?.name}
-              txnHash={order.id?.slice(0, 10) + '...' + order.id?.slice(55)}
+              txnHash={order.id}
               paymentMethod={'/icon.svg'}
               method={'Transfer'}
               block={123456}

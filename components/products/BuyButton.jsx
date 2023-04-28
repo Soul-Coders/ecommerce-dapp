@@ -4,6 +4,7 @@ import { uploadJsonToIpfs } from '../../utils/uploadJsonToIpfs';
 import { db } from '../../firebase-config';
 import { arrayUnion, doc, getDoc, setDoc, updateDoc } from 'firebase/firestore';
 import { formatEther } from 'ethers/lib/utils';
+import { uid } from 'uid';
 
 export const BuyButton = ({ id, ethPrice, name, description, image }) => {
   const { getContract, getNftContract, currentAccount } =
@@ -54,7 +55,7 @@ export const BuyButton = ({ id, ethPrice, name, description, image }) => {
       saveTransactions(nftReceipt);
       const product = await contract.getProduct(id);
       const orderTx = await contract.placeOrder(
-        token.hash,
+        uid(6),
         new Date().toJSON().slice(0, 10),
         currentAccount.info,
         product,

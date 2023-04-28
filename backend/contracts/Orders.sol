@@ -1,8 +1,8 @@
 // SPDX-License-Identifier: UNLICENSED
 pragma solidity ^0.8.9;
 
-import { SharedStructs } from './SharedStructs.sol';
-import { Data } from './Data.sol';
+import {SharedStructs} from './SharedStructs.sol';
+import {Data} from './Data.sol';
 
 contract Orders {
   function placeOrder(
@@ -24,11 +24,21 @@ contract Orders {
     );
   }
 
-  function getOrder(string memory _id) public view returns (SharedStructs.Order memory) {
+  function getOrder(
+    string memory _id
+  ) public view returns (SharedStructs.Order memory) {
     return Data.getOrder(_id);
   }
-  
+
   function getOrders() public view returns (SharedStructs.Order[] memory) {
     return Data.allOrders();
+  }
+
+  function getSellerOrders()
+    external
+    view
+    returns (SharedStructs.Order[] memory)
+  {
+    return Data.getSellerOrders();
   }
 }

@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: UNLICENSED
 pragma solidity ^0.8.9;
 
-import { SharedStructs } from './SharedStructs.sol';
+import {SharedStructs} from './SharedStructs.sol';
 
 // This library has the state variables 'contractAddress' and 'name'
 library Data {
@@ -28,9 +28,10 @@ library Data {
   }
 
   // set state variables
-  function setStateVariables(address _contractAddress, address _owner)
-    internal
-  {
+  function setStateVariables(
+    address _contractAddress,
+    address _owner
+  ) internal {
     DiamondStorage storage ds = diamondStorage();
     ds.contractAddress = _contractAddress;
     ds.owner = payable(_owner);
@@ -119,13 +120,13 @@ library Data {
   ) internal {
     DiamondStorage storage ds = diamondStorage();
     ds.users[msg.sender].imgURL = _imgURL;
-    ds.users[msg.sender].name   = _name;
-    ds.users[msg.sender].email  = _email;
-    ds.users[msg.sender].phone  = _phone;
-    ds.users[msg.sender].dob    = _dob;
+    ds.users[msg.sender].name = _name;
+    ds.users[msg.sender].email = _email;
+    ds.users[msg.sender].phone = _phone;
+    ds.users[msg.sender].dob = _dob;
     ds.users[msg.sender].gender = _gender;
-    ds.users[msg.sender].addr   = _addr;
-    ds.users[msg.sender].city   = _city;
+    ds.users[msg.sender].addr = _addr;
+    ds.users[msg.sender].city = _city;
     ds.users[msg.sender].pinCode = _pinCode;
   }
 
@@ -137,11 +138,9 @@ library Data {
   }
 
   //************** !!!! Repeated Code
-  function getSellerProductIndex(string memory _id)
-    internal
-    view
-    returns (uint256)
-  {
+  function getSellerProductIndex(
+    string memory _id
+  ) internal view returns (uint256) {
     for (uint256 i = 0; i < Data.sellerProducts().length; i++) {
       if (
         keccak256(abi.encodePacked(Data.sellerProducts()[i])) ==
@@ -189,11 +188,17 @@ library Data {
     ds.allProducts[productIndex].productPriceEth = _productPriceEth;
   }
 
-  function getProduct(string memory _id) internal view returns (SharedStructs.Product memory) {
+  function getProduct(
+    string memory _id
+  ) internal view returns (SharedStructs.Product memory) {
     return Data.allProducts()[getProductIndex(_id)];
   }
 
-  function getSellerProducts() internal view returns (SharedStructs.Product[] memory) {
+  function getSellerProducts()
+    internal
+    view
+    returns (SharedStructs.Product[] memory)
+  {
     SharedStructs.Product[] memory products = new SharedStructs.Product[](
       Data.sellerProducts().length
     );
@@ -205,6 +210,18 @@ library Data {
   }
 
   ////////////////////////// Orders //////////////////////////
+  function getOrderIndex(string memory _id) internal view returns (uint256) {
+    for (uint256 i = 0; i < Data.allOrders().length; i++) {
+      if (
+        keccak256(abi.encodePacked(Data.allOrders()[i].id)) ==
+        keccak256(abi.encodePacked(_id))
+      ) {
+        return i;
+      }
+    }
+    revert('Product not found');
+  }
+
   function placeOrder(
     string memory _id,
     string memory _date,
@@ -215,7 +232,8 @@ library Data {
     string memory _status
   ) internal {
     DiamondStorage storage ds = diamondStorage();
-    ds.allOrders.push(SharedStructs.Order(
+    ds.allOrders.push(
+      SharedStructs.Order(
         _id,
         _date,
         _buyer,
@@ -223,16 +241,33 @@ library Data {
         _qty,
         _shippingPriceInr,
         _status
-    ));
+      )
+    );
+    ds.sellerOrders[_product.seller].push(_id);
   }
 
-  function getCart(string[] memory _productId)
+  function getSellerOrders()
     internal
     view
-    returns (SharedStructs.Product[] memory)
+    returns (SharedStructs.Order[] memory)
   {
+    SharedStructs.Order[] memory orders = new SharedStructs.Order[](
+      Data.sellerOrders().length
+    );
+    for (uint256 i = 0; i < Data.sellerOrders().length; i++) {
+      uint256 index = getOrderIndex(Data.sellerOrders()[i]);
+      orders[i] = Data.allOrders()[index];
+    }
+    return orders;
+  }
+
+  function getCart(
+    string[] memory _productId
+  ) internal view returns (SharedStructs.Product[] memory) {
     DiamondStorage storage ds = diamondStorage();
-    SharedStructs.Product[] memory products = new SharedStructs.Product[](_productId.length);
+    SharedStructs.Product[] memory products = new SharedStructs.Product[](
+      _productId.length
+    );
     for (uint256 i = 0; i < _productId.length; i++) {
       uint256 productIndex = getProductIndex(_productId[i]);
       products[i] = ds.allProducts[productIndex];
@@ -240,16 +275,9 @@ library Data {
     return products;
   }
 
-  function getOrder(string memory _id) internal view returns (SharedStructs.Order memory) {
-    DiamondStorage storage ds = diamondStorage();
-    for (uint256 i = 0; i < Data.allOrders().length; i++) {
-      if (
-        keccak256(abi.encodePacked(Data.allOrders()[i].id)) ==
-        keccak256(abi.encodePacked(_id))
-      ) {
-        return ds.allOrders[i];
-      }
-    }
-    revert('Order not found');
+  function getOrder(
+    string memory _id
+  ) internal view returns (SharedStructs.Order memory) {
+    return Data.allOrders()[getOrderIndex(_id)];
   }
 }

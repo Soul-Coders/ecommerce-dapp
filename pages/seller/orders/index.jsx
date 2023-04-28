@@ -2,8 +2,24 @@ import Page from '../../../components/Page';
 import Label from '../../../components/Label';
 import List from '../../../components/orders/List';
 import orders from './orders.json';
+import { useContext, useEffect, useState } from 'react';
+import { ConnectionContext } from '../../../context/ConnectionContext';
 
 const Orders = () => {
+  const [sellerOrders, setSellerOrders] = useState([]);
+  const { getContract } = useContext(ConnectionContext);
+
+  const fetchSellerOrders = async () => {
+    const contract = getContract();
+    const orders = await contract.getSellerOrders();
+    setSellerOrders(orders);
+    console.log(orders);
+  };
+
+  useEffect(() => {
+    fetchSellerOrders();
+  }, []);
+
   const colnames = ['ID', 'Name', 'Email', 'Total', 'Status', 'Date'];
   return (
     <div>
@@ -26,9 +42,9 @@ const Orders = () => {
           ordersFor={'seller'}
           colnames={colnames}
           align={'grid grid-cols-[10%_22%_30%_15%_10%_13%_]'}
-          ids={orders?.map(({ id }) => id)}
+          ids={sellerOrders?.map(({ id }) => id)}
         >
-          {orders.map(({ id, name, email, total, status, date }) => (
+          {sellerOrders.map(({ id, buyer, product, status, date, qty }) => (
             <div key={id}>
               {/* Order ID */}
               <h3 className="font-medium text-sm uppercase sm:text-base">
@@ -38,18 +54,18 @@ const Orders = () => {
 
               {/* Customer Name */}
               <h2 className="font-light text-sm sm:text-base tracking-wide text-white/80">
-                {name}
+                {buyer.name}
               </h2>
 
               {/* Customer Email */}
               <h2 className="font-light text-sm sm:text-base tracking-wide text-white/80">
-                {email}
+                {buyer.email}
               </h2>
 
               {/* Total bill */}
               <h1 className="font-semibold text-xl mt-1">
                 <span className="mr-1">₹</span>
-                {total}
+                {parseInt(product?.productPriceInr) * qty.toNumber()}
               </h1>
 
               {/* Order Status */}

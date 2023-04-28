@@ -1,6 +1,6 @@
 import Page from '../../../components/Page';
 import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import {
   CalendarDaysIcon,
   PhoneIcon,
@@ -11,27 +11,28 @@ import Stat from '../../../components/Stat';
 import orders from './orders';
 import Label from '../../../components/Label';
 import Credit from '../../../components/orders/Credit';
+import { ConnectionContext } from '../../../context/ConnectionContext';
 
 const OrderDetails = () => {
+  const { getContract } = useContext(ConnectionContext);
+
   const router = useRouter();
   const { orderId } = router.query;
   const [order, setOrder] = useState([]);
+  const getOrderDetails = async () => {
+    const contract = getContract();
+    return await contract.getOrder(orderId);
+  };
 
   useEffect(() => {
-    if (router.isReady) {
-      setOrder(orders.find((order) => order.id === orderId));
-    }
-  }, [router.query.orderId, router.isReady]);
+    router.isReady &&
+      getOrderDetails().then((order) => {
+        setOrder(order);
+      });
+  }, [orderId, router.isReady]);
 
   return (
-    <Page
-      name={`Order Details`}
-      options={
-        <button className="text-sm max-w-[8rem] font-semibold px-9 h-10 bg-gradient-to-r from-brand-red to-brand-purple rounded-md">
-          Invoice
-        </button>
-      }
-    >
+    <Page name={`Order Details`}>
       {/* Order Id and Date */}
       <div className="bg-dimmed-black rounded-md p-3 flex flex-col text-brand-lavender">
         <div className="flex justify-between p-3">
@@ -54,14 +55,14 @@ const OrderDetails = () => {
           bgColor={'bg-blue-400/10'}
         >
           <h2 className="font-semibold text-sm sm:text-base tracking-wide text-white/80">
-            {order.name}
+            {order?.buyer?.name}
           </h2>
           <h2 className="font-semibold text-sm sm:text-base tracking-wide text-white/80">
-            {order.email}
+            {order?.buyer?.email}
           </h2>
           <h3 className="flex gap-1 font-semibold text-sm sm:text-base tracking-wide text-white/80">
             <PhoneIcon className="w-4" />
-            <p>{order.phone}</p>
+            <p>{order?.buyer?.phone}</p>
           </h3>
         </Stat>
 
@@ -88,15 +89,15 @@ const OrderDetails = () => {
         >
           <h3 className="font-medium text-sm sm:text-base">
             <span className="text-brand-lavender/70">Address: </span>
-            {order.address}
+            {order?.buyer?.addr}
           </h3>
           <h3 className="font-medium text-sm sm:text-base">
             <span className="text-brand-lavender/70">City: </span>
-            {order.city}
+            {order?.buyer?.city}
           </h3>
           <h3 className="font-medium text-sm sm:text-base">
             <span className="text-brand-lavender/70">Zip: </span>
-            {order.zip}
+            {order?.buyer?.pinCode}
           </h3>
         </Stat>
       </div>
@@ -108,7 +109,7 @@ const OrderDetails = () => {
             <div className="bg-dimmed-black rounded-md p-3 flex flex-col justify-around md:flex-row text-lg font-semibold text-brand-lavender">
               <div className="flex justify-center">
                 <img
-                  src={order.product.img}
+                  src={order.product.productGallery[0].split('|')[1]}
                   alt="Product Image"
                   className="w-96 rounded-md"
                 />
@@ -118,25 +119,28 @@ const OrderDetails = () => {
               <div className="p-1 text-green-400 flex flex-col justify-evenly">
                 <h3 className="font-medium text-sm sm:text-base flex justify-between p-2">
                   <p className="text-brand-lavender/70">Quantity: </p>
-                  <p>{order.product.qty}</p>
+                  <p>{order.qty.toNumber()}</p>
                 </h3>
                 <h3 className="font-medium text-sm sm:text-base flex justify-between p-2">
                   <p className="text-brand-lavender/70">Unit Price: </p>
-                  <p>{order.product.unitPrice}</p>
+                  <p>{order.product.productPriceInr}</p>
                 </h3>
                 <h3 className="font-medium text-sm sm:text-base flex justify-between p-2">
                   <span className="text-brand-lavender/70">Total Price: </span>
-                  {order.product.totalPrice}
+                  {parseInt(order?.product?.productPriceInr) *
+                    order.qty.toNumber()}
                 </h3>
                 <h3 className="font-medium text-sm sm:text-base flex justify-between  p-2">
                   <span className="text-brand-lavender/70">
                     Shipping Price:{' '}
                   </span>
-                  {order.product.shippingPrice}
+                  {order?.shippingPriceEth.toNumber()}
                 </h3>
                 <h3 className="font-medium text-sm sm:text-base flex justify-between gap-20 p-2">
                   <span className="text-brand-lavender/70">Grand Total: </span>
-                  {order.product.totalPrice + order.product.shippingPrice}
+                  {parseInt(order?.product?.productPriceInr) *
+                    order?.qty.toNumber() +
+                    order?.shippingPriceEth.toNumber()}
                 </h3>
               </div>
             </div>
@@ -145,13 +149,11 @@ const OrderDetails = () => {
 
         {/* Credit Card  */}
         <div className="bg-dimmed-black p-6 rounded-md mt-4 lg:mt-0">
-          {(order.txnHash && (
+          {(order && (
             <Credit
-              name={order.name}
-              txnHash={
-                order.txnHash.slice(0, 10) + '...' + order.txnHash.slice(35)
-              }
-              paymentMethod={'/metamask.png'}
+              name={order?.buyer?.name}
+              txnHash={order.id}
+              paymentMethod={'/icon.svg'}
               method={'Transfer'}
               block={123456}
               value={'36 Ethers'}
@@ -160,19 +162,6 @@ const OrderDetails = () => {
             'Loading'}
         </div>
       </div>
-      {(order.status && order.status === 'pending' && (
-        <div className="py-8 h-1 w-full flex gap-4 justify-end">
-          <button className="text-sm font-semibold px-9 h-10 bg-green-700 rounded-md flex gap-3 items-center">
-            <CheckCircleIcon className="w-4" />
-            <p>Accept</p>
-          </button>
-          <button className="text-sm font-semibold px-9 h-10 bg-rose-700 rounded-md flex gap-3 items-center">
-            <NoSymbolIcon className="w-4" />
-            <p>Reject</p>
-          </button>
-        </div>
-      )) ||
-        ''}
     </Page>
   );
 };

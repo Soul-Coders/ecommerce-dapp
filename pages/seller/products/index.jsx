@@ -22,7 +22,7 @@ const Products = () => {
 
   useEffect(() => {
     fetchSellerProducts();
-  }, [sellerProducts]);
+  }, []);
 
   const products = [
     {
