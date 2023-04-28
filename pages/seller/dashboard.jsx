@@ -16,8 +16,7 @@ const Dashboard = () => {
   const fetchSellerOrders = async () => {
     const contract = getContract();
     const orders = await contract.getSellerOrders();
-    setSellerOrders(orders);
-    
+    setSellerOrders(orders.slice(-5).reverse());
   };
 
   useEffect(() => {
@@ -96,7 +95,7 @@ const Dashboard = () => {
                 align={'grid grid-cols-[10%_22%_30%_15%_10%_13%_]'}
                 ids={sellerOrders?.map(({ id }) => id)}
               >
-                {sellerOrders.slice(Math.max(sellerOrders?.length - 5, 1)).map(({ id, buyer, product, status, date }) => (
+                {sellerOrders?.map(({ id, buyer, product, status, date }) => (
                   <div key={id}>
                     {/* Order ID */}
                     <h3 className="font-medium text-sm uppercase sm:text-base">

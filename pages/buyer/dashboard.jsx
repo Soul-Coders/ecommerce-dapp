@@ -1,6 +1,7 @@
 import Page from '../../components/Page';
 import List from '../../components/orders/List';
-import orders from '../../pages/seller/orders/orders.json';
+import { useState, useEffect } from 'react';
+import Label from '../../components/Label';
 import Link from 'next/link';
 import { useContext } from 'react';
 import { ConnectionContext } from '../../context/ConnectionContext';
@@ -58,6 +59,19 @@ const products = [
 ];
 
 const Dashboard = () => {
+  const { getContract } = useContext(ConnectionContext);
+  const [orders, setOrders] = useState([]);
+  const getOrders = async () => {
+    const contract = getContract();
+    return await contract.getOrders();
+  };
+  useEffect(() => {
+    getOrders().then((orders) => {
+      setOrders(orders.slice(-5).reverse());
+      console.log(orders, orders.slice(-5));
+    });
+  }, []);
+
   const { currentAccount } = useContext(ConnectionContext);
 
   const username =
@@ -93,36 +107,30 @@ const Dashboard = () => {
           align={'grid grid-cols-[15%_25%_25%_20%_15%]'}
           ids={orders?.map(({ id }) => id)}
         >
-          {orders?.map(({ product, id, email, total, date }) => (
-            <div key={id}>
-              {/* Order Image */}
-              <img
-                src={product.img}
-                alt="product image"
-                className="w-16 xl:w-24 rounded-md"
-              />
-              {/* Customer Name */}
-              <h2 className="font-light text-sm sm:text-base tracking-wide text-white/80">
-                {product.name}
-              </h2>
-
-              {/* Customer Email */}
-              <h2 className="font-light text-sm sm:text-base tracking-wide text-white/80">
-                {email}
-              </h2>
-
-              {/* Total bill */}
-              <h1 className="font-semibold text-xl mt-1">
-                <span className="mr-1">₹</span>
-                {total}
-              </h1>
-
-              {/* Order Date */}
-              <h2 className="font-light text-sm sm:text-base text-white/80">
-                {date}
-              </h2>
-            </div>
-          ))}
+          {orders?.map(({ id, product, status, date }) => (
+              <div key={id}>
+                {/* Order Image */}
+                <img
+                  src={product?.productGallery[0].split('|')[1]}
+                  alt="product image"
+                  className="w-16 lg:w-32 rounded-md"
+                />
+                {/* Customer Name */}
+                <h2 className="font-light text-sm sm:text-base lg:text-lg tracking-wide text-white/80">
+                  {product.productName}
+                </h2>
+                {/* Total bill */}
+                <h1 className="font-semibold text-xl mt-1">
+                  <span className="mr-1">₹</span>
+                  {product.productPriceInr}
+                </h1>
+                <Label status={status} />
+                {/* Order Date */}
+                <h2 className="font-light text-sm sm:text-base lg:text-lg text-white/80">
+                  {date}
+                </h2>
+              </div>
+            ))}
         </List>
       </div>
     </Page>
