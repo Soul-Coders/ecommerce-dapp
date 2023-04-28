@@ -1,6 +1,6 @@
 import { Bars3Icon } from '@heroicons/react/20/solid';
 import Link from 'next/link';
-import SearchBar from './Searchbar';
+import SearchBar from './SearchBar';
 
 const Navbar = ({ onClick, page, items, setSearches }) => {
   const search =
