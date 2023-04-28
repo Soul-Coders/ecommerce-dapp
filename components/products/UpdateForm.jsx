@@ -3,10 +3,11 @@ import { parseEther } from 'ethers/lib/utils';
 import { useContext } from 'react';
 import { ConnectionContext } from '../../context/ConnectionContext';
 import { convertEthToInr } from '../../utils/convertEthToInr';
+import { saveTransactions } from './ProductForm';
 
 export const UpdateForm = ({ setIsOpen, formData, fetchSellerProducts }) => {
   const { id, title, desc, price } = formData;
-  const { getContract } = useContext(ConnectionContext);
+  const { getContract, currentAccount } = useContext(ConnectionContext);
 
   const updateProduct = async (event) => {
     try {
@@ -28,7 +29,8 @@ export const UpdateForm = ({ setIsOpen, formData, fetchSellerProducts }) => {
         productPriceEth
       );
 
-      await tx.wait();
+      const receipt = await tx.wait(1);
+      saveTransactions(receipt, currentAccount);
       console.log('Success');
       fetchSellerProducts();
       setIsOpen(false);

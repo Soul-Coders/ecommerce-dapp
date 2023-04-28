@@ -5,13 +5,43 @@ import { ConnectionContext } from '../../context/ConnectionContext';
 import { convertEthToInr } from '../../utils/convertEthToInr';
 import { Web3Storage } from 'web3.storage';
 import { uid } from 'uid';
+import { formatEther } from 'ethers/lib/utils';
+import { db } from '../../firebase-config';
+import { arrayUnion, doc, getDoc, setDoc, updateDoc } from 'firebase/firestore';
 
 const client = new Web3Storage({
   token: process.env.NEXT_PUBLIC_WEB3_STORAGE_API_TOKEN,
 });
 
+export const saveTransactions = async (
+  { to, from, transactionHash, blockHash, blockNumber, gasUsed },
+  currentAccount
+) => {
+  const receipt = {
+    to,
+    from,
+    transactionHash,
+    blockHash,
+    blockNumber,
+    gasUsed: formatEther(gasUsed),
+    date: new Date().toJSON().slice(0, 10),
+    name: currentAccount.info.name,
+  };
+  const docRef = doc(db, 'seller_transactions', currentAccount.walletAddress);
+  const docSnap = await getDoc(docRef);
+  if (docSnap.exists()) {
+    await updateDoc(docRef, {
+      transactions: arrayUnion(receipt),
+    });
+  } else {
+    await setDoc(docRef, {
+      transactions: [receipt],
+    });
+  }
+};
+
 export const ProductForm = ({ setIsOpen, fetchSellerProducts }) => {
-  const { getContract } = useContext(ConnectionContext);
+  const { getContract, currentAccount } = useContext(ConnectionContext);
 
   const addProduct = async (event) => {
     try {
@@ -52,7 +82,8 @@ export const ProductForm = ({ setIsOpen, fetchSellerProducts }) => {
         productPriceEth
       );
 
-      await tx.wait();
+      const receipt = await tx.wait(1);
+      saveTransactions(receipt, currentAccount);
       console.log('Success');
       fetchSellerProducts();
       setIsOpen(false);
