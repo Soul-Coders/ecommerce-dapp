@@ -5,7 +5,6 @@ import Label from '../../components/Label';
 import Sales from '../../components/charts/Sales';
 import PieChart from '../../components/charts/Pie';
 import Stat from '../../components/Stat';
-import orders from './orders/orders.json';
 import { useContext, useEffect, useState } from 'react';
 import { ConnectionContext } from '../../context/ConnectionContext';
 
@@ -18,6 +17,7 @@ const Dashboard = () => {
     const contract = getContract();
     const orders = await contract.getSellerOrders();
     setSellerOrders(orders);
+    
   };
 
   useEffect(() => {
@@ -94,9 +94,9 @@ const Dashboard = () => {
                 ordersFor={'seller'}
                 colnames={[]}
                 align={'grid grid-cols-[10%_22%_30%_15%_10%_13%_]'}
-                ids={orders?.map(({ id }) => id)}
+                ids={sellerOrders?.map(({ id }) => id)}
               >
-                {orders.map(({ id, name, email, total, status, date }) => (
+                {sellerOrders.slice(Math.max(sellerOrders?.length - 5, 1)).map(({ id, buyer, product, status, date }) => (
                   <div key={id}>
                     {/* Order ID */}
                     <h3 className="font-medium text-sm uppercase sm:text-base">
@@ -106,18 +106,18 @@ const Dashboard = () => {
 
                     {/* Customer Name */}
                     <h2 className="font-light text-sm sm:text-base tracking-wide text-white/80">
-                      {name}
+                      {buyer[2]}
                     </h2>
 
                     {/* Customer Email */}
                     <h2 className="font-light text-sm sm:text-base tracking-wide text-white/80">
-                      {email}
+                      {buyer[3]}
                     </h2>
 
                     {/* Total bill */}
                     <h1 className="font-semibold text-xl mt-1">
                       <span className="mr-1">₹</span>
-                      {total}
+                      {product[4]}
                     </h1>
 
                     {/* Order Status */}
@@ -128,7 +128,7 @@ const Dashboard = () => {
                       {date}
                     </h2>
                   </div>
-                ))}
+                )) || 'No orders'}
               </List>
             </div>
           </div>
