@@ -1,42 +1,32 @@
 import Page from '../../../components/Page';
 import { useRouter } from 'next/router';
 import { useEffect, useState, useContext } from 'react';
-import {
-  CalendarDaysIcon,
-  PhoneIcon,
-} from '@heroicons/react/20/solid';
+import { CalendarDaysIcon, PhoneIcon } from '@heroicons/react/20/solid';
 import Stat from '../../../components/Stat';
 import Label from '../../../components/Label';
 import Credit from '../../../components/orders/Credit';
 import { ConnectionContext } from '../../../context/ConnectionContext';
 
 const OrderDetails = () => {
-  const {
-    getContract
-  } = useContext(ConnectionContext)
-  
+  const { getContract } = useContext(ConnectionContext);
+
   const router = useRouter();
   const { orderId } = router.query;
   const [order, setOrder] = useState([]);
   const getOrderDetails = async () => {
     const contract = getContract();
-    return await contract.getOrder(orderId)
-  }
+    return await contract.getOrder(orderId);
+  };
 
   useEffect(() => {
-    router.isReady && getOrderDetails().then(order => {setOrder(order)});
+    router.isReady &&
+      getOrderDetails().then((order) => {
+        setOrder(order);
+      });
   }, [orderId, router.isReady]);
 
-
   return (
-    <Page
-      name={`Order Details`}
-      options={
-        <button className="text-sm max-w-[8rem] font-semibold px-9 h-10 bg-gradient-to-r from-brand-red to-brand-purple rounded-md">
-          Invoice
-        </button>
-      }
-    >
+    <Page name={`Order Details`}>
       {/* Order Id and Date */}
       <div className="bg-dimmed-black rounded-md p-3 flex flex-col text-brand-lavender">
         <div className="flex justify-between p-3">
@@ -131,7 +121,8 @@ const OrderDetails = () => {
                 </h3>
                 <h3 className="font-medium text-sm sm:text-base flex justify-between p-2">
                   <span className="text-brand-lavender/70">Total Price: </span>₹
-                  {parseInt(order?.product?.productPriceInr) * order.qty.toNumber()}
+                  {parseInt(order?.product?.productPriceInr) *
+                    order.qty.toNumber()}
                 </h3>
                 <h1 className="font-medium text-sm sm:text-base flex justify-between  p-2">
                   <span className="text-brand-lavender/70">
@@ -141,7 +132,9 @@ const OrderDetails = () => {
                 </h1>
                 <h1 className="font-medium text-sm sm:text-base flex justify-between gap-20 p-2">
                   <span className="text-brand-lavender/70">Grand Total: </span>₹
-                  {parseInt(order?.product?.productPriceInr) * order?.qty.toNumber() + order?.shippingPriceEth.toNumber()}
+                  {parseInt(order?.product?.productPriceInr) *
+                    order?.qty.toNumber() +
+                    order?.shippingPriceEth.toNumber()}
                 </h1>
               </div>
             </div>
@@ -153,9 +146,7 @@ const OrderDetails = () => {
           {(order && (
             <Credit
               name={order?.buyer?.name}
-              txnHash={
-                order.id?.slice(0, 10) + '...' + order.id?.slice(55)
-              }
+              txnHash={order.id?.slice(0, 10) + '...' + order.id?.slice(55)}
               paymentMethod={'/icon.svg'}
               method={'Transfer'}
               block={123456}

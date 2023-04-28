@@ -6,14 +6,17 @@ import { ConnectionContext } from '../../../context/ConnectionContext';
 
 const Orders = () => {
   const { getContract } = useContext(ConnectionContext);
-  const [orders, setOrders] = useState([])
+  const [orders, setOrders] = useState([]);
   const getOrders = async () => {
     const contract = getContract();
-    return await contract.getOrders()
-  }
+    return await contract.getOrders();
+  };
   useEffect(() => {
-    getOrders().then(orders => {setOrders(orders); console.log(orders)})
-  })
+    getOrders().then((orders) => {
+      setOrders(orders);
+      console.log(orders);
+    });
+  }, []);
   return (
     <div>
       <Page name={'Order History'}>
