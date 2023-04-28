@@ -11,7 +11,7 @@ task('accounts', 'Prints the list of accounts', async () => {
 });
 
 const ALCHEMY_API_KEY = process.env.NEXT_PUBLIC_ALCHEMY_API_KEY;
-const GOERLI_PRIVATE_KEY = process.env.NEXT_PUBLIC_GOERLI_PRIVATE_KEY;
+const SEPOLIA_PRIVATE_KEY = process.env.NEXT_PUBLIC_SEPOLIA_PRIVATE_KEY;
 
 /** @type import('hardhat/config').HardhatUserConfig */
 module.exports = {
@@ -19,10 +19,10 @@ module.exports = {
     hardhat: {
       chainId: 1337,
     },
-    // goerli: {
-    //   url: `https://eth-goerli.g.alchemy.com/v2/${ALCHEMY_API_KEY}`,
-    //   accounts: [`${GOERLI_PRIVATE_KEY}`],
-    // },
+    sepolia: {
+      url: ALCHEMY_API_KEY,
+      accounts: [`${SEPOLIA_PRIVATE_KEY}`],
+    },
   },
   solidity: '0.8.17',
 };
