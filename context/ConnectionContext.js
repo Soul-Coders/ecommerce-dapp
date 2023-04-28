@@ -1,8 +1,8 @@
 import { BigNumber, ethers } from 'ethers';
 import { useRouter } from 'next/router';
 import { createContext, useEffect, useState } from 'react';
-import Shoppingverse from '../backend/artifacts/contracts/Shoppingverse.sol/Shoppingverse.json';
-import NftWarranty from '../backend/artifacts/contracts/NftWarranty.sol/NftWarranty.json';
+import Shoppingverse from '../utils/Shoppingverse.json';
+import NftWarranty from '../utils/NftWarranty.json';
 
 export const ConnectionContext = createContext();
 
